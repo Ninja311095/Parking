@@ -269,7 +269,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         
         try {
             
-            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' AND horaentrada LIKE '%" + fecha + "%'";
+            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' OR horaentrada LIKE '%" + fecha + "'";
             objcon.ejecutarSQLSelect(sql);
 
             objcon.resultado.first();
@@ -341,7 +341,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             date = dcFechaBusqueda.getDate();
             fecha = dateFormat.format(date);
-            
+                System.out.println(fecha);
             }
             
             crearTabla();
