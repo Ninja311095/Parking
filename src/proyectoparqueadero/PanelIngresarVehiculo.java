@@ -12,6 +12,8 @@ import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.TextAlignment;
+import java.awt.Desktop;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -180,11 +182,11 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
              
              try {
 
-		if ((new File("C:/Users/thomy/Desktop/reportes/" + propietario + "pdf")).exists()) {
+		if ((new File("C:/Users/thomy/Desktop/reportes/" + propietario + ".pdf")).exists()) {
 
 			Process p = Runtime
 			   .getRuntime()
-			   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/thomy/Desktop/reportes/"+ propietario + "pdf");
+			   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/thomy/Desktop/reportes/"+ propietario + ".pdf");
 			p.waitFor();
 				
 		} else {
@@ -192,6 +194,16 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
 			System.out.println("File is not exists");
 
 		}
+                
+                try {
+                        File path = new File ("C:/Users/thomy/Desktop/reportes/"+ propietario + ".pdf");
+                        
+                        Desktop.getDesktop().open(path);
+                        
+                   }catch (IOException ex) {
+                       
+                        ex.printStackTrace();
+}
 
 		System.out.println("Done");
 

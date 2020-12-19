@@ -6,6 +6,21 @@
 package proyectoparqueadero;
 
 import Base_de_Datos.conexion;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +45,10 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
     conexion objcon = new conexion();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Date date = new Date();
+    Document documento;
+    FileOutputStream archivo;
+    PdfWriter writer;
+    PdfDocument pdfDoc;
     
     //VARIABLES
     String fechaHora, horaentrada,sql;
@@ -38,6 +58,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
     int confirmacion;
     String propietario;
     String tipoVehiculo;
+    int respuesta;
     
     public PanelRetirarVehiculo() {
         initComponents();
@@ -115,6 +136,83 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //METODO PARA CREAR FACTURA PDF
+    public void crearPDF(String placa,String propietario,String tVehiculo, String fecha,String fechaSalida, int pago) throws FileNotFoundException, IOException{
+        
+            archivo = new FileOutputStream("C:/Users/thomy/Desktop/facturas/" + propietario + ".pdf");
+            writer = new PdfWriter(archivo);
+            pdfDoc = new PdfDocument(writer);
+            documento = new Document(pdfDoc, PageSize.A5);
+            
+            //AGREGAMOS LA IMAGEN AL DOCUMENTO 
+            File imageFile = new File("C:/Users/thomy/Documents/Materias/Ing de Software I/Software del Proyecto-Parqueador/Proyecto parqueadero java/ProyectoParqueadero/src/img/logo.jpg");
+            java.awt.Image image = ImageIO.read(imageFile);
+            ImageData imageData = ImageDataFactory.create(image, null);
+            Image pdfImg = new Image(imageData);
+            
+            pdfDoc.addNewPage();
+
+            Paragraph para = new Paragraph ("Recibo de Pago Estacionamiento");
+            para.setBorder(Border.NO_BORDER);
+            para.setBold();
+
+            Paragraph para1 = new Paragraph ("Placa vehiculo: "+ placa);
+            Paragraph para2 = new Paragraph ("Nombre del propietario: "+ propietario);
+            Paragraph para3 = new Paragraph ("Hora de ingreso: "+fecha);
+            Paragraph para4 = new Paragraph ("Hora de Salida: "+fechaSalida);
+            Paragraph para5 = new Paragraph ("Pago Realizado: "+pago);
+            
+            para.setTextAlignment(TextAlignment.CENTER);
+            para1.setTextAlignment(TextAlignment.CENTER);
+            para2.setTextAlignment(TextAlignment.CENTER);
+            para3.setTextAlignment(TextAlignment.CENTER);
+            para4.setTextAlignment(TextAlignment.CENTER);
+            para5.setTextAlignment(TextAlignment.CENTER);
+            pdfImg.setTextAlignment(TextAlignment.CENTER);
+
+            documento.add(pdfImg);
+            documento.add(para);
+            documento.add(para1);
+            documento.add(para2);
+            documento.add(para3); 
+            documento.add(para4); 
+            documento.add(para5); 
+            documento.close();
+            
+             System.out.println("PDF Created");
+             
+             
+             try {
+
+		if ((new File("C:/Users/thomy/Desktop/facturas/" + propietario + ".pdf")).exists()) {
+
+			Process p = Runtime
+			   .getRuntime()
+			   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/thomy/Desktop/facturas/"+ propietario + ".pdf");
+			p.waitFor();
+				
+		} else {
+
+			System.out.println("File is not exists");
+
+		}
+                
+                try {
+                        File path = new File ("C:/Users/thomy/Desktop/facturas/"+ propietario + ".pdf");
+                        
+                        Desktop.getDesktop().open(path);
+                        
+                   }catch (IOException ex) {
+                       
+                        ex.printStackTrace();
+}
+
+		System.out.println("Done");
+
+  	  } catch (IOException | InterruptedException ex) {
+	  }
+    }
+    
     private void JB_RetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_RetirarActionPerformed
             
             fechaHora = dateFormat.format(date);
@@ -159,8 +257,13 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
 
                 objcon.ejecutarSQL(sql);
 
-                int respuesta = JOptionPane.showConfirmDialog(null,"Valor a pagar:  $"+valorAPagar+"'\nDesea Imprimir Recibo","Salida de vehiculo",JOptionPane.YES_NO_OPTION);
+                respuesta = JOptionPane.showConfirmDialog(null,"Valor a pagar:  $"+valorAPagar+"'\nDesea Imprimir Recibo","Salida de vehiculo",JOptionPane.YES_NO_OPTION);
          
+            }
+            
+            if(respuesta == 0){
+                
+                crearPDF(tfPlacaRetiro.getText(), propietario, tipoVehiculo, horaentrada, fechaHora, valorAPagar);
             }
             
             
@@ -170,6 +273,11 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
             Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
             
         } catch (ParseException ex) {
+            
+            Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (IOException ex) {
+            
             Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_JB_RetirarActionPerformed
