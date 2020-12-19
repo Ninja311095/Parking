@@ -269,6 +269,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         
         try {
             
+            
             sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' OR horaentrada LIKE '%" + fecha + "'";
             objcon.ejecutarSQLSelect(sql);
 
