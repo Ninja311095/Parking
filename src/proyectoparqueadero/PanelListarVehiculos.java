@@ -61,6 +61,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         cbAuto = new javax.swing.JCheckBox();
         cbMoto = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
+        dcFechaBusqueda = new com.toedter.calendar.JDateChooser();
 
         jLabel1.setText("Buscar Vehiculos");
 
@@ -136,21 +137,24 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
                         .addComponent(rbEnParq))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
-                                    .addGap(66, 66, 66)
-                                    .addComponent(jLabel5)
-                                    .addGap(199, 199, 199)
-                                    .addComponent(jLabel6))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(195, 195, 195)
-                                    .addComponent(JButton_Buscar)
-                                    .addGap(98, 98, 98)
-                                    .addComponent(jButton_Cierre)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(jLabel2)))
-                        .addGap(84, 84, 84)
+                                .addGap(195, 195, 195)
+                                .addComponent(JButton_Buscar)
+                                .addGap(98, 98, 98)
+                                .addComponent(jButton_Cierre))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(66, 66, 66)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(240, 240, 240)
+                                        .addComponent(jLabel2)))
+                                .addGap(64, 64, 64)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(dcFechaBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -175,7 +179,8 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
+                                .addComponent(dcFechaBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5)))
@@ -264,7 +269,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         
         try {
             
-            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%'";
+            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' AND horaentrada LIKE '%" + fecha + "%'";
             objcon.ejecutarSQLSelect(sql);
 
             objcon.resultado.first();
@@ -305,20 +310,38 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
             
             if(cbAuto.isSelected()){
                 
-                tipoVehiculo = "Automovil";
-                cbMoto.setSelected(false);
-                
-            } else if (cbMoto.isSelected()) {
+                if(cbMoto.isSelected()){
+                    
+                    tipoVehiculo = "";
+                    
+                }else{
+                    
+                    tipoVehiculo = "Automovil";
+                }    
+            }else if(cbMoto.isSelected()){
                 
                 tipoVehiculo = "Motocicleta";
-                cbAuto.setSelected(false);
+                
             }
             
             if (rbFueraParq.isSelected()) {
+                
                 estado = "No Disponible";
+                
             }
+            
             if (rbEnParq.isSelected()) {
+                
                 estado = "Disponible";
+                
+            }
+            
+            if (dcFechaBusqueda.getDate() != null) {
+                
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = dcFechaBusqueda.getDate();
+            fecha = dateFormat.format(date);
+            
             }
             
             crearTabla();
@@ -338,7 +361,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
 
             fecha = dateFormat.format(date);
             
-            sql = "SELECT SUM(valorpagado)FROM vehiculos WHERE estado= 'No Disponible' AND horasalida LIKE '" + fecha + "%'";
+            sql = "SELECT SUM(valorpagado)FROM vehiculos WHERE estado= 'No Disponible' AND horasalida LIKE '%" + fecha + "%'";
             
             objcon.ejecutarSQLSelect(sql);
             
@@ -351,7 +374,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "El ingreso total del dia seleccionado ets de : $ " 
                                                  + df.format(IngresosTotales) + " Pesos");
           
-        }catch (SQLException ex){
+        }catch (SQLException | NoClassDefFoundError ex){
            
            JOptionPane.showMessageDialog(null,"No se realizaron salidas el dia de hoy." );
                 
@@ -371,6 +394,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JCheckBox cbAuto;
     private javax.swing.JCheckBox cbMoto;
+    private com.toedter.calendar.JDateChooser dcFechaBusqueda;
     private javax.swing.JButton jButton_Cierre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

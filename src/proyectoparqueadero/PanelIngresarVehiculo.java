@@ -1,18 +1,27 @@
 
 package proyectoparqueadero;
 
-//import com.itextpdf.kernel.geom.PageSize;
-//import com.itextpdf.kernel.pdf.PdfDocument;
-//import com.itextpdf.kernel.pdf.PdfWriter;
-//import com.itextpdf.layout.Document;
-//import com.itextpdf.layout.border.Border;
-//import com.itextpdf.layout.element.Paragraph;
-
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.element.Paragraph;
 import Base_de_Datos.conexion;
-
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.TextAlignment;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class PanelIngresarVehiculo extends javax.swing.JPanel {
@@ -26,8 +35,11 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
        //INSTANCIAS
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Date date =new Date();
-    static final String DEST = "proyectoparqueadero/hello_world.pdf";
     conexion objbd = new conexion();
+    Document documento;
+    FileOutputStream archivo;
+    PdfWriter writer;
+    PdfDocument pdfDoc;
     
     public PanelIngresarVehiculo() {
         initComponents();
@@ -127,7 +139,66 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-     
+    public void crearPDF(String placa,String propietario,String tVehiculo, String fecha) throws FileNotFoundException, IOException{
+        
+            archivo = new FileOutputStream("C:/Users/thomy/Desktop/reportes/" + propietario + ".pdf");
+            writer = new PdfWriter(archivo);
+            pdfDoc = new PdfDocument(writer);
+            documento = new Document(pdfDoc, PageSize.A5);
+            
+            
+            File imageFile = new File("C:/Users/thomy/Documents/Materias/Ing de Software I/Software del Proyecto-Parqueador/Proyecto parqueadero java/ProyectoParqueadero/src/img/logo.jpg");
+            java.awt.Image image = ImageIO.read(imageFile);
+            ImageData imageData = ImageDataFactory.create(image, null);
+            Image pdfImg = new Image(imageData);
+            
+            pdfDoc.addNewPage();
+
+            Paragraph para = new Paragraph ("Recibo Parqueo");
+            para.setBorder(Border.NO_BORDER);
+            para.setBold();
+
+            Paragraph para1 = new Paragraph ("Placa vehiculo: "+ placa);
+            Paragraph para2 = new Paragraph ("Nombre del propietario: "+ propietario);
+            Paragraph para3 = new Paragraph ("Hora de ingreso: "+fecha);
+            
+            para.setTextAlignment(TextAlignment.CENTER);
+            para1.setTextAlignment(TextAlignment.CENTER);
+            para2.setTextAlignment(TextAlignment.CENTER);
+            para3.setTextAlignment(TextAlignment.CENTER);
+            pdfImg.setTextAlignment(TextAlignment.CENTER);
+
+            documento.add(pdfImg);
+            documento.add(para);
+            documento.add(para1);
+            documento.add(para2);
+            documento.add(para3); 
+            documento.close();
+            
+             System.out.println("PDF Created");
+             
+             
+             try {
+
+		if ((new File("C:/Users/thomy/Desktop/reportes/" + propietario + "pdf")).exists()) {
+
+			Process p = Runtime
+			   .getRuntime()
+			   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/thomy/Desktop/reportes/"+ propietario + "pdf");
+			p.waitFor();
+				
+		} else {
+
+			System.out.println("File is not exists");
+
+		}
+
+		System.out.println("Done");
+
+  	  } catch (IOException | InterruptedException ex) {
+	  }
+    } 
+    
     private void JB_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_registrarActionPerformed
 
         fechaHora = dateFormat.format(date);
@@ -145,65 +216,23 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
         
         objbd.ejecutarSQL(sql);
         
+        try {
+            
+            crearPDF(tfPlaca.getText(), tfPropietario.getText(), clasevehiculo, fechaHora);
+            
+        } catch (FileNotFoundException ex) {
+            
+            Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         tfPlaca.setText("");
         tfPropietario.setText("");
         clasevehiculo = "";
         
         JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente");
-        
-        
-     
-//           String dest = "C:/reportes/sample.pdf";
-//        try {
-
-//            PdfWriter writer = new PdfWriter(dest);
-//            PdfDocument pdfDoc = new PdfDocument(writer);
-//            Document document = new Document(pdfDoc, PageSize.A5);
-//            pdfDoc.addNewPage();
-//
-//            Paragraph para = new Paragraph ("Recibo Parqueadero");
-//            
-//            para.setBorder(Border.NO_BORDER);
-//            para.setBold();
-//
-//            Paragraph para1 = new Paragraph ("Placa vehiculo: "+tfPlaca.getText());
-//            Paragraph para2 = new Paragraph ("Nombre del propietario: "+tfPropietario.getText());
-//            Paragraph para3 = new Paragraph ("Hora de ingreso: "+fechaHora);
-//
-//            document.add(para);
-//            document.add(para1);
-//            document.add(para2);
-//            document.add(para3); 
-//            document.close();
-//             System.out.println("PDF Created");
-//            
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        try {
-//
-//		if ((new File("c:\\reportes/sample.pdf")).exists()) {
-//
-//			Process p = Runtime
-//			   .getRuntime()
-//			   .exec("rundll32 url.dll,FileProtocolHandler c:\\reportes/sample.pdf");
-//			p.waitFor();
-//				
-//		} else {
-//
-//			System.out.println("File is not exists");
-//
-//		}
-//
-//		System.out.println("Done");
-//
-//  	  } catch (Exception ex) {
-//		ex.printStackTrace();
-//	  }
-
      
     }//GEN-LAST:event_JB_registrarActionPerformed
 

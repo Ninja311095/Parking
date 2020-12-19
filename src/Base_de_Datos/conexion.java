@@ -32,7 +32,7 @@ public boolean crearConexion()
 {
         try {
             
-      conexionUP = DriverManager.getConnection("jdbc:mysql://localhost/bdparqueo?useSSL=false&serverTimezone=UTC","root","");
+      conexionUP = DriverManager.getConnection("jdbc:mysql://localhost/bdparqueo?useSSL=false&serverTimezone=UTC","parqueo","imdumb");
                 
              } catch (SQLException ex) {
             
@@ -111,4 +111,4 @@ public Connection getConexion()
        
     }
 
-}//fin clase
+}//fin clase  

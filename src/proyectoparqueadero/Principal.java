@@ -35,10 +35,7 @@ public class Principal extends javax.swing.JFrame {
         panelListarVehiculos.setBounds(350,0,1116,400);
         add(panelListarVehiculos);
         panelListarVehiculos.setVisible(false);
-
-        
-       
-        
+    
         
     }
 
@@ -59,16 +56,16 @@ public class Principal extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(800, 400));
         setPreferredSize(new java.awt.Dimension(800, 440));
 
-        PanelMenu.setBackground(new java.awt.Color(2, 91, 102));
+        PanelMenu.setBackground(new java.awt.Color(2, 110, 182));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo parqueadero.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+        jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ParkingSoft");
 
-        JB_IngresarVehiculo.setBackground(new java.awt.Color(0, 153, 153));
+        JB_IngresarVehiculo.setBackground(new java.awt.Color(2, 110, 182));
         JB_IngresarVehiculo.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_IngresarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
         JB_IngresarVehiculo.setLabel("Ingresar Vehiculo");
@@ -78,7 +75,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        JB_RetirarV.setBackground(new java.awt.Color(0, 153, 153));
+        JB_RetirarV.setBackground(new java.awt.Color(2, 110, 182));
         JB_RetirarV.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_RetirarV.setForeground(new java.awt.Color(255, 255, 255));
         JB_RetirarV.setLabel("Retirar Vehiculo");
@@ -88,7 +85,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        JButton_ListarVehiculos.setBackground(new java.awt.Color(0, 153, 153));
+        JButton_ListarVehiculos.setBackground(new java.awt.Color(2, 110, 182));
         JButton_ListarVehiculos.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JButton_ListarVehiculos.setForeground(new java.awt.Color(255, 255, 255));
         JButton_ListarVehiculos.setLabel("Listar Vehiculos");
@@ -98,7 +95,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        JB_Cierre.setBackground(new java.awt.Color(0, 153, 153));
+        JB_Cierre.setBackground(new java.awt.Color(2, 110, 182));
         JB_Cierre.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_Cierre.setForeground(new java.awt.Color(255, 255, 255));
         JB_Cierre.setLabel("Salir");
@@ -126,13 +123,12 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(32, 32, 32))))))
+                        .addComponent(jLabel2)
+                        .addGap(32, 32, 32))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +171,7 @@ public class Principal extends javax.swing.JFrame {
         panelListarVehiculos.setVisible(false);
         panelretirarvehiculo.setVisible(false);
         panelingresarvehiculo.setVisible(true);
+        setLocationRelativeTo(null);
         
         revalidate();
         repaint();
@@ -186,7 +183,9 @@ public class Principal extends javax.swing.JFrame {
         panelListarVehiculos.setVisible(false);
         panelingresarvehiculo.setVisible(false);
         panelretirarvehiculo.setVisible(true);
-         revalidate();
+        setLocationRelativeTo(null);
+        
+        revalidate();
         repaint();
         
     }//GEN-LAST:event_JB_RetirarVActionPerformed
@@ -198,7 +197,9 @@ public class Principal extends javax.swing.JFrame {
         panelListarVehiculos.setVisible(true);
         panelingresarvehiculo.setVisible(false);
         panelretirarvehiculo.setVisible(false);
-         revalidate();
+        setLocationRelativeTo(null);
+        
+        revalidate();
         repaint();
         
         panelListarVehiculos.rellenarTabla();
