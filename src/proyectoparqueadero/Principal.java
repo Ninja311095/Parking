@@ -35,8 +35,7 @@ public class Principal extends javax.swing.JFrame {
         panelListarVehiculos.setBounds(350,0,1116,400);
         add(panelListarVehiculos);
         panelListarVehiculos.setVisible(false);
-    
-        
+   
     }
 
 
@@ -216,7 +215,7 @@ public class Principal extends javax.swing.JFrame {
           
           System.exit(0);
       }//fin if
-      
+ 
     }//GEN-LAST:event_JB_CierreActionPerformed
 
     /**

@@ -59,6 +59,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
     String propietario;
     String tipoVehiculo;
     int respuesta;
+    String current = System.getProperty("user.dir");
     
     public PanelRetirarVehiculo() {
         initComponents();
@@ -139,13 +140,13 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
     //METODO PARA CREAR FACTURA PDF
     public void crearPDF(String placa,String propietario,String tVehiculo, String fecha,String fechaSalida, int pago) throws FileNotFoundException, IOException{
         
-            archivo = new FileOutputStream("C:/Users/thomy/Desktop/facturas/" + propietario + ".pdf");
+            archivo = new FileOutputStream(current + "/facturas/" + propietario + ".pdf");
             writer = new PdfWriter(archivo);
             pdfDoc = new PdfDocument(writer);
             documento = new Document(pdfDoc, PageSize.A5);
             
             //AGREGAMOS LA IMAGEN AL DOCUMENTO 
-            File imageFile = new File("C:/Users/thomy/Documents/Materias/Ing de Software I/Software del Proyecto-Parqueador/Proyecto parqueadero java/ProyectoParqueadero/src/img/logo.jpg");
+            File imageFile = new File(current + "/src/img/logo.jpg");
             java.awt.Image image = ImageIO.read(imageFile);
             ImageData imageData = ImageDataFactory.create(image, null);
             Image pdfImg = new Image(imageData);
@@ -184,11 +185,11 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
              
              try {
 
-		if ((new File("C:/Users/thomy/Desktop/facturas/" + propietario + ".pdf")).exists()) {
+		if ((new File(current +"/facturas/" + propietario + ".pdf")).exists()) {
 
 			Process p = Runtime
 			   .getRuntime()
-			   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/thomy/Desktop/facturas/"+ propietario + ".pdf");
+			   .exec("rundll32 url.dll,FileProtocolHandler " + current + "/facturas/"+ propietario + ".pdf");
 			p.waitFor();
 				
 		} else {
@@ -198,7 +199,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
 		}
                 
                 try {
-                        File path = new File ("C:/Users/thomy/Desktop/facturas/"+ propietario + ".pdf");
+                        File path = new File ( current + "/facturas/"+ propietario + ".pdf");
                         
                         Desktop.getDesktop().open(path);
                         

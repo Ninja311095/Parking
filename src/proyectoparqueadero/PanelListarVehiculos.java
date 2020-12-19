@@ -270,7 +270,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         try {
             
             
-            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' OR horaentrada LIKE '%" + fecha + "'";
+            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' OR horaentrada LIKE '" + fecha + "%'";
             objcon.ejecutarSQLSelect(sql);
 
             objcon.resultado.first();
@@ -372,7 +372,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
             DecimalFormat df = new DecimalFormat("#.00");
             Double IngresosTotales = Double.parseDouble(objcon.resultado.getString(1));
             	
-            JOptionPane.showMessageDialog(null, "El ingreso total del dia seleccionado ets de : $ " 
+            JOptionPane.showMessageDialog(null, "El ingreso total del dia seleccionado es de : $ " 
                                                  + df.format(IngresosTotales) + " Pesos");
           
         }catch (SQLException | NoClassDefFoundError ex){
