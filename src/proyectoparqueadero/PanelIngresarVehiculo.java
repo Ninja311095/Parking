@@ -18,8 +18,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +36,7 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
     String clasevehiculo = "";
     String sql;
     String current = System.getProperty("user.dir");
+    String usu = "thomis";
     
        //INSTANCIAS
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -43,27 +46,29 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
     FileOutputStream archivo;
     PdfWriter writer;
     PdfDocument pdfDoc;
+    ArrayList<String> lista = new ArrayList<>();
     
     public PanelIngresarVehiculo() {
         initComponents();
 
         objbd.crearConexion();
+        
+        llenaJcombo();
     }
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         JLtitulo = new javax.swing.JLabel();
         tfPlaca = new javax.swing.JTextField();
         tfPropietario = new javax.swing.JTextField();
         jLplaca = new javax.swing.JLabel();
         jLpropietario = new javax.swing.JLabel();
         jLTvehiculo = new javax.swing.JLabel();
-        rbMoto = new javax.swing.JRadioButton();
-        rbAuto = new javax.swing.JRadioButton();
         JB_registrar = new java.awt.Button();
+        jCB_tipoVehiculo = new javax.swing.JComboBox<>();
+        JB_Limpiar = new java.awt.Button();
 
         JLtitulo.setBackground(new java.awt.Color(255, 255, 255));
         JLtitulo.setFont(new java.awt.Font("Segoe UI Symbol", 0, 16)); // NOI18N
@@ -80,12 +85,6 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
 
         jLTvehiculo.setText("Tipo de vehiculo");
 
-        buttonGroup1.add(rbMoto);
-        rbMoto.setText("Motocicleta");
-
-        buttonGroup1.add(rbAuto);
-        rbAuto.setText("Automovil");
-
         JB_registrar.setBackground(new java.awt.Color(255, 51, 0));
         JB_registrar.setForeground(new java.awt.Color(255, 255, 255));
         JB_registrar.setLabel("Registrar");
@@ -95,36 +94,47 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
             }
         });
 
+        jCB_tipoVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        JB_Limpiar.setBackground(new java.awt.Color(255, 51, 0));
+        JB_Limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        JB_Limpiar.setLabel("Limpiar Campos");
+        JB_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_LimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLTvehiculo)
                     .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLpropietario)
                     .addComponent(jLplaca)
-                    .addComponent(JLtitulo))
+                    .addComponent(JLtitulo)
+                    .addComponent(jCB_tipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61))
             .addGroup(layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addComponent(rbMoto)
-                .addGap(10, 10, 10)
-                .addComponent(rbAuto)
-                .addGap(137, 137, 137))
+                .addGap(69, 69, 69)
+                .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JB_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(JLtitulo)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addComponent(jLplaca)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLpropietario)
@@ -132,16 +142,26 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
                 .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLTvehiculo)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbAuto)
-                    .addComponent(rbMoto))
-                .addGap(26, 26, 26)
-                .addComponent(JB_registrar, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCB_tipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JB_registrar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(JB_Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public final void llenaJcombo(){
+        
+        jCB_tipoVehiculo.removeAllItems();
+        lista = conexion.llenacombo();
+        
+        lista.forEach(e -> {
+            jCB_tipoVehiculo.addItem(e);
+        });
+    }
+    
     public void crearPDF(String placa,String propietario,String tVehiculo, String fecha) throws FileNotFoundException, IOException{
         
             archivo = new FileOutputStream(current + "/reportes/" + propietario + ".pdf");
@@ -202,8 +222,8 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
                         
                    }catch (IOException ex) {
                        
-                        ex.printStackTrace();
-}
+                       JOptionPane.showMessageDialog(null,"Error al abrir el Documento","Error",JOptionPane.ERROR_MESSAGE);
+                    }
 
 		System.out.println("Done");
 
@@ -215,49 +235,61 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
 
         fechaHora = dateFormat.format(date);
         
-        if (rbAuto.isSelected()) {
-            clasevehiculo = "Automovil";
-        }
-        if (rbMoto.isSelected()) {
-            clasevehiculo = "Motocicleta";
-        }
+        clasevehiculo = (String) jCB_tipoVehiculo.getSelectedItem();
         
-        String sql = "INSERT INTO vehiculos (placa, propietario,tipovehiculo,horaentrada,estado) VALUES ('"
+         sql = "INSERT INTO vehiculos (placa_vehiculo, propietario_vehiculo,tipo_vehiculo,horaentrada_vehiculo,estado_vehiculo,usuario) VALUES ('"
                 + tfPlaca.getText() + "','" + tfPropietario.getText() + "','" + clasevehiculo + "','"
-                + fechaHora + "','Disponible')";
+                + fechaHora + "','Disponible','" + usu + "')";
         
-        objbd.ejecutarSQL(sql);
         
         try {
             
-            crearPDF(tfPlaca.getText(), tfPropietario.getText(), clasevehiculo, fechaHora);
+            objbd.ejecutarSQL(sql);
+            boolean first = conexion.resultado.first();
             
+            if(first){
+                
+                crearPDF(tfPlaca.getText(), tfPropietario.getText(), clasevehiculo, fechaHora);
+            
+                    
+                tfPlaca.setText("");
+                tfPropietario.setText("");
+                clasevehiculo = "";
+
+                JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente");
+            }
+           
         } catch (FileNotFoundException ex) {
             
             Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
             
-        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error al crear PDF", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (IOException | SQLException ex) {
+            
             Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
+     
+    }//GEN-LAST:event_JB_registrarActionPerformed
+
+    private void JB_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_LimpiarActionPerformed
+        // TODO add your handling code here:
         
         tfPlaca.setText("");
         tfPropietario.setText("");
         clasevehiculo = "";
-        
-        JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente");
-     
-    }//GEN-LAST:event_JB_registrarActionPerformed
+    }//GEN-LAST:event_JB_LimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button JB_Limpiar;
     private java.awt.Button JB_registrar;
     private javax.swing.JLabel JLtitulo;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> jCB_tipoVehiculo;
     private javax.swing.JLabel jLTvehiculo;
     private javax.swing.JLabel jLplaca;
     private javax.swing.JLabel jLpropietario;
-    private javax.swing.JRadioButton rbAuto;
-    private javax.swing.JRadioButton rbMoto;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfPropietario;
     // End of variables declaration//GEN-END:variables

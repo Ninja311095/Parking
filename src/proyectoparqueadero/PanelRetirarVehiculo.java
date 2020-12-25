@@ -52,12 +52,14 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
     
     //VARIABLES
     String fechaHora, horaentrada,sql;
+    String propietario;
+    String tipoVehiculo;
+    String usu = "thomis2";
     Date Datehoraentrada;
     int horasACobrar;
     int valorAPagar;
     int confirmacion;
-    String propietario;
-    String tipoVehiculo;
+    int tarifa,tarifaMinima;
     int respuesta;
     String current = System.getProperty("user.dir");
     
@@ -65,6 +67,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
         initComponents();
         
         objcon.crearConexion();
+        
 
     }
 
@@ -89,7 +92,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Modulo de salida de vehiculos del parqueadero");
+        jLabel1.setText("Modulo de salida de vehiculos del parqueo");
 
         jLabel2.setText("Placa");
 
@@ -115,12 +118,12 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
                         .addGap(223, 223, 223)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(190, 190, 190)
-                        .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +136,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
                 .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -214,6 +217,22 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
 	  }
     }
     
+    public void obtenTarifa(String tipo_Vehiculo){
+        
+        try {
+            
+            sql = "SELECT tarifa_vehiculo,tarifa_minima FROM categoriavehiculo WHERE tipo_vehiculo = '" + tipo_Vehiculo + "'";
+            objcon.ejecutarSQLSelect(sql);
+            conexion.resultado.first();
+            
+            tarifa = conexion.resultado.getInt(1);
+            tarifaMinima = conexion.resultado.getInt(2);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void JB_RetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_RetirarActionPerformed
             
             fechaHora = dateFormat.format(date);
@@ -221,15 +240,16 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             
-            sql = "SELECT horaentrada, tipovehiculo,propietario from vehiculos WHERE placa ='" + tfPlacaRetiro.getText() + "' AND estado = 'Disponible'";
+            sql = "SELECT horaentrada_vehiculo, tipo_vehiculo,propietario_vehiculo from vehiculos WHERE placa_vehiculo ='" + tfPlacaRetiro.getText() + "' AND estado_vehiculo = 'Disponible'";
             objcon.ejecutarSQLSelect(sql);
             
-            objcon.resultado.first();
+            conexion.resultado.first();
             
             //OBTENCION DE VALORES PARA LA CONFIRMACION
-            propietario = objcon.resultado.getString(3);
-            horaentrada = objcon.resultado.getString(1);
-            tipoVehiculo = objcon.resultado.getString(2);
+            propietario = conexion.resultado.getString(3);
+            horaentrada = conexion.resultado.getString(1);
+            tipoVehiculo = conexion.resultado.getString(2);
+            obtenTarifa(tipoVehiculo);
             
             confirmacion = JOptionPane.showConfirmDialog(null, "Validación de datos\n\n Propietario: " + propietario + 
                                                                "\n Tipo Vehiculo: " + tipoVehiculo + "\n Fecha Entrada: " + horaentrada, "Confirmación", JOptionPane.YES_NO_OPTION);
@@ -239,22 +259,17 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
                 
                 Datehoraentrada = dateFormat.parse(horaentrada);
                 horasACobrar = (int) ((date.getTime()-Datehoraentrada.getTime())/60000)/60;
-
-                System.out.println(horasACobrar);
+                valorAPagar = horasACobrar * tarifa;
                 
-                if(objcon.resultado.getString(2).equals("Automovil")){
-
-                    valorAPagar=horasACobrar*10;
-
-                }else if(objcon.resultado.getString(2).equals("Motocicleta")){
-
-                     valorAPagar=horasACobrar*5;
-
+                if (valorAPagar < tarifaMinima){
+                    
+                    valorAPagar = tarifaMinima;
                 }
 
+                System.out.println(horasACobrar);
 
-                sql = "UPDATE vehiculos SET horasalida='" + fechaHora + "',estado= 'No Disponible', valorpagado= " 
-                      + valorAPagar + " WHERE placa='" + tfPlacaRetiro.getText() + "' AND estado='Disponible'";
+                sql = "UPDATE vehiculos SET horasalida_vehiculo='" + fechaHora + "',estado_vehiculo= 'No Disponible', valorpagado= " 
+                      + valorAPagar + ",usuario_salida ='" + usu +"' WHERE placa_vehiculo='" + tfPlacaRetiro.getText() + "' AND estado_vehiculo='Disponible'";
 
                 objcon.ejecutarSQL(sql);
 
@@ -269,17 +284,15 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
             
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "El vehiculo no se encuentra en el parqueadero, por favor revise la placa ingresada");
+            
+            JOptionPane.showMessageDialog(null, "El vehiculo no se encuentra en el parqueao, por favor revise la placa ingresada");
             
             Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
             
-        } catch (ParseException ex) {
+        } catch (ParseException | IOException ex) {
             
             Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
             
-        } catch (IOException ex) {
-            
-            Logger.getLogger(PanelRetirarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_JB_RetirarActionPerformed
 
