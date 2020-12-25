@@ -6,6 +6,7 @@
 package Base_de_Datos;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,9 +19,9 @@ import javax.swing.JOptionPane;
 
 public class conexion {
    
-    public Connection conexionUP = null;
-    public Statement sentencia;
-    public ResultSet resultado;
+    public static Connection conexionUP = null;
+    public static Statement sentencia;
+    public static ResultSet resultado;
     
 
 /** 
@@ -97,13 +98,36 @@ public ResultSet ejecutarSQL(String sql)
 
         return resultado;
         
-    }//din resultset update
+    }//fin resultset update
 
     /**
 * Método utilizado para recuperar el valor del atributo conexion
 * @return conexion contiene el estado de la conexión
 *
 */
+
+public static ArrayList<String> llenacombo(){
+    
+    ArrayList<String> lista = new ArrayList<>();  
+    String jCombo = "SELECT * FROM categoriavehiculo";
+    
+
+        try {
+            
+            PreparedStatement pSentencia = conexionUP.prepareStatement(jCombo);
+            resultado = pSentencia.executeQuery();
+            
+            while(resultado.next()){
+            
+                lista.add(resultado.getString("tipo_vehiculo"));
+         }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    return lista;
+}
     
 public Connection getConexion()
     {

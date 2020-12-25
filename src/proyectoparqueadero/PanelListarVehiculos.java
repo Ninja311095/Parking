@@ -27,6 +27,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
     DefaultTableModel modelo;
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
+    String placa;
     
     public PanelListarVehiculos() {
         initComponents();
@@ -44,18 +45,12 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         JTF_Placa = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVehiculos = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        rbEnParq = new javax.swing.JRadioButton();
-        rbFueraParq = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
         JButton_Buscar = new javax.swing.JButton();
         jButton_Cierre = new javax.swing.JButton();
         cbAuto = new javax.swing.JCheckBox();
@@ -87,19 +82,6 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
 
         jLabel5.setText("Tipo Vehiculo");
 
-        buttonGroup3.add(rbEnParq);
-        rbEnParq.setText("En parqueadero");
-
-        buttonGroup3.add(rbFueraParq);
-        rbFueraParq.setText("Fuera de parqueadero");
-        rbFueraParq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFueraParqActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Ubicacion del vehiculo");
-
         JButton_Buscar.setText("Buscar");
         JButton_Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,84 +107,71 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(cbAuto)
-                        .addGap(21, 21, 21)
-                        .addComponent(cbMoto)
-                        .addGap(40, 40, 40)
-                        .addComponent(rbFueraParq)
-                        .addGap(44, 44, 44)
-                        .addComponent(rbEnParq))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(195, 195, 195)
-                                .addComponent(JButton_Buscar)
-                                .addGap(98, 98, 98)
-                                .addComponent(jButton_Cierre))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(66, 66, 66)
-                                        .addComponent(jLabel5))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(240, 240, 240)
-                                        .addComponent(jLabel2)))
-                                .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(dcFechaBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(195, 195, 195)
+                        .addComponent(JButton_Buscar)
+                        .addGap(98, 98, 98)
+                        .addComponent(jButton_Cierre))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JTF_Placa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addGap(0, 10, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(cbAuto)
+                                .addGap(21, 21, 21)
+                                .addComponent(cbMoto))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel5)))
+                        .addGap(115, 115, 115)
+                        .addComponent(dcFechaBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(30, 30, 30)
+                                .addComponent(JTF_Placa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(25, 25, 25)))
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dcFechaBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(cbAuto)
-                            .addComponent(cbMoto)
-                            .addComponent(rbEnParq)
-                            .addComponent(rbFueraParq))
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(104, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTF_Placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JButton_Buscar)
-                            .addComponent(jButton_Cierre))
-                        .addGap(52, 52, 52))))
+                            .addComponent(JTF_Placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(dcFechaBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JButton_Buscar)
+                    .addComponent(jButton_Cierre))
+                .addGap(52, 52, 52))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(cbAuto)
+                    .addComponent(cbMoto))
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
    
@@ -231,14 +200,14 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
             modelo = (DefaultTableModel) tblVehiculos.getModel();
             modelo.setRowCount(0);
             
-            sql = "SELECT * FROM vehiculos";
+            sql = "SELECT * FROM vehiculos WHERE horasalida_vehiculo IS NULL";
             objcon.ejecutarSQLSelect(sql);
 
-            objcon.resultado.first();
+            conexion.resultado.first();
 
             do {
-                String horasalida = objcon.resultado.getString(6);
-                String pago = objcon.resultado.getString(7);
+                String horasalida = conexion.resultado.getString(6);
+                String pago = conexion.resultado.getString(7);
                 
                 if (horasalida == null) {
                     
@@ -247,17 +216,18 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
                     
                 } else {
                     
-                    horasalida = objcon.resultado.getString(6).substring(10).substring(0,6);
-                    pago = objcon.resultado.getString(7);
+                    horasalida = conexion.resultado.getString(6).substring(10).substring(0,6);
+                    pago = conexion.resultado.getString(7);
                     
                 }
                 
-                String[] fila = {objcon.resultado.getString(2),
-                                 objcon.resultado.getString(3), objcon.resultado.getString(4), 
-                                 objcon.resultado.getString(5).substring(10).substring(0, 6), horasalida, "$" + pago};
+                String[] fila = {conexion.resultado.getString(2),
+                                 conexion.resultado.getString(3),
+                                 conexion.resultado.getString(4), 
+                                 conexion.resultado.getString(5).substring(10).substring(0, 6), horasalida, "$" + pago};
                 modelo.addRow(fila);
                 
-            } while (objcon.resultado.next());
+            } while (conexion.resultado.next());
             
         } catch (SQLException ex) {
              Logger.getLogger(PanelListarVehiculos.class.getName()).log(Level.SEVERE, null, ex);
@@ -269,16 +239,15 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
         
         try {
             
-            
-            sql = "SELECT * FROM vehiculos WHERE estado='" + estado + "' AND tipovehiculo LIKE'%" + tipoVehiculo + "%' AND placa LIKE '%" + JTF_Placa.getText() + "%' OR horaentrada LIKE '" + fecha + "%'";
+            sql = "SELECT * FROM vehiculos WHERE tipo_vehiculo LIKE'%" + tipoVehiculo + "%' AND placa_vehiculo LIKE '" + placa + "%' AND horaentrada_vehiculo LIKE '%" + fecha + "%'";
             objcon.ejecutarSQLSelect(sql);
 
-            objcon.resultado.first();
+            conexion.resultado.first();
 
             do {
-                String horasalida = objcon.resultado.getString(6);
+                String horasalida = conexion.resultado.getString("horasalida_vehiculo");
                 String pago;
-                pago = objcon.resultado.getString(7);
+                pago = conexion.resultado.getString("valorpagado");
                 
                 if (horasalida == null) {
                     
@@ -287,18 +256,18 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
                     
                 } else {
                     
-                    horasalida = objcon.resultado.getString(6).substring(10).substring(0,6);
-                    pago = objcon.resultado.getString(7);
+                    horasalida = conexion.resultado.getString("horasalida_vehiculo").substring(10).substring(0,6);
+                    pago = conexion.resultado.getString("valorpagado");
                     
                 }
                 
-                String[] fila = {objcon.resultado.getString(2),objcon.resultado.getString(3),
-                    objcon.resultado.getString(4),objcon.resultado.getString(5).substring(10).substring(0, 6),
+                String[] fila = {conexion.resultado.getString(2),conexion.resultado.getString(3),
+                    conexion.resultado.getString(4),conexion.resultado.getString(5).substring(10).substring(0, 6),
                     horasalida, "$" + pago};
                 
                 modelo.addRow(fila);
                 
-            } while (objcon.resultado.next());
+            } while (conexion.resultado.next());
             
         } catch (SQLException ex) {
             Logger.getLogger(PanelListarVehiculos.class.getName()).log(Level.SEVERE, null, ex);
@@ -319,21 +288,9 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
                     
                     tipoVehiculo = "Automovil";
                 }    
-            }else if(cbMoto.isSelected()){
+            }else if (cbMoto.isSelected()){
                 
                 tipoVehiculo = "Motocicleta";
-                
-            }
-            
-            if (rbFueraParq.isSelected()) {
-                
-                estado = "No Disponible";
-                
-            }
-            
-            if (rbEnParq.isSelected()) {
-                
-                estado = "Disponible";
                 
             }
             
@@ -345,15 +302,13 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
                 System.out.println(fecha);
             }
             
+            placa = JTF_Placa.getText();
+            
             crearTabla();
             
             buscarVehiculo();
 
     }//GEN-LAST:event_JButton_BuscarActionPerformed
-
-    private void rbFueraParqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFueraParqActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbFueraParqActionPerformed
 
     private void jButton_CierreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CierreActionPerformed
         
@@ -362,15 +317,15 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
 
             fecha = dateFormat.format(date);
             
-            sql = "SELECT SUM(valorpagado)FROM vehiculos WHERE estado= 'No Disponible' AND horasalida LIKE '%" + fecha + "%'";
+            sql = "SELECT SUM(valorpagado)FROM vehiculos WHERE estado_vehiculo= 'No Disponible' AND horasalida_vehiculo LIKE '%" + fecha + "%'";
             
             objcon.ejecutarSQLSelect(sql);
             
-            objcon.resultado.first();
+            conexion.resultado.first();
             
             
             DecimalFormat df = new DecimalFormat("#.00");
-            Double IngresosTotales = Double.parseDouble(objcon.resultado.getString(1));
+            Double IngresosTotales = Double.parseDouble(conexion.resultado.getString(1));
             	
             JOptionPane.showMessageDialog(null, "El ingreso total del dia seleccionado es de : $ " 
                                                  + df.format(IngresosTotales) + " Pesos");
@@ -390,9 +345,6 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButton_Buscar;
     private javax.swing.JTextField JTF_Placa;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JCheckBox cbAuto;
     private javax.swing.JCheckBox cbMoto;
     private com.toedter.calendar.JDateChooser dcFechaBusqueda;
@@ -401,10 +353,7 @@ public class PanelListarVehiculos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rbEnParq;
-    private javax.swing.JRadioButton rbFueraParq;
     private javax.swing.JTable tblVehiculos;
     // End of variables declaration//GEN-END:variables
 }
