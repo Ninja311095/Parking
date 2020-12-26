@@ -128,6 +128,34 @@ public static ArrayList<String> llenacombo(){
 
     return lista;
 }
+
+    /**
+     *
+     * @return
+     */
+    public static ArrayList<String> llenacomboEmpleado(){
+    
+    ArrayList<String> lista;  
+        lista = new ArrayList<>();
+    String jCombo = "SELECT * FROM cargo";
+    
+
+        try {
+            
+            PreparedStatement pSentencia = conexionUP.prepareStatement(jCombo);
+            resultado = pSentencia.executeQuery();
+            
+            while(resultado.next()){
+            
+                lista.add(resultado.getString("cargo_posicion"));
+         }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    return lista;
+}
     
 public Connection getConexion()
     {
