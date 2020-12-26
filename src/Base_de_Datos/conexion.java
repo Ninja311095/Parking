@@ -38,7 +38,6 @@ public boolean crearConexion()
              } catch (SQLException ex) {
             
                  JOptionPane.showMessageDialog(null,"Error al conectar con el servidor","Error critico",JOptionPane.ERROR_MESSAGE);
-                   ex.printStackTrace();
                    return false;
            
                     }
@@ -64,7 +63,6 @@ public ResultSet ejecutarSQLSelect(String sql)
          
          
       } catch (SQLException ex) {
-         ex.printStackTrace();
          return null;
       }
 
@@ -77,6 +75,7 @@ public ResultSet ejecutarSQLSelect(String sql)
 *
 *Método utilizado para realizar las instrucciones: INSERT, DELETE y UPDATE
 *param sql Cadena que contiene la instrucción SQL a ejecutar
+     * @param sql
 *@return estado regresa el estado de la ejecución, true(éxito) o false(error)
 *
 */
@@ -90,7 +89,7 @@ public ResultSet ejecutarSQL(String sql)
         }
         catch (SQLException ex) {
             
-                JOptionPane.showMessageDialog(null,"Error al registrar vehiculo" + ex);
+                //JOptionPane.showMessageDialog(null,"Error al registrar vehiculo" + ex);
 
             Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
             
@@ -108,7 +107,8 @@ public ResultSet ejecutarSQL(String sql)
 
 public static ArrayList<String> llenacombo(){
     
-    ArrayList<String> lista = new ArrayList<>();  
+    ArrayList<String> lista;  
+        lista = new ArrayList<>();
     String jCombo = "SELECT * FROM categoriavehiculo";
     
 
