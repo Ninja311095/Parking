@@ -3,6 +3,7 @@ package proyectoparqueadero;
 
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
+import JDialog.Login;
 
 
 /**
@@ -59,6 +60,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem_nuevo_usuario = new javax.swing.JMenuItem();
         jMenu_reportes = new javax.swing.JMenu();
         jMenu_perfil = new javax.swing.JMenu();
+        jMenuIten_perfil = new javax.swing.JMenuItem();
+        jMenuItem_cerrarsesion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 400));
@@ -174,6 +177,18 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_reportes);
 
         jMenu_perfil.setText("Mi Perfil");
+
+        jMenuIten_perfil.setText("Ver Perfil");
+        jMenu_perfil.add(jMenuIten_perfil);
+
+        jMenuItem_cerrarsesion.setText("Cerrar Seccion");
+        jMenuItem_cerrarsesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_cerrarsesionActionPerformed(evt);
+            }
+        });
+        jMenu_perfil.add(jMenuItem_cerrarsesion);
+
         jMenuBar1.add(jMenu_perfil);
 
         setJMenuBar(jMenuBar1);
@@ -255,6 +270,11 @@ public class Principal extends javax.swing.JFrame {
         Registar.setVisible(true);
     }//GEN-LAST:event_jMenuItem_nuevo_usuarioActionPerformed
 
+    private void jMenuItem_cerrarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_cerrarsesionActionPerformed
+        // TODO add your handling code here:
+               
+    }//GEN-LAST:event_jMenuItem_cerrarsesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -271,22 +291,16 @@ public class Principal extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Principal().setVisible(true);
         });
     }
 
@@ -299,9 +313,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem_cerrarsesion;
     private javax.swing.JMenuItem jMenuItem_movimientos;
     private javax.swing.JMenuItem jMenuItem_nuevo_usuario;
     private javax.swing.JMenuItem jMenuItem_ver_usuario;
+    private javax.swing.JMenuItem jMenuIten_perfil;
     public static javax.swing.JMenu jMenu_perfil;
     public static javax.swing.JMenu jMenu_reportes;
     public static javax.swing.JMenu jMenu_usuarios;

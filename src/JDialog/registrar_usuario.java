@@ -27,7 +27,8 @@ public class registrar_usuario extends javax.swing.JDialog {
            usuario,
            pass,
            pass_conf,
-           sql;
+           sql,
+           posicion;
     int id_empleado;
     
     public registrar_usuario(java.awt.Frame parent, boolean modal) {
@@ -68,6 +69,8 @@ public class registrar_usuario extends javax.swing.JDialog {
         jFTF_cedula = new javax.swing.JFormattedTextField();
         jTF_correo = new javax.swing.JTextField();
         jFTF_telefono = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTF_posicion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -155,6 +158,8 @@ public class registrar_usuario extends javax.swing.JDialog {
 
         jFTF_telefono.setToolTipText("");
 
+        jLabel1.setText("Posicion");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,10 +169,6 @@ public class registrar_usuario extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel_celular)
-                                .addGap(42, 42, 42)
-                                .addComponent(jFTF_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel_nombre)
@@ -187,9 +188,21 @@ public class registrar_usuario extends javax.swing.JDialog {
                                     .addComponent(jTF_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTF_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel_celular)
+                                        .addGap(42, 42, 42)
+                                        .addComponent(jFTF_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel1))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addComponent(jTF_posicion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jButton_registrar)
@@ -197,7 +210,7 @@ public class registrar_usuario extends javax.swing.JDialog {
                         .addComponent(jButton_limpiar)
                         .addGap(64, 64, 64)
                         .addComponent(jButton_cancelar)))
-                .addGap(30, 30, 30))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,22 +228,24 @@ public class registrar_usuario extends javax.swing.JDialog {
                     .addComponent(jFTF_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTF_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel_celular)
-                    .addComponent(jFTF_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel_celular)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jFTF_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jTF_posicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton_registrar)
                             .addComponent(jButton_limpiar)
-                            .addComponent(jButton_cancelar)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_cancelar))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,11 +273,12 @@ public class registrar_usuario extends javax.swing.JDialog {
         usuario = jTF_usuario.getText();
         pass = jTF_pass.getText();
         pass_conf = jTF_confirmar.getText();
+        posicion = jTF_posicion.getText();
         
         if(pass.equals(pass_conf)){
             
             sql = "INSERT INTO empleados (nombre_empleado,apellido_empleado,cedula_empleado,correo_empleado,telefono_empleado) VALUES ('" 
-                                          + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "')";
+                                          + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "', '" + posicion + "')";
             objcon.ejecutarSQL(sql);
 
             sql =  "SELECT MAX(id_empleado) AS ID FROM empleados";
@@ -274,7 +290,7 @@ public class registrar_usuario extends javax.swing.JDialog {
 
                     id_empleado = conexion.resultado.getInt("ID");
                     
-                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "')";
+                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "')";
                     objcon.ejecutarSQL(sql);
                     
                     JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
@@ -288,6 +304,7 @@ public class registrar_usuario extends javax.swing.JDialog {
             jTF_usuario.setText("");
             jTF_pass.setText("");
             jTF_confirmar.setText("");
+            jTF_posicion.setText("");
             
             } catch (SQLException ex) {
 
@@ -312,6 +329,7 @@ public class registrar_usuario extends javax.swing.JDialog {
             jTF_usuario.setText("");
             jTF_pass.setText("");
             jTF_confirmar.setText("");
+            jTF_posicion.setText("");
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
     private void jButton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelarActionPerformed
@@ -368,6 +386,7 @@ public class registrar_usuario extends javax.swing.JDialog {
     private javax.swing.JButton jButton_registrar;
     private javax.swing.JFormattedTextField jFTF_cedula;
     private javax.swing.JFormattedTextField jFTF_telefono;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel_apellido;
     private javax.swing.JLabel jLabel_cedula;
@@ -384,6 +403,7 @@ public class registrar_usuario extends javax.swing.JDialog {
     private javax.swing.JTextField jTF_correo;
     private javax.swing.JTextField jTF_nombre;
     private javax.swing.JPasswordField jTF_pass;
+    private javax.swing.JTextField jTF_posicion;
     private javax.swing.JTextField jTF_usuario;
     // End of variables declaration//GEN-END:variables
 }
