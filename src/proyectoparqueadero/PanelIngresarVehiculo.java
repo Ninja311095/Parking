@@ -54,6 +54,7 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
         objbd.crearConexion();
         
         llenaJcombo();
+        espacios();
     }
  
     @SuppressWarnings("unchecked")
@@ -61,7 +62,6 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
     private void initComponents() {
 
         JLtitulo = new javax.swing.JLabel();
-        tfPlaca = new javax.swing.JTextField();
         tfPropietario = new javax.swing.JTextField();
         jLplaca = new javax.swing.JLabel();
         jLpropietario = new javax.swing.JLabel();
@@ -69,13 +69,16 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
         JB_registrar = new java.awt.Button();
         jCB_tipoVehiculo = new javax.swing.JComboBox<>();
         JB_Limpiar = new java.awt.Button();
+        jLabel1 = new javax.swing.JLabel();
+        jTF_ingresados = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTF_disponibles = new javax.swing.JTextField();
+        tfPlaca = new javax.swing.JFormattedTextField();
 
         JLtitulo.setBackground(new java.awt.Color(255, 255, 255));
         JLtitulo.setFont(new java.awt.Font("Segoe UI Symbol", 0, 16)); // NOI18N
         JLtitulo.setForeground(new java.awt.Color(255, 0, 0));
         JLtitulo.setText("Modulo de Ingreso de vehiculos al parqueo");
-
-        tfPlaca.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
 
         tfPropietario.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
 
@@ -105,27 +108,60 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Total Ingresado");
+
+        jTF_ingresados.setEditable(false);
+
+        jLabel2.setText("Total Disponibles");
+
+        jTF_disponibles.setEditable(false);
+        jTF_disponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_disponiblesActionPerformed(evt);
+            }
+        });
+
+        try {
+            tfPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("U######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfPlaca.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jTF_disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jTF_ingresados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLTvehiculo)
                     .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLpropietario)
                     .addComponent(jLplaca)
                     .addComponent(JLtitulo)
-                    .addComponent(jCB_tipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCB_tipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61))
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(107, 107, 107)
                 .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(JB_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,24 +171,35 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLplaca)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLpropietario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLpropietario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTF_ingresados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTF_disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLTvehiculo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCB_tipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(JB_registrar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(JB_Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JB_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public final void llenaJcombo(){
+    private void llenaJcombo(){
         
         jCB_tipoVehiculo.removeAllItems();
         lista = conexion.llenacombo();
@@ -257,6 +304,11 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
                 clasevehiculo = "";
 
                 JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente");
+                
+                sql = "UPDATE espacios SET total_ocupado = total_ocupado + 1, total_disponibles = total_espacios - total_ocupado";
+                objbd.ejecutarSQL(sql);
+                
+                espacios();
             }
            
         } catch (FileNotFoundException ex) {
@@ -281,16 +333,42 @@ public class PanelIngresarVehiculo extends javax.swing.JPanel {
         clasevehiculo = "";
     }//GEN-LAST:event_JB_LimpiarActionPerformed
 
+    private void jTF_disponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_disponiblesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTF_disponiblesActionPerformed
 
+    private void espacios(){
+        
+        try {
+            objbd.ejecutarSQLSelect("SELECT * FROM  espacios WHERE id_espacios = 1");
+            
+            conexion.resultado.first();
+            
+            String ingresados = conexion.resultado.getString("total_ocupado");
+            String disponibles = conexion.resultado.getString("total_disponibles");
+            
+            jTF_disponibles.setText(disponibles);
+            jTF_ingresados.setText(ingresados);
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(PanelIngresarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button JB_Limpiar;
     private java.awt.Button JB_registrar;
     private javax.swing.JLabel JLtitulo;
     private javax.swing.JComboBox<String> jCB_tipoVehiculo;
     private javax.swing.JLabel jLTvehiculo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLplaca;
     private javax.swing.JLabel jLpropietario;
-    private javax.swing.JTextField tfPlaca;
+    private javax.swing.JTextField jTF_disponibles;
+    private javax.swing.JTextField jTF_ingresados;
+    private javax.swing.JFormattedTextField tfPlaca;
     private javax.swing.JTextField tfPropietario;
     // End of variables declaration//GEN-END:variables
 }

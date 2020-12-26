@@ -2,6 +2,7 @@
 package proyectoparqueadero;
 
 import javax.swing.JOptionPane;
+import JDialog.registrar_usuario;
 
 
 /**
@@ -17,6 +18,7 @@ public class Principal extends javax.swing.JFrame {
     PanelIngresarVehiculo panelingresarvehiculo;
     PanelRetirarVehiculo panelretirarvehiculo;
     PanelListarVehiculos panelListarVehiculos;
+    registrar_usuario Registar = new registrar_usuario(this, rootPaneCheckingEnabled);
     
     int confirmacion;
     
@@ -50,6 +52,13 @@ public class Principal extends javax.swing.JFrame {
         JB_RetirarV = new java.awt.Button();
         JButton_ListarVehiculos = new java.awt.Button();
         JB_Cierre = new java.awt.Button();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu_usuarios = new javax.swing.JMenu();
+        jMenuItem_ver_usuario = new javax.swing.JMenuItem();
+        jMenuItem_movimientos = new javax.swing.JMenuItem();
+        jMenuItem_nuevo_usuario = new javax.swing.JMenuItem();
+        jMenu_reportes = new javax.swing.JMenu();
+        jMenu_perfil = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 400));
@@ -143,6 +152,32 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
+        jMenu_usuarios.setText("Usuarios");
+
+        jMenuItem_ver_usuario.setText("Ver usuarios");
+        jMenu_usuarios.add(jMenuItem_ver_usuario);
+
+        jMenuItem_movimientos.setText("Movimientos de usuarios");
+        jMenu_usuarios.add(jMenuItem_movimientos);
+
+        jMenuItem_nuevo_usuario.setText("Nuevo Usuario");
+        jMenuItem_nuevo_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_nuevo_usuarioActionPerformed(evt);
+            }
+        });
+        jMenu_usuarios.add(jMenuItem_nuevo_usuario);
+
+        jMenuBar1.add(jMenu_usuarios);
+
+        jMenu_reportes.setText("Reportes");
+        jMenuBar1.add(jMenu_reportes);
+
+        jMenu_perfil.setText("Mi Perfil");
+        jMenuBar1.add(jMenu_perfil);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,6 +249,12 @@ public class Principal extends javax.swing.JFrame {
  
     }//GEN-LAST:event_JB_CierreActionPerformed
 
+    private void jMenuItem_nuevo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_nuevo_usuarioActionPerformed
+        // TODO add your handling code here:
+        
+        Registar.setVisible(true);
+    }//GEN-LAST:event_jMenuItem_nuevo_usuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,5 +298,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem_movimientos;
+    private javax.swing.JMenuItem jMenuItem_nuevo_usuario;
+    private javax.swing.JMenuItem jMenuItem_ver_usuario;
+    public static javax.swing.JMenu jMenu_perfil;
+    public static javax.swing.JMenu jMenu_reportes;
+    public static javax.swing.JMenu jMenu_usuarios;
     // End of variables declaration//GEN-END:variables
 }
