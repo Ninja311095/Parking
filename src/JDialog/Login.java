@@ -170,7 +170,7 @@ public class Login extends javax.swing.JDialog {
             this.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
                 
-            if(pos.equals("corriente")){
+            if(pos.equals("Asistente")){
                     
                 Principal.jMenu_usuarios.setVisible(false);
                 Principal.jMenu_reportes.setVisible(false);
@@ -188,7 +188,26 @@ public class Login extends javax.swing.JDialog {
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
         // TODO add your handling code here:
         
-        ru.setVisible(true);
+        usuario = jTextField_usuario.getText();
+        pass = jTextField_pass.getText();
+        
+        try {
+            
+            sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
+            objcon.ejecutarSQLSelect(sql);
+                   
+            conexion.resultado.first();
+            conexion.resultado.getString("Posicion");
+            
+            ru.setVisible(true);
+                    
+        } //FIN TRY
+         catch (SQLException ex) {
+             
+                JOptionPane.showMessageDialog(null,"Usted no cuenta con los permisos necesarios para registrar un usuario.","ERROR", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        
     }//GEN-LAST:event_jButton_registrarActionPerformed
 
     private void jButton_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_resetActionPerformed
@@ -199,11 +218,11 @@ public class Login extends javax.swing.JDialog {
         
         if(jTextField_usuario.getText().isEmpty()){
             
-            JOptionPane.showMessageDialog(null,"Debe ingresar su usuario y contraseña actual.","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Debe ingresar su usuario y la contraseña en caso de cambio.","ERROR",JOptionPane.ERROR_MESSAGE);
             
         }else{
             
-            int resp = Integer.parseInt(JOptionPane.showInputDialog(null, "1 - Para cambiar.\n 2 - Si la olvido."));
+            int resp = Integer.parseInt(JOptionPane.showInputDialog(null, "1 - Para cambiar.\n\n 2 - Si la olvido."));
         
             if (resp == 1){
             
