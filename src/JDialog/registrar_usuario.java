@@ -278,7 +278,7 @@ public class registrar_usuario extends javax.swing.JDialog {
         if(pass.equals(pass_conf)){
             
             sql = "INSERT INTO empleados (nombre_empleado,apellido_empleado,cedula_empleado,correo_empleado,telefono_empleado) VALUES ('" 
-                                          + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "', '" + posicion + "')";
+                                          + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "')";
             objcon.ejecutarSQL(sql);
 
             sql =  "SELECT MAX(id_empleado) AS ID FROM empleados";
@@ -286,15 +286,15 @@ public class registrar_usuario extends javax.swing.JDialog {
             
             try {
 
-                if(conexion.resultado.first()){
+                conexion.resultado.first();
 
                     id_empleado = conexion.resultado.getInt("ID");
                     
-                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "')";
+                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion + "')";
                     objcon.ejecutarSQL(sql);
                     
                     JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
-                }
+                
     
             jTF_nombre.setText("");
             jTF_apellido.setText("");
