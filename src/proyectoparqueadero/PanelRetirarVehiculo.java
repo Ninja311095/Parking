@@ -275,6 +275,7 @@ public class PanelRetirarVehiculo extends javax.swing.JPanel {
 
                 respuesta = JOptionPane.showConfirmDialog(null,"Valor a pagar:  $"+valorAPagar+"'\nDesea Imprimir Recibo","Salida de vehiculo",JOptionPane.YES_NO_OPTION);
          
+                tfPlacaRetiro.setText("");
             }
             
             if(respuesta == 0){

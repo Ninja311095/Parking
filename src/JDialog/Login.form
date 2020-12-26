@@ -66,11 +66,13 @@
                   <Component id="jTextField_pass" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="60" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton_login" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton_registrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton_reset" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel_ayuda" alignment="0" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButton_login" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_registrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
@@ -119,6 +121,9 @@
         <Property name="text" type="java.lang.String" value="Cambiar/Olvido"/>
         <Property name="toolTipText" type="java.lang.String" value="Presione si olvido o quiere cambiar la contrase&#xf1;a"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_resetActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel_ayuda">
     </Component>

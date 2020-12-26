@@ -76,6 +76,11 @@ public class Login extends javax.swing.JDialog {
 
         jButton_reset.setText("Cambiar/Olvido");
         jButton_reset.setToolTipText("Presione si olvido o quiere cambiar la contraseña");
+        jButton_reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_resetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,11 +120,12 @@ public class Login extends javax.swing.JDialog {
                     .addComponent(jLabel_pass)
                     .addComponent(jTextField_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_login)
-                    .addComponent(jButton_registrar)
-                    .addComponent(jButton_reset)
-                    .addComponent(jLabel_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton_login)
+                        .addComponent(jButton_registrar)
+                        .addComponent(jButton_reset)))
                 .addGap(57, 57, 57))
         );
 
@@ -140,9 +146,17 @@ public class Login extends javax.swing.JDialog {
             SE ENVIA UN MENSAJE NOTIFICANDOLO*/
             if(conexion.resultado.first()){
                 
+                String pos = conexion.resultado.getString("Posicion");
                 pp.setVisible(true);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
+                
+                if(pos.equals("corriente")){
+                    
+                    Principal.jMenu_usuarios.setVisible(false);
+                    Principal.jMenu_reportes.setVisible(false);
+                }
+                
             }
            
         } catch (SQLException ex) {
@@ -159,6 +173,51 @@ public class Login extends javax.swing.JDialog {
         
         ru.setVisible(true);
     }//GEN-LAST:event_jButton_registrarActionPerformed
+
+    private void jButton_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_resetActionPerformed
+        // TODO add your handling code here:
+        
+        usuario = jTextField_usuario.getText();
+        pass = jTextField_pass.getText();
+        
+        if(jTextField_usuario.getText().isEmpty() && jTextField_pass.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null,"Debe ingresar su usuario y contraseña actual.","ERROR",JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            
+            int resp = Integer.parseInt(JOptionPane.showInputDialog(null, "1 - Para cambiar.\n 2 - Si la olvido."));
+        
+            if (resp == 1){
+            
+                try {
+                    sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
+                    objcon.ejecutarSQLSelect(sql);
+                    
+                    if(conexion.resultado.first()){
+                        
+                        String nueva = JOptionPane.showInputDialog(null, "Introduzca su contraseña nueva:","Cambio de contraseña",JOptionPane.INFORMATION_MESSAGE);
+                        sql = "UPDATE usuarios SET contrasena_usuario = '" + nueva + "' WHERE usuario = '"+ usuario + "'";
+                        objcon.ejecutarSQL(sql);
+                        
+                        if(conexion.resultado.first()){
+                            
+                            JOptionPane.showMessageDialog(null, "Contraseña actualizada");
+                            
+                        }//FIN TERCER IF
+                        
+                    }//FIN SEGUNDO IF
+                    
+                } //FIN TRY
+                catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                 
+            }//FIN PRIMER IF
+            
+        }//FIN ELSE
+       
+    }//GEN-LAST:event_jButton_resetActionPerformed
 
     /**
      * @param args the command line arguments
