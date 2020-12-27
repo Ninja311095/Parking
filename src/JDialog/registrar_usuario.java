@@ -7,6 +7,7 @@ package JDialog;
 
 import Base_de_Datos.conexion;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,6 +20,8 @@ import javax.swing.JOptionPane;
 public class registrar_usuario extends javax.swing.JDialog {
 
     conexion objcon = new conexion();
+    ArrayList<String> lista = new ArrayList<>();
+
     String nombre,
            apellido,
            cedula,
@@ -34,6 +37,9 @@ public class registrar_usuario extends javax.swing.JDialog {
     public registrar_usuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        objcon.crearConexion();
+        llenaJcomboPosicion();
         
         setLocationRelativeTo(null);
     }
@@ -70,7 +76,7 @@ public class registrar_usuario extends javax.swing.JDialog {
         jTF_correo = new javax.swing.JTextField();
         jFTF_telefono = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTF_posicion = new javax.swing.JTextField();
+        jCB_Posicion = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -151,14 +157,21 @@ public class registrar_usuario extends javax.swing.JDialog {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
 
         try {
-            jFTF_cedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-#######-#")));
+            jFTF_cedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("  ###-#######-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
+        try {
+            jFTF_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("    ###-###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jFTF_telefono.setToolTipText("");
 
         jLabel1.setText("Posicion");
+
+        jCB_Posicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,20 +209,17 @@ public class registrar_usuario extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel1))
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(51, 51, 51)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jTF_posicion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jButton_registrar)
                         .addGap(60, 60, 60)
                         .addComponent(jButton_limpiar)
                         .addGap(64, 64, 64)
-                        .addComponent(jButton_cancelar)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCB_Posicion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_cancelar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,12 +237,12 @@ public class registrar_usuario extends javax.swing.JDialog {
                     .addComponent(jLabel_correo)
                     .addComponent(jFTF_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTF_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_celular)
                     .addComponent(jFTF_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jTF_posicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCB_Posicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,7 +252,7 @@ public class registrar_usuario extends javax.swing.JDialog {
                     .addComponent(jButton_registrar)
                     .addComponent(jButton_limpiar)
                     .addComponent(jButton_cancelar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -259,6 +269,16 @@ public class registrar_usuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void llenaJcomboPosicion(){
+        
+        jCB_Posicion.removeAllItems();
+        lista = conexion.llenacomboEmpleado();
+        
+        lista.forEach(e -> {
+            jCB_Posicion.addItem(e);
+        });
+    }
+    
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
         // TODO add your handling code here:
         
@@ -270,7 +290,7 @@ public class registrar_usuario extends javax.swing.JDialog {
         usuario = jTF_usuario.getText();
         pass = jTF_pass.getText();
         pass_conf = jTF_confirmar.getText();
-        posicion = jTF_posicion.getText();
+        posicion = (String) jCB_Posicion.getSelectedItem();
         
         if(pass.equals(pass_conf)){
             
@@ -301,7 +321,6 @@ public class registrar_usuario extends javax.swing.JDialog {
             jTF_usuario.setText("");
             jTF_pass.setText("");
             jTF_confirmar.setText("");
-            jTF_posicion.setText("");
             
             } catch (SQLException ex) {
 
@@ -326,7 +345,6 @@ public class registrar_usuario extends javax.swing.JDialog {
             jTF_usuario.setText("");
             jTF_pass.setText("");
             jTF_confirmar.setText("");
-            jTF_posicion.setText("");
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
     private void jButton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelarActionPerformed
@@ -381,6 +399,7 @@ public class registrar_usuario extends javax.swing.JDialog {
     private javax.swing.JButton jButton_cancelar;
     private javax.swing.JButton jButton_limpiar;
     private javax.swing.JButton jButton_registrar;
+    private javax.swing.JComboBox<String> jCB_Posicion;
     private javax.swing.JFormattedTextField jFTF_cedula;
     private javax.swing.JFormattedTextField jFTF_telefono;
     private javax.swing.JLabel jLabel1;
@@ -400,7 +419,6 @@ public class registrar_usuario extends javax.swing.JDialog {
     private javax.swing.JTextField jTF_correo;
     private javax.swing.JTextField jTF_nombre;
     private javax.swing.JPasswordField jTF_pass;
-    private javax.swing.JTextField jTF_posicion;
     private javax.swing.JTextField jTF_usuario;
     // End of variables declaration//GEN-END:variables
 }
