@@ -1,5 +1,5 @@
 
-package proyectoparqueadero;
+package Jpanel;
 
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -36,7 +36,7 @@ public class Ingresar extends javax.swing.JPanel {
     String clasevehiculo = "";
     String sql;
     String current = System.getProperty("user.dir");
-    String usu = "thomis";
+    String usu;
     
        //INSTANCIAS
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -47,6 +47,7 @@ public class Ingresar extends javax.swing.JPanel {
     PdfWriter writer;
     PdfDocument pdfDoc;
     ArrayList<String> lista = new ArrayList<>();
+    Usuario miUsu = new Usuario();
     
     public Ingresar() {
         initComponents();
@@ -55,6 +56,7 @@ public class Ingresar extends javax.swing.JPanel {
         
         llenaJcombo();
         espacios();
+        
     }
  
     @SuppressWarnings("unchecked")
@@ -204,6 +206,8 @@ public class Ingresar extends javax.swing.JPanel {
     con tipo de automovil.
     
     */
+    
+    
     private void llenaJcombo(){
         
         jCB_tipoVehiculo.removeAllItems();
@@ -212,6 +216,8 @@ public class Ingresar extends javax.swing.JPanel {
         lista.forEach(e -> {
             jCB_tipoVehiculo.addItem(e);
         });
+        
+        System.out.println(miUsu.getUsu());
     }
     
     private void espacios(){
@@ -304,6 +310,7 @@ public class Ingresar extends javax.swing.JPanel {
     
     private void JB_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_registrarActionPerformed
 
+        usu = miUsu.getUsu();
         fechaHora = dateFormat.format(date);
         
         clasevehiculo = (String) jCB_tipoVehiculo.getSelectedItem();

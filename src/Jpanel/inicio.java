@@ -1,5 +1,5 @@
 
-package proyectoparqueadero;
+package Jpanel;
 
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
@@ -62,8 +62,6 @@ public class inicio extends javax.swing.JFrame {
         jMenuItem_cerrarsesion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 400));
-        setPreferredSize(new java.awt.Dimension(800, 440));
 
         PanelMenu.setBackground(new java.awt.Color(2, 110, 182));
 

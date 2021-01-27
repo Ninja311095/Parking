@@ -5,8 +5,9 @@
  */
 package JDialog;
 
-import proyectoparqueadero.inicio;
+import Jpanel.inicio;
 import Base_de_Datos.conexion;
+import Jpanel.Usuario;
 import java.awt.Panel;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author thomy
@@ -31,9 +33,10 @@ public class Login extends javax.swing.JDialog {
     inicio pp = new inicio();
     conexion objcon = new conexion();
     registrar_usuario ru = new registrar_usuario(null,true);
-
+    Usuario miUsu;
+            
     String sql;
-    String usuario;
+    String usuario = "";
     String pass;
     String destino;
     String codigo_gene;
@@ -245,6 +248,9 @@ public class Login extends javax.swing.JDialog {
                 inicio.jMenu_usuarios.setVisible(false);
                 inicio.jMenu_reportes.setVisible(false);
             }
+            
+            miUsu = Usuario.getUsuario(usuario);
+            miUsu.setUsu(usuario);
             
         } catch (SQLException ex) {
             
