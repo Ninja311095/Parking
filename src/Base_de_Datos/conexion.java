@@ -99,12 +99,6 @@ public class conexion {
 
     }//fin resultset update
 
-    /**
-     * Método utilizado para recuperar el valor del atributo conexion
-     *
-     * @return conexion contiene el estado de la conexión
-     *
-     */
     public static ArrayList<String> llenacombo() {
 
         ArrayList<String> lista;
@@ -128,10 +122,6 @@ public class conexion {
         return lista;
     }
 
-    /**
-     *
-     * @return
-     */
     public static ArrayList<String> llenacomboEmpleado() {
 
         ArrayList<String> lista;

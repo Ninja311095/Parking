@@ -36,7 +36,7 @@ public class Ingresar extends javax.swing.JPanel {
     String clasevehiculo = "";
     String sql;
     String current = System.getProperty("user.dir");
-    String usu;
+    String usuario;
     
        //INSTANCIAS
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -47,7 +47,7 @@ public class Ingresar extends javax.swing.JPanel {
     PdfWriter writer;
     PdfDocument pdfDoc;
     ArrayList<String> lista = new ArrayList<>();
-    Usuario miUsu = new Usuario();
+    Usuario miUsuario = Usuario.getUsuario();
     
     public Ingresar() {
         initComponents();
@@ -140,14 +140,14 @@ public class Ingresar extends javax.swing.JPanel {
                         .addGap(38, 38, 38)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jTF_disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jTF_ingresados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTF_ingresados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jTF_disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLTvehiculo)
@@ -217,10 +217,13 @@ public class Ingresar extends javax.swing.JPanel {
             jCB_tipoVehiculo.addItem(e);
         });
         
-        System.out.println(miUsu.getUsu());
     }
     
-    private void espacios(){
+    /**
+     * Metodo utilizado para calcular el total de
+     * espacios disponibles para estacional y establecerlos.
+     */
+    protected void espacios(){
         
         try {
             objbd.ejecutarSQLSelect("SELECT * FROM  espacios WHERE id_espacios = 1");
@@ -310,14 +313,14 @@ public class Ingresar extends javax.swing.JPanel {
     
     private void JB_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_registrarActionPerformed
 
-        usu = miUsu.getUsu();
+        usuario = miUsuario.getUsu();
         fechaHora = dateFormat.format(date);
         
         clasevehiculo = (String) jCB_tipoVehiculo.getSelectedItem();
         
          sql = "INSERT INTO vehiculos (placa_vehiculo, propietario_vehiculo,tipo_vehiculo,horaentrada_vehiculo,estado_vehiculo,usuario) VALUES ('"
                 + tfPlaca.getText() + "','" + tfPropietario.getText() + "','" + clasevehiculo + "','"
-                + fechaHora + "','Disponible','" + usu + "')";
+                + fechaHora + "','Disponible','" + usuario + "')";
         
         
         try {
@@ -367,11 +370,6 @@ public class Ingresar extends javax.swing.JPanel {
     private void jTF_disponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_disponiblesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTF_disponiblesActionPerformed
-
-    /**
-     * Metodo utilizado para calcular el total de
-     * espacios disponibles para estacional y establecerlos.
-     */
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

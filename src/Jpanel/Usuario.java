@@ -12,26 +12,22 @@ package Jpanel;
 public class Usuario {
 
     private String usu;
-    private static Usuario miUsuario = null;
+    private static Usuario miUsuario;
 
-    public static Usuario getUsuario(String usuario) {
+
+    private Usuario() {
+
+    }
+    
+    public synchronized static Usuario getUsuario() {
 
         if (miUsuario == null) {
 
-            miUsuario = new Usuario(usuario);
+            miUsuario = new Usuario();
+            
         }
 
         return miUsuario;
-    }
-
-    private Usuario(String usu) {
-
-        this.usu = usu;
-
-    }
-
-    Usuario() {
-        
     }
 
     public String getUsu() {

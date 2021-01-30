@@ -49,12 +49,13 @@ public class Retirar extends javax.swing.JPanel {
     FileOutputStream archivo;
     PdfWriter writer;
     PdfDocument pdfDoc;
+    Usuario miUsuario = Usuario.getUsuario();
     
     //VARIABLES
     String fechaHora, horaentrada,sql;
     String propietario;
     String tipoVehiculo;
-    String usu = "thomis2";
+    String usuario;
     Date Datehoraentrada;
     int horasACobrar;
     int valorAPagar;
@@ -241,7 +242,7 @@ public class Retirar extends javax.swing.JPanel {
     private void JB_RetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_RetirarActionPerformed
             
             fechaHora = dateFormat.format(date);
-            
+            usuario = miUsuario.getUsu();
         try {
             // TODO add your handling code here:
             
@@ -274,7 +275,7 @@ public class Retirar extends javax.swing.JPanel {
                 System.out.println(horasACobrar);
 
                 sql = "UPDATE vehiculos SET horasalida_vehiculo='" + fechaHora + "',estado_vehiculo= 'No Disponible', valorpagado= " 
-                      + valorAPagar + ",usuario_salida ='" + usu +"' WHERE placa_vehiculo='" + tfPlacaRetiro.getText() + "' AND estado_vehiculo='Disponible'";
+                      + valorAPagar + ",usuario_salida ='" + usuario +"' WHERE placa_vehiculo='" + tfPlacaRetiro.getText() + "' AND estado_vehiculo='Disponible'";
 
                 objcon.ejecutarSQL(sql);
 

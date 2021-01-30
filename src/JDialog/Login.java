@@ -33,7 +33,7 @@ public class Login extends javax.swing.JDialog {
     inicio pp = new inicio();
     conexion objcon = new conexion();
     registrar_usuario ru = new registrar_usuario(null,true);
-    Usuario miUsu;
+    Usuario miUsuario = Usuario.getUsuario();
             
     String sql;
     String usuario = "";
@@ -78,6 +78,8 @@ public class Login extends javax.swing.JDialog {
         jTextField_pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("LOGIN");
+        setIconImage(null);
 
         jLabel_usuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hombre.png"))); // NOI18N
@@ -109,6 +111,13 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        jLabel_ayuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/problema.png"))); // NOI18N
+        jLabel_ayuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_ayudaMouseClicked(evt);
+            }
+        });
+
         jTextField_pass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_passKeyReleased(evt);
@@ -122,13 +131,6 @@ public class Login extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton_login)
-                        .addGap(43, 43, 43)
-                        .addComponent(jButton_registrar)
-                        .addGap(52, 52, 52)
-                        .addComponent(jButton_reset))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(117, 117, 117)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_pass)
@@ -136,36 +138,38 @@ public class Login extends javax.swing.JDialog {
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(369, 369, 369)
-                    .addComponent(jLabel_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(49, Short.MAX_VALUE)))
+                            .addComponent(jTextField_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jButton_login)
+                        .addGap(43, 43, 43)
+                        .addComponent(jButton_registrar)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton_reset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_pass)
-                    .addComponent(jTextField_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_reset)
-                    .addComponent(jButton_registrar)
-                    .addComponent(jButton_login))
-                .addGap(55, 55, 55))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(271, Short.MAX_VALUE)
-                    .addComponent(jLabel_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(19, 19, 19)))
+                    .addComponent(jLabel_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_pass)
+                            .addComponent(jTextField_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_reset)
+                            .addComponent(jButton_registrar)
+                            .addComponent(jButton_login))))
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,6 +244,7 @@ public class Login extends javax.swing.JDialog {
                 
             String pos = conexion.resultado.getString("Posicion");
             pp.setVisible(true);
+            pp.setLocationRelativeTo(null);
             this.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
                 
@@ -249,9 +254,8 @@ public class Login extends javax.swing.JDialog {
                 inicio.jMenu_reportes.setVisible(false);
             }
             
-            miUsu = Usuario.getUsuario(usuario);
-            miUsu.setUsu(usuario);
-            
+            miUsuario.setUsu(usuario);
+            System.out.println(miUsuario.getUsu());
         } catch (SQLException ex) {
             
              JOptionPane.showMessageDialog(null, "Error al ingresar al sistema su USUARIO o CONTRASEÑA son incorrectos","Error",JOptionPane.ERROR_MESSAGE);
@@ -263,20 +267,33 @@ public class Login extends javax.swing.JDialog {
     private void cambia_contrasena(){
         
         try {
-                    sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
+            
+            sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
             objcon.ejecutarSQLSelect(sql);
 
             if (conexion.resultado.first()) {
 
                 String nueva = JOptionPane.showInputDialog(null, "Introduzca su nueva contraseña:", "Cambio de contraseña", JOptionPane.INFORMATION_MESSAGE);
-                sql = "UPDATE usuarios SET contrasena_usuario = '" + nueva + "' WHERE usuario = '" + usuario + "'";
-                objcon.ejecutarSQL(sql);
+                //Manejo de cadenas vacias
+                if(nueva.equals("null")){
+                    
+                    JOptionPane.showMessageDialog(null, "Operación Cancelada","Cancelar",JOptionPane.INFORMATION_MESSAGE);
+                    
+                }else if (nueva.isEmpty() || nueva.isBlank()){
+                    
+                    JOptionPane.showMessageDialog(null, "Debe introducir una contraseña para proceder!");
+                    
+                }else{
+                
+                    sql = "UPDATE usuarios SET contrasena_usuario = '" + nueva + "' WHERE usuario = '" + usuario + "'";
+                    objcon.ejecutarSQL(sql);
+                    
+                    if (conexion.resultado.first()) {
 
-                if (conexion.resultado.first()) {
+                          JOptionPane.showMessageDialog(null, "Contraseña actualizada");
 
-                    JOptionPane.showMessageDialog(null, "Contraseña actualizada");
-
-                }//FIN SEGUNDO IF
+                    }
+                }
 
             }//FIN PRIMER IF
 
@@ -285,7 +302,7 @@ public class Login extends javax.swing.JDialog {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
+    }//FIN CAMBIO CONTRASEÑA
     
     private void olvido_contrasena(String usu) throws MessagingException{
         
@@ -341,6 +358,7 @@ public class Login extends javax.swing.JDialog {
         
         usuario = jTextField_usuario.getText();
         pass = jTextField_pass.getText();
+        String pos;
         
         try {
             
@@ -348,14 +366,23 @@ public class Login extends javax.swing.JDialog {
             objcon.ejecutarSQLSelect(sql);
                    
             conexion.resultado.first();
-            conexion.resultado.getString("Posicion");
+            pos = conexion.resultado.getString("Posicion");
             
-            ru.setVisible(true);
+            if(pos.equals("Administrador")){
+                
+                ru.setVisible(true);
+                
+            }else{
+                
+                JOptionPane.showMessageDialog(null,"Usted no cuenta con los permisos necesarios para registrar un usuario.","ERROR", JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
                     
         } //FIN TRY
          catch (SQLException ex) {
              
-                JOptionPane.showMessageDialog(null,"Usted no cuenta con los permisos necesarios para registrar un usuario.","ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Verifique los datos ingresados.","ERROR", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
          }
         
@@ -396,6 +423,14 @@ public class Login extends javax.swing.JDialog {
             realiza_login();
         }
     }//GEN-LAST:event_jTextField_passKeyReleased
+
+    private void jLabel_ayudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ayudaMouseClicked
+        // TODO add your handling code here:
+        
+        JOptionPane.showConfirmDialog(null, "Debe ingresar su usuario y contraseña en caso de cambio. "
+                                          + "\n\nEn caso de olvido ingrese su usuario","Ayuda",
+                                             JOptionPane.PLAIN_MESSAGE,JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jLabel_ayudaMouseClicked
 
     /**
      * @param args the command line arguments

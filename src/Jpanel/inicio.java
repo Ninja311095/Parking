@@ -14,9 +14,9 @@ public class inicio extends javax.swing.JFrame {
      * Creates new form inicio
      */
     
-    Ingresar panelingresarvehiculo;
-    Retirar panelretirarvehiculo;
-    Listar panelListarVehiculos;
+    Ingresar panelingresarvehiculo ;
+    Retirar panelretirarvehiculo ;
+    Listar panelListarVehiculos ;
     registrar_usuario Registar = new registrar_usuario(this, rootPaneCheckingEnabled);
     
     int confirmacion;
@@ -37,6 +37,7 @@ public class inicio extends javax.swing.JFrame {
         add(panelListarVehiculos);
         panelListarVehiculos.setVisible(false);
 
+        setLocationRelativeTo(null);
     }
 
 
@@ -212,6 +213,7 @@ public class inicio extends javax.swing.JFrame {
         panelListarVehiculos.setVisible(false);
         panelretirarvehiculo.setVisible(false);
         panelingresarvehiculo.setVisible(true);
+        panelingresarvehiculo.espacios();
         setLocationRelativeTo(null);
         
         revalidate();

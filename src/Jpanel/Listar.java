@@ -57,7 +57,7 @@ public class Listar extends javax.swing.JPanel {
         cbMoto = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         dcFechaBusqueda = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        jButton_reiniciar = new javax.swing.JButton();
 
         jLabel1.setText("Buscar Vehiculos");
 
@@ -103,10 +103,10 @@ public class Listar extends javax.swing.JPanel {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shop-around-for-your-perfect-used-car.png"))); // NOI18N
 
-        jButton1.setText("Reiniciar Tabla");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_reiniciar.setText("Reiniciar Tabla");
+        jButton_reiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_reiniciarActionPerformed(evt);
             }
         });
 
@@ -126,7 +126,7 @@ public class Listar extends javax.swing.JPanel {
                         .addGap(100, 100, 100)
                         .addComponent(jButton_Cierre)
                         .addGap(64, 64, 64)
-                        .addComponent(jButton1))
+                        .addComponent(jButton_reiniciar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -171,7 +171,7 @@ public class Listar extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JButton_Buscar)
                     .addComponent(jButton_Cierre)
-                    .addComponent(jButton1))
+                    .addComponent(jButton_reiniciar))
                 .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
@@ -352,14 +352,14 @@ public class Listar extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton_CierreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_reiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_reiniciarActionPerformed
         // TODO add your handling code here:
         
         rellenarTabla();
         
         JTF_Placa.setText("");
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_reiniciarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -368,8 +368,8 @@ public class Listar extends javax.swing.JPanel {
     private javax.swing.JCheckBox cbAuto;
     private javax.swing.JCheckBox cbMoto;
     private com.toedter.calendar.JDateChooser dcFechaBusqueda;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_Cierre;
+    private javax.swing.JButton jButton_reiniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
