@@ -3,6 +3,7 @@ package Jpanel;
 
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
+import JDialog.ver_usuarios;
 
 /**
  *
@@ -18,6 +19,7 @@ public class inicio extends javax.swing.JFrame {
     Retirar panelretirarvehiculo ;
     Listar panelListarVehiculos ;
     registrar_usuario Registar = new registrar_usuario(this, rootPaneCheckingEnabled);
+    ver_usuarios verU = new ver_usuarios(this,rootPaneCheckingEnabled);
     
     int confirmacion;
     
@@ -155,6 +157,11 @@ public class inicio extends javax.swing.JFrame {
         jMenu_usuarios.setText("Usuarios");
 
         jMenuItem_ver_usuario.setText("Ver usuarios");
+        jMenuItem_ver_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_ver_usuarioActionPerformed(evt);
+            }
+        });
         jMenu_usuarios.add(jMenuItem_ver_usuario);
 
         jMenuItem_movimientos.setText("Movimientos de usuarios");
@@ -275,6 +282,12 @@ public class inicio extends javax.swing.JFrame {
         Main.login();
 
     }//GEN-LAST:event_jMenuItem_cerrarsesionActionPerformed
+
+    private void jMenuItem_ver_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ver_usuarioActionPerformed
+        // TODO add your handling code here:
+        
+        verU.setVisible(true);
+    }//GEN-LAST:event_jMenuItem_ver_usuarioActionPerformed
 
     /**
      * @param args the command line arguments
