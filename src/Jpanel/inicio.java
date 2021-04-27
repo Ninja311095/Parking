@@ -1,6 +1,7 @@
 
 package Jpanel;
 
+import Base_de_Datos.conexion;
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
 import JDialog.ver_usuarios;
@@ -264,7 +265,9 @@ public class inicio extends javax.swing.JFrame {
       
       if (confirmacion == 0){
           
+          conexion.cierraCesion();
           System.exit(0);
+          
       }//fin if
  
     }//GEN-LAST:event_JB_CierreActionPerformed

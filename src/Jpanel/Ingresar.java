@@ -41,7 +41,7 @@ public class Ingresar extends javax.swing.JPanel {
        //INSTANCIAS
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Date date =new Date();
-    conexion objbd = new conexion();
+    conexion objcon = new conexion();
     Document documento;
     FileOutputStream archivo;
     PdfWriter writer;
@@ -52,7 +52,7 @@ public class Ingresar extends javax.swing.JPanel {
     public Ingresar() {
         initComponents();
 
-        objbd.crearConexion();
+        objcon.crearConexion();
         
         llenaJcombo();
         espacios();
@@ -210,8 +210,11 @@ public class Ingresar extends javax.swing.JPanel {
     
     private void llenaJcombo(){
         
+        String consql = "SELECT * FROM categoriavehiculo";;
+        String datosql = "tipo_vehiculo";
+        
         jCB_tipoVehiculo.removeAllItems();
-        lista = conexion.llenacombo();
+        lista = conexion.llenacombo(consql,datosql);
         
         lista.forEach(e -> {
             jCB_tipoVehiculo.addItem(e);
@@ -226,7 +229,7 @@ public class Ingresar extends javax.swing.JPanel {
     protected void espacios(){
         
         try {
-            objbd.ejecutarSQLSelect("SELECT * FROM  espacios WHERE id_espacios = 1");
+            objcon.ejecutarSQLSelect("SELECT * FROM  espacios WHERE id_espacios = 1");
             
             conexion.resultado.first();
             
@@ -325,7 +328,7 @@ public class Ingresar extends javax.swing.JPanel {
         
         try {
             
-            objbd.ejecutarSQL(sql);
+            objcon.ejecutarSQL(sql);
             boolean first = conexion.resultado.first();
             
             if(first){
@@ -340,7 +343,7 @@ public class Ingresar extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null,"Vehiculo registrado exitosamente");
                 
                 sql = "UPDATE espacios SET total_ocupado = total_ocupado + 1, total_disponibles = total_espacios - total_ocupado";
-                objbd.ejecutarSQL(sql);
+                objcon.ejecutarSQL(sql);
                 
                 espacios();
             }

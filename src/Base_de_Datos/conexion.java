@@ -99,43 +99,19 @@ public class conexion {
 
     }//fin resultset update
 
-    public static ArrayList<String> llenacombo() {
+    public static ArrayList<String> llenacombo(String consulta,String dato) {
 
         ArrayList<String> lista;
         lista = new ArrayList<>();
-        String jCombo = "SELECT * FROM categoriavehiculo";
-
+        
         try {
 
-            PreparedStatement pSentencia = conexionUP.prepareStatement(jCombo);
+            PreparedStatement pSentencia = conexionUP.prepareStatement(consulta);
             resultado = pSentencia.executeQuery();
 
             while (resultado.next()) {
 
-                lista.add(resultado.getString("tipo_vehiculo"));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return lista;
-    }
-
-    public static ArrayList<String> llenacomboEmpleado() {
-
-        ArrayList<String> lista;
-        lista = new ArrayList<>();
-        String jCombo = "SELECT * FROM cargo";
-
-        try {
-
-            PreparedStatement pSentencia = conexionUP.prepareStatement(jCombo);
-            resultado = pSentencia.executeQuery();
-
-            while (resultado.next()) {
-
-                lista.add(resultado.getString("cargo_posicion"));
+                lista.add(resultado.getString(dato));
             }
 
         } catch (SQLException ex) {
@@ -150,4 +126,15 @@ public class conexion {
 
     }
 
+    public static void cierraCesion(){
+        
+        if (conexionUP !=null){
+         
+            try {
+                conexionUP.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }//fin clase  

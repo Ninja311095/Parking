@@ -5,6 +5,13 @@
  */
 package JDialog;
 
+import Base_de_Datos.conexion;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author thomy
@@ -14,9 +21,20 @@ public class ver_usuarios extends javax.swing.JDialog {
     /**
      * Creates new form ver_usuarios
      */
+    
+    DefaultTableModel modelo;
+    String sql;
+    conexion objcon = new conexion();
+    registrar_usuario ru = new registrar_usuario(null, rootPaneCheckingEnabled);
+    
     public ver_usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        crearTabla();
+        rellenarTabla();
     }
 
     /**
@@ -28,19 +46,80 @@ public class ver_usuarios extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupM_tablaEmp = new javax.swing.JPopupMenu();
+        jMenuItem_ver = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem_editar = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem_suspender = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_empleados = new javax.swing.JTable();
+        jButton_nuevoE = new javax.swing.JButton();
+
+        jMenuItem_ver.setText("Ver usuario");
+        jPopupM_tablaEmp.add(jMenuItem_ver);
+        jPopupM_tablaEmp.add(jSeparator1);
+
+        jMenuItem_editar.setText("Editar");
+        jPopupM_tablaEmp.add(jMenuItem_editar);
+        jPopupM_tablaEmp.add(jSeparator2);
+
+        jMenuItem_suspender.setText("Activar/Suspender");
+        jPopupM_tablaEmp.add(jMenuItem_suspender);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jTable_empleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Cedula", "Correo", "Telefono", "Posicion", "Editar", "Seleccionar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_empleados.setComponentPopupMenu(jPopupM_tablaEmp);
+        jScrollPane1.setViewportView(jTable_empleados);
+
+        jButton_nuevoE.setText("Nuevo Empleado");
+        jButton_nuevoE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_nuevoEActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jButton_nuevoE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jButton_nuevoE)
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -57,6 +136,56 @@ public class ver_usuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton_nuevoEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_nuevoEActionPerformed
+        // TODO add your handling code here:
+        ru.setVisible(true);
+    }//GEN-LAST:event_jButton_nuevoEActionPerformed
+
+    //METODO PARA CREAR LA TABLA
+    public final void crearTabla(){
+        
+        TableColumnModel columnModel = jTable_empleados.getColumnModel();
+
+        columnModel.getColumn(0).setPreferredWidth(80);
+        columnModel.getColumn(1).setPreferredWidth(70);
+        columnModel.getColumn(2).setPreferredWidth(140);
+        columnModel.getColumn(3).setPreferredWidth(80);
+        columnModel.getColumn(4).setPreferredWidth(70);
+        
+        modelo = (DefaultTableModel) jTable_empleados.getModel();
+        modelo.setRowCount(0);
+        
+    } //Fin Crear Tabla
+    
+    //METODO PARA RELLENAR LA TABLA
+    public final void rellenarTabla(){
+        try{
+            
+            modelo = (DefaultTableModel) jTable_empleados.getModel();
+            modelo.setRowCount(0);
+            
+            sql = "SELECT CONCAT(e.nombre_empleado,' ',e.apellido_empleado) AS Nombre,e.cedula_empleado,e.correo_empleado,e.telefono_empleado,u.Posicion FROM empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado ";
+            objcon.ejecutarSQLSelect(sql);
+
+            conexion.resultado.first();
+
+            do {
+
+                String[] fila = {conexion.resultado.getString(1),
+                                 conexion.resultado.getString(2),
+                                 conexion.resultado.getString(3), 
+                                 conexion.resultado.getString(4),
+                                 conexion.resultado.getString(5)};
+                
+                modelo.addRow(fila);
+                
+            } while (conexion.resultado.next());
+            
+        } catch (SQLException ex) {
+             Logger.getLogger(ver_usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//Fin rellenar Tabla
+    
     /**
      * @param args the command line arguments
      */
@@ -100,6 +229,15 @@ public class ver_usuarios extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_nuevoE;
+    private javax.swing.JMenuItem jMenuItem_editar;
+    private javax.swing.JMenuItem jMenuItem_suspender;
+    private javax.swing.JMenuItem jMenuItem_ver;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupM_tablaEmp;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JTable jTable_empleados;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,12 @@ package JDialog;
 import Jpanel.inicio;
 import Base_de_Datos.conexion;
 import Jpanel.Usuario;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -32,9 +37,9 @@ public class Login extends javax.swing.JDialog {
 
     inicio pp = new inicio();
     conexion objcon = new conexion();
-    registrar_usuario ru = new registrar_usuario(null,true);
+    registrar_usuario ru = new registrar_usuario(null, true);
     Usuario miUsuario = Usuario.getUsuario();
-            
+
     String sql;
     String usuario = "";
     String pass;
@@ -45,15 +50,15 @@ public class Login extends javax.swing.JDialog {
     final String clave = "@mateo3195@";
     String host = "smtp.gmail.com";
     final String port = "587";
-    String texto = 
-                   "<font size=5>Este es un correo con un codigo solicitado para el <b>Restablecimiento</b> de la contraseña del usuario <br><br></font>"
-                 + "<font color='red' size=4>No comparta este codigo</font><br><br>"
-                 + "<b><font color='green'>" + codigoUUID() + "</font></b>";
-    
+    String texto
+            = "<font size=5>Este es un correo con un codigo solicitado para el <b>Restablecimiento</b> de la contraseña del usuario <br><br></font>"
+            + "<font color='red' size=4>No comparta este codigo</font><br><br>"
+            + "<b><font color='green'>" + codigoUUID() + "</font></b>";
+
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationRelativeTo(null);
 
     }
@@ -186,19 +191,33 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String codigoUUID(){
-        
+//    @Override
+//    public void paint(Graphics g) {
+//     Graphics2D g2d = (Graphics2D) g;
+//
+//     /*
+//      * Para crear un gradiente horizontal,
+//      * las coordenadas a usar seran del {0,0} al {anchura del componente, 0}
+//      */
+//     GradientPaint horizontalGradient = new GradientPaint(0, 0, Color.BLUE, getWidth(), 0, Color.YELLOW);
+//     g2d.setPaint(horizontalGradient);
+//
+//     g2d.fillRect(0, 0, getWidth(), getHeight());
+//
+//    }
+    private String codigoUUID() {
+
         codigo_gene = UUID.randomUUID().toString();
 
         codigo_gene = codigo_gene.replaceAll("-", "");
-        
+
         codigo_gene = codigo_gene.substring(0, 32);
-        
+
         return codigo_gene;
     }
-    
-    private void envia_correo(String destino) throws MessagingException{
-        
+
+    private boolean envia_correo(String destino) throws MessagingException {
+
         Properties propiedad = new Properties();
         propiedad.setProperty("mail.smtp.host", host);
         propiedad.setProperty("mail.smtp.starttls.enable", "true");
@@ -212,7 +231,7 @@ public class Login extends javax.swing.JDialog {
             mensaje.setFrom(new InternetAddress(remitente));
             mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));
             mensaje.setSubject("Codigo Restablecimiento de Contraseña");
-            mensaje.setText(texto,"utf-8","html");
+            mensaje.setText(texto, "utf-8", "html");
 
             Transport transportar = sesion.getTransport("smtp");
             transportar.connect(remitente, clave);
@@ -224,50 +243,50 @@ public class Login extends javax.swing.JDialog {
         } catch (AddressException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return true;
     }
-    
-    private void realiza_login(){
-        
+
+    private void realiza_login() {
+
         try {
             // TODO add your handling code here:
-            
+
             usuario = jTextField_usuario.getText();
             pass = jTextField_pass.getText();
-            
+
             sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
             objcon.ejecutarSQLSelect(sql);
 
             /*CONFIRMACION DE SI OBTUVO ALGUN RESULTADO EN CASO DE SI SE DA PASO AL SISTEMA DE LO CONTRARIO
             SE ENVIA UN MENSAJE NOTIFICANDOLO*/
-
             conexion.resultado.first();
-                
+
             String pos = conexion.resultado.getString("Posicion");
             pp.setVisible(true);
             pp.setLocationRelativeTo(null);
             this.setVisible(false);
             JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
-                
-            if(pos.equals("Asistente")){
-                    
+
+            if (pos.equals("Asistente")) {
+
                 inicio.jMenu_usuarios.setVisible(false);
                 inicio.jMenu_reportes.setVisible(false);
             }
-            
+
             miUsuario.setUsu(usuario);
             System.out.println(miUsuario.getUsu());
         } catch (SQLException ex) {
-            
-             JOptionPane.showMessageDialog(null, "Error al ingresar al sistema su USUARIO o CONTRASEÑA son incorrectos","Error",JOptionPane.ERROR_MESSAGE);
-           
+
+            JOptionPane.showMessageDialog(null, "Error al ingresar al sistema su USUARIO o CONTRASEÑA son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void cambia_contrasena(){
-        
+
+    private void cambia_contrasena() {
+
         try {
-            
+
             sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
             objcon.ejecutarSQLSelect(sql);
 
@@ -275,144 +294,175 @@ public class Login extends javax.swing.JDialog {
 
                 String nueva = JOptionPane.showInputDialog(null, "Introduzca su nueva contraseña:", "Cambio de contraseña", JOptionPane.INFORMATION_MESSAGE);
                 //Manejo de cadenas vacias
-                if(nueva.equals("null")){
-                    
-                    JOptionPane.showMessageDialog(null, "Operación Cancelada","Cancelar",JOptionPane.INFORMATION_MESSAGE);
-                    
-                }else if (nueva.isEmpty() || nueva.isBlank()){
-                    
+                if (nueva.equals("null")) {
+
+                    JOptionPane.showMessageDialog(null, "Operación Cancelada", "Cancelar", JOptionPane.INFORMATION_MESSAGE);
+
+                } else if (nueva.isEmpty() || nueva.isBlank()) {
+
                     JOptionPane.showMessageDialog(null, "Debe introducir una contraseña para proceder!");
-                    
-                }else{
-                
+
+                } else {
+
                     sql = "UPDATE usuarios SET contrasena_usuario = '" + nueva + "' WHERE usuario = '" + usuario + "'";
                     objcon.ejecutarSQL(sql);
-                    
+
                     if (conexion.resultado.first()) {
 
-                          JOptionPane.showMessageDialog(null, "Contraseña actualizada");
+                        JOptionPane.showMessageDialog(null, "Contraseña actualizada");
 
                     }
                 }
 
             }//FIN PRIMER IF
+            else {
+
+                JOptionPane.showMessageDialog(null, "Error al verificar los datos su USUARIO o CONTRASEÑA son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
 
         } //FIN TRY
         catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//FIN CAMBIO CONTRASEÑA
-    
-    private void olvido_contrasena(String usu) throws MessagingException{
-        
-        try {
-                    sql = "SELECT e.correo_empleado "
-                                                   + "FROM usuarios AS u INNER JOIN empleados AS e "
-                                                   + "ON u.id_empleado = e.id_empleado WHERE u.usuario = '" + usu + "'";
-                    objcon.ejecutarSQLSelect(sql);
-                    
-                    if(conexion.resultado.first()){
-                       
-                        destino = conexion.resultado.getString("correo_empleado");
 
-                    }//FIN PRIMER IF
-                    
-                } //FIN TRY //FIN TRY
-                catch (SQLException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        
-        envia_correo(destino);
-        
-        codigo_introd = JOptionPane.showInputDialog(null, "Se ha enviado un codigo al correo del usuario.\n\nIngreselo en el campo siguiente:","Recuperación de contraseña",JOptionPane.OK_CANCEL_OPTION);
-    
-        if(codigo_gene.equals(codigo_introd)){
-            
-            String nueva = JOptionPane.showInputDialog(null, "Introduzca su nueva contraseña:","Cambio de contraseña",JOptionPane.INFORMATION_MESSAGE);
-            sql = "UPDATE usuarios SET contrasena_usuario = '" + nueva + "' WHERE usuario = '"+ usuario + "'";
-            objcon.ejecutarSQL(sql);
-                        
-            try {
-                if(conexion.resultado.first()){
-                    
-                    JOptionPane.showMessageDialog(null, "Contraseña actualizada");
-                    
-                }//FIN SEGUNDO IF
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    }//FIN CAMBIO CONTRASEÑA
+
+    private void olvido_contrasena(String usu) throws MessagingException {
+
+        int option = 0;
+        boolean cont = true;
+        /* */
+        try {
+            sql = "SELECT e.correo_empleado "
+                    + "FROM usuarios AS u INNER JOIN empleados AS e "
+                    + "ON u.id_empleado = e.id_empleado WHERE u.usuario = '" + usu + "'";
+            objcon.ejecutarSQLSelect(sql);
+
+            if (conexion.resultado.first()) {
+
+                destino = conexion.resultado.getString("correo_empleado");
+
+            }//FIN IF
+            else {
+                JOptionPane.showMessageDialog(null, "El usuario no posee un correo registrado", "Correo no encontrado", JOptionPane.ERROR_MESSAGE);
             }
+
+        } //FIN TRY
+        catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (envia_correo(destino)) {
+
+            do {
+                
+                codigo_introd = JOptionPane.showInputDialog(null, "Ingrese el codigo enviado a su correo en el campo siguiente:", "Recuperación de contraseña", JOptionPane.OK_CANCEL_OPTION);
+
+                if (codigo_gene.equals(codigo_introd)) {
+
+                    String nueva = JOptionPane.showInputDialog(null, "Introduzca su nueva contraseña:", "Cambio de contraseña", JOptionPane.INFORMATION_MESSAGE);
+                    sql = "UPDATE usuarios SET contrasena_usuario = '" + nueva + "' WHERE usuario = '" + usuario + "'";
+                    objcon.ejecutarSQL(sql);
+
+                    try {
+                        if (conexion.resultado.first()) {
+
+                            JOptionPane.showMessageDialog(null, "Contraseña actualizada");
+                            cont = false;
+
+                        }//FIN  TERCER IF
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }//FIN SEGUNDO IF
+                else{
+
+                    option = JOptionPane.showConfirmDialog(null, "El codigo ingresado en el sistema no concuerda con el enviado"
+                            + "\nPor favor verifique los datos e intente nuevamente","Codigo invalido",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
+                    System.out.println(option + " " + cont);
+                    
+                }
+                System.out.println(option + " " + cont);
+                
+            } while ((cont == true) && option!= 2);
             
         }//FIN PRIMER IF
-        
+
     }//FIN METODO
-    
+
     private void jButton_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_loginActionPerformed
-        
+
         realiza_login();
 
     }//GEN-LAST:event_jButton_loginActionPerformed
 
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
         // TODO add your handling code here:
-        
+
         usuario = jTextField_usuario.getText();
         pass = jTextField_pass.getText();
         String pos;
-        
+
         try {
-            
+
             sql = "SELECT * FROM usuarios WHERE usuario = '" + usuario + "' AND contrasena_usuario = '" + pass + "'";
             objcon.ejecutarSQLSelect(sql);
-                   
+
             conexion.resultado.first();
             pos = conexion.resultado.getString("Posicion");
-            
-            if(pos.equals("Administrador")){
-                
+
+            if (pos.equals("Administrador")) {
+
                 ru.setVisible(true);
-                
-            }else{
-                
-                JOptionPane.showMessageDialog(null,"Usted no cuenta con los permisos necesarios para registrar un usuario.","ERROR", JOptionPane.ERROR_MESSAGE);
-                
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Usted no cuenta con los permisos necesarios para registrar un usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
+
             }
-            
-                    
+
         } //FIN TRY
-         catch (SQLException ex) {
-             
-                JOptionPane.showMessageDialog(null,"Verifique los datos ingresados.","ERROR", JOptionPane.ERROR_MESSAGE);
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
+        catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, "Verifique los datos ingresados.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton_registrarActionPerformed
 
     private void jButton_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_resetActionPerformed
         // TODO add your handling code here:
-        
+
         usuario = jTextField_usuario.getText();
         pass = jTextField_pass.getText();
 
-        if(jTextField_usuario.getText().isEmpty()){
-            
-            JOptionPane.showMessageDialog(null,"Debe ingresar su usuario y contraseña en caso de cambio. \n\nEn caso de olvido ingrese su usuario.","ERROR",JOptionPane.ERROR_MESSAGE);
-            
-        }else if(!jTextField_usuario.getText().isEmpty() && !jTextField_pass.getText().isEmpty()){
+        if (jTextField_usuario.getText().isEmpty()) {
+
+            JOptionPane.showConfirmDialog(null, "En caso de querer cambiar su contraseña debe: "
+                    + "\n 1) Ingresar su usuario y su contraseña actual. "
+                    + "\n 2) Presione la opción de Cambio/Olvido Contraseña."
+                    + "\n\nEn caso de olvido: "
+                    + "\n 1) Ingrese su usuario."
+                    + "\n 2) Presione la opción de Cambio/Olvido Contraseña.", "Ayuda",
+                    JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE);
+
+        } else if (!jTextField_usuario.getText().isEmpty() && !jTextField_pass.getText().isEmpty()) {
 
             cambia_contrasena();
-            
-        }else{
-            
+
+        } else {
+
             try {
                 olvido_contrasena(usuario);
-                
+
             } catch (MessagingException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
-       
+
     }//GEN-LAST:event_jButton_resetActionPerformed
 
     private void jTextField_passKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_passKeyReleased
@@ -427,8 +477,12 @@ public class Login extends javax.swing.JDialog {
     private void jLabel_ayudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ayudaMouseClicked
         // TODO add your handling code here:
         
-        JOptionPane.showConfirmDialog(null, "Debe ingresar su usuario y contraseña en caso de cambio. "
-                                          + "\n\nEn caso de olvido ingrese su usuario","Ayuda",
+        JOptionPane.showConfirmDialog(null, "En caso de querer cambiar su contraseña debe: "
+                                          + "\n 1) Ingresar su usuario y su contraseña actual. "
+                                          + "\n 2) Presione la opción de Cambio/Olvido Contraseña."
+                                          + "\n\nEn caso de olvido: "
+                                          + "\n 1) Ingrese su usuario."
+                                          + "\n 2) Presione la opción de Cambio/Olvido Contraseña.","Ayuda",
                                              JOptionPane.PLAIN_MESSAGE,JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jLabel_ayudaMouseClicked
 

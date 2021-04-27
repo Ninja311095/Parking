@@ -270,8 +270,11 @@ public class registrar_usuario extends javax.swing.JDialog {
 
     private void llenaJcomboPosicion(){
         
+        String consulta = "SELECT * FROM cargo";
+        String dato = "cargo_posicion";
+        
         jCB_Posicion.removeAllItems();
-        lista = conexion.llenacomboEmpleado();
+        lista = conexion.llenacombo(consulta,dato);
         
         lista.forEach(e -> {
             jCB_Posicion.addItem(e);

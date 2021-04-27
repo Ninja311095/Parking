@@ -30,6 +30,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import com.mxrck.autocompleter.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,6 +52,8 @@ public class Retirar extends javax.swing.JPanel {
     PdfWriter writer;
     PdfDocument pdfDoc;
     Usuario miUsuario = Usuario.getUsuario();
+    TextAutoCompleter tAc;
+    ArrayList <String>lista = new ArrayList<>();
     
     //VARIABLES
     String fechaHora, horaentrada,sql;
@@ -61,13 +65,14 @@ public class Retirar extends javax.swing.JPanel {
     int valorAPagar;
     int confirmacion;
     int tarifa,tarifaMinima;
-    int respuesta;
+    int respuesta=1;
     String current = System.getProperty("user.dir");
     
     public Retirar() {
         initComponents();
         
         objcon.crearConexion();
+        autoCompleted();
 
     }
 
@@ -118,12 +123,13 @@ public class Retirar extends javax.swing.JPanel {
                         .addGap(223, 223, 223)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(178, 178, 178)
                         .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(67, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,9 +140,9 @@ public class Retirar extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
                 .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(94, 94, 94)
                 .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -221,6 +227,19 @@ public class Retirar extends javax.swing.JPanel {
   	  } catch (IOException | InterruptedException ex) {
               
 	  }
+    }
+    
+    private void autoCompleted(){
+        
+        String consulta = "SELECT * from vehiculos";
+        String dato = "placa_vehiculo";
+        
+        lista = conexion.llenacombo(consulta, dato);
+        tAc = new TextAutoCompleter(tfPlacaRetiro);
+        
+        lista.forEach(e -> {
+            tAc.addItem(e);
+        });
     }
     
     public void obtenTarifa(String tipo_Vehiculo){
