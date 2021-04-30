@@ -32,7 +32,6 @@ public class registrar_usuario extends javax.swing.JDialog {
            pass_conf,
            sql,
            posicion;
-    int id_empleado;
     
     public registrar_usuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -279,18 +278,19 @@ public class registrar_usuario extends javax.swing.JDialog {
         });
     }
     
-    private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
-        // TODO add your handling code here:
+    public void limpia_campos(){
         
-        nombre = jTF_nombre.getText();
-        apellido = jTF_apellido.getText();
-        cedula = jFTF_cedula.getText();
-        correo = jTF_correo.getText();
-        telefono = jFTF_telefono.getText();
-        usuario = jTF_usuario.getText();
-        pass = jTF_pass.getText();
-        pass_conf = jTF_confirmar.getText();
-        posicion = (String) jCB_Posicion.getSelectedItem();
+            jTF_nombre.setText("");
+            jTF_apellido.setText("");
+            jFTF_cedula.setText("");
+            jTF_correo.setText("");
+            jFTF_telefono.setText("");
+            jTF_usuario.setText("");
+            jTF_pass.setText("");
+            jTF_confirmar.setText("");
+    }
+    
+    public void registra_usuario(String nombre,String apellido,String cedula, String correo, String telefono, String usuario,String pass,String pass_conf,String posicion){
         
         if(pass.equals(pass_conf)){
             
@@ -305,22 +305,14 @@ public class registrar_usuario extends javax.swing.JDialog {
 
                 conexion.resultado.first();
 
-                    id_empleado = conexion.resultado.getInt("ID");
+                    int id_empleado = conexion.resultado.getInt("ID");
                     
                     sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion + "')";
                     objcon.ejecutarSQL(sql);
                     
                     JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
                 
-    
-            jTF_nombre.setText("");
-            jTF_apellido.setText("");
-            jFTF_cedula.setText("");
-            jTF_correo.setText("");
-            jFTF_telefono.setText("");
-            jTF_usuario.setText("");
-            jTF_pass.setText("");
-            jTF_confirmar.setText("");
+                    limpia_campos();
             
             } catch (SQLException ex) {
 
@@ -332,19 +324,29 @@ public class registrar_usuario extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "ERROR",JOptionPane.ERROR_MESSAGE);
         }
         
+    }
+    
+    private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
+        // TODO add your handling code here:
+        
+        nombre = jTF_nombre.getText();
+        apellido = jTF_apellido.getText();
+        cedula = jFTF_cedula.getText();
+        correo = jTF_correo.getText();
+        telefono = jFTF_telefono.getText();
+        usuario = jTF_usuario.getText();
+        pass = jTF_pass.getText();
+        pass_conf = jTF_confirmar.getText();
+        posicion = (String) jCB_Posicion.getSelectedItem();
+        
+        registra_usuario(nombre,apellido,cedula,correo,telefono,usuario,pass,pass_conf,posicion);
+        
     }//GEN-LAST:event_jButton_registrarActionPerformed
 
     private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
         // TODO add your handling code here:
         
-            jTF_nombre.setText("");
-            jTF_apellido.setText("");
-            jFTF_cedula.setText("");
-            jTF_correo.setText("");
-            jFTF_telefono.setText("");
-            jTF_usuario.setText("");
-            jTF_pass.setText("");
-            jTF_confirmar.setText("");
+            limpia_campos();
     }//GEN-LAST:event_jButton_limpiarActionPerformed
 
     private void jButton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelarActionPerformed
