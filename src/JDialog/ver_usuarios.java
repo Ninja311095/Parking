@@ -7,8 +7,10 @@ package JDialog;
 
 import Base_de_Datos.conexion;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -26,12 +28,23 @@ public class ver_usuarios extends javax.swing.JDialog {
     String sql;
     conexion objcon = new conexion();
     registrar_usuario ru = new registrar_usuario(null, rootPaneCheckingEnabled);
+    MyDefaultTableModel mdtm = new MyDefaultTableModel();
+    JTable jtable = new JTable();
     
     public ver_usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
         setLocationRelativeTo(null);
+        jtable.setModel(mdtm);
+        mdtm.setTable(jTable_empleados);
+        
+        
+        mdtm.setOnGuardarDatosListener(datos -> {
+            Arrays.stream(datos).iterator().forEachRemaining(o -> {
+                System.out.println(o.toString());
+            });
+        });
         
         crearTabla();
         rellenarTabla();
@@ -58,10 +71,20 @@ public class ver_usuarios extends javax.swing.JDialog {
         jButton_nuevoE = new javax.swing.JButton();
 
         jMenuItem_ver.setText("Ver usuario");
+        jMenuItem_ver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_verActionPerformed(evt);
+            }
+        });
         jPopupM_tablaEmp.add(jMenuItem_ver);
         jPopupM_tablaEmp.add(jSeparator1);
 
         jMenuItem_editar.setText("Editar");
+        jMenuItem_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_editarActionPerformed(evt);
+            }
+        });
         jPopupM_tablaEmp.add(jMenuItem_editar);
         jPopupM_tablaEmp.add(jSeparator2);
 
@@ -72,17 +95,14 @@ public class ver_usuarios extends javax.swing.JDialog {
 
         jTable_empleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nombre", "Cedula", "Correo", "Telefono", "Posicion", "Editar", "Seleccionar"
+                "Nombre", "Cedula", "Correo", "Telefono", "Posicion", "Estado", "Accion", "Seleccionar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -141,6 +161,14 @@ public class ver_usuarios extends javax.swing.JDialog {
         ru.setVisible(true);
     }//GEN-LAST:event_jButton_nuevoEActionPerformed
 
+    private void jMenuItem_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_verActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem_verActionPerformed
+
+    private void jMenuItem_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_editarActionPerformed
+
+    }//GEN-LAST:event_jMenuItem_editarActionPerformed
+
     //METODO PARA CREAR LA TABLA
     public final void crearTabla(){
         
@@ -151,6 +179,9 @@ public class ver_usuarios extends javax.swing.JDialog {
         columnModel.getColumn(2).setPreferredWidth(140);
         columnModel.getColumn(3).setPreferredWidth(80);
         columnModel.getColumn(4).setPreferredWidth(70);
+        columnModel.getColumn(5).setPreferredWidth(50);
+        columnModel.getColumn(6).setPreferredWidth(30);
+        columnModel.getColumn(7).setPreferredWidth(30);
         
         modelo = (DefaultTableModel) jTable_empleados.getModel();
         modelo.setRowCount(0);
@@ -161,21 +192,21 @@ public class ver_usuarios extends javax.swing.JDialog {
     public final void rellenarTabla(){
         try{
             
-            modelo = (DefaultTableModel) jTable_empleados.getModel();
-            modelo.setRowCount(0);
-            
-            sql = "SELECT CONCAT(e.nombre_empleado,' ',e.apellido_empleado) AS Nombre,e.cedula_empleado,e.correo_empleado,e.telefono_empleado,u.Posicion FROM empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado ";
+            sql = "SELECT CONCAT(e.nombre_empleado,' ',e.apellido_empleado) AS Nombre,e.cedula_empleado,e.correo_empleado,e.telefono_empleado,u.Posicion, u.Estado FROM empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado ";
             objcon.ejecutarSQLSelect(sql);
 
             conexion.resultado.first();
 
             do {
 
-                String[] fila = {conexion.resultado.getString(1),
+                Object[] fila = {conexion.resultado.getString(1),
                                  conexion.resultado.getString(2),
                                  conexion.resultado.getString(3), 
                                  conexion.resultado.getString(4),
-                                 conexion.resultado.getString(5)};
+                                 conexion.resultado.getString(5),
+                                 conexion.resultado.getString(6),
+                                 "Editar",
+                                 false};
                 
                 modelo.addRow(fila);
                 
