@@ -24,11 +24,11 @@ public class ver_usuarios extends javax.swing.JDialog {
      * Creates new form ver_usuarios
      */
     
-    DefaultTableModel modelo;
+   // DefaultTableModel modelo;
     String sql;
     conexion objcon = new conexion();
     registrar_usuario ru = new registrar_usuario(null, rootPaneCheckingEnabled);
-    MyDefaultTableModel mdtm = new MyDefaultTableModel();
+    MyDefaultTableModel2 mdtm = new MyDefaultTableModel2();
     JTable jtable = new JTable();
     
     public ver_usuarios(java.awt.Frame parent, boolean modal) {
@@ -100,17 +100,12 @@ public class ver_usuarios extends javax.swing.JDialog {
             new String [] {
                 "Nombre", "Cedula", "Correo", "Telefono", "Posicion", "Estado", "Accion", "Seleccionar"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jTable_empleados.setComponentPopupMenu(jPopupM_tablaEmp);
         jScrollPane1.setViewportView(jTable_empleados);
+        if (jTable_empleados.getColumnModel().getColumnCount() > 0) {
+            jTable_empleados.getColumnModel().getColumn(7).setHeaderValue("Seleccionar");
+        }
 
         jButton_nuevoE.setText("Nuevo Empleado");
         jButton_nuevoE.addActionListener(new java.awt.event.ActionListener() {
@@ -183,8 +178,8 @@ public class ver_usuarios extends javax.swing.JDialog {
         columnModel.getColumn(6).setPreferredWidth(30);
         columnModel.getColumn(7).setPreferredWidth(30);
         
-        modelo = (DefaultTableModel) jTable_empleados.getModel();
-        modelo.setRowCount(0);
+        mdtm = (MyDefaultTableModel2) jTable_empleados.getModel();
+        mdtm.setRowCount(0);
         
     } //Fin Crear Tabla
     
@@ -208,7 +203,7 @@ public class ver_usuarios extends javax.swing.JDialog {
                                  "Editar",
                                  false};
                 
-                modelo.addRow(fila);
+                mdtm.addRow(fila);
                 
             } while (conexion.resultado.next());
             
