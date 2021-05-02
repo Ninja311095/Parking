@@ -93,19 +93,9 @@ public class ver_usuarios extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable_empleados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Cedula", "Correo", "Telefono", "Posicion", "Estado", "Accion", "Seleccionar"
-            }
-        ));
+        jTable_empleados.setModel(mdtm);
         jTable_empleados.setComponentPopupMenu(jPopupM_tablaEmp);
         jScrollPane1.setViewportView(jTable_empleados);
-        if (jTable_empleados.getColumnModel().getColumnCount() > 0) {
-            jTable_empleados.getColumnModel().getColumn(7).setHeaderValue("Seleccionar");
-        }
 
         jButton_nuevoE.setText("Nuevo Empleado");
         jButton_nuevoE.addActionListener(new java.awt.event.ActionListener() {
@@ -178,8 +168,8 @@ public class ver_usuarios extends javax.swing.JDialog {
         columnModel.getColumn(6).setPreferredWidth(30);
         columnModel.getColumn(7).setPreferredWidth(30);
         
-        mdtm = (MyDefaultTableModel2) jTable_empleados.getModel();
-        mdtm.setRowCount(0);
+        //mdtm = (MyDefaultTableModel2) jTable_empleados.getModel();
+        //mdtm.setRowCount(0);
         
     } //Fin Crear Tabla
     

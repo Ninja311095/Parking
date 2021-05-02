@@ -32,8 +32,8 @@ public class conexion {
      */
     public boolean crearConexion() {
 
-        url = "jdbc:mysql://localhost/bdparqueo?useSSL=false&serverTimezone=UTC";
-        usuario = "parqueo";
+        url = "jdbc:mysql://10.0.0.99/bdparqueo";
+        usuario = "andiery";
         clave = "imdumb";
         try {
 
