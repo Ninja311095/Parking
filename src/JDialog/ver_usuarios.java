@@ -7,11 +7,9 @@ package JDialog;
 
 import Base_de_Datos.conexion;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -23,31 +21,24 @@ public class ver_usuarios extends javax.swing.JDialog {
     /**
      * Creates new form ver_usuarios
      */
-    
-   // DefaultTableModel modelo;
     String sql;
     conexion objcon = new conexion();
     registrar_usuario ru = new registrar_usuario(null, rootPaneCheckingEnabled);
-    MyDefaultTableModel2 mdtm = new MyDefaultTableModel2();
+    MyDefaultTableModel mdtm = new MyDefaultTableModel();
     JTable jtable = new JTable();
-    
+    String Nombre, Cedula, Correo, Telefono, Posicion, Estado, nombre, apellido;
+
     public ver_usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationRelativeTo(null);
         jtable.setModel(mdtm);
         mdtm.setTable(jTable_empleados);
-        
-        
-        mdtm.setOnGuardarDatosListener(datos -> {
-            Arrays.stream(datos).iterator().forEachRemaining(o -> {
-                System.out.println(o.toString());
-            });
-        });
-        
+
         crearTabla();
         rellenarTabla();
+        actualizaDatos();
     }
 
     /**
@@ -89,9 +80,26 @@ public class ver_usuarios extends javax.swing.JDialog {
         jPopupM_tablaEmp.add(jSeparator2);
 
         jMenuItem_suspender.setText("Activar/Suspender");
+        jMenuItem_suspender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_suspenderActionPerformed(evt);
+            }
+        });
         jPopupM_tablaEmp.add(jMenuItem_suspender);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jTable_empleados.setModel(mdtm);
         jTable_empleados.setComponentPopupMenu(jPopupM_tablaEmp);
@@ -154,29 +162,64 @@ public class ver_usuarios extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jMenuItem_editarActionPerformed
 
-    //METODO PARA CREAR LA TABLA
-    public final void crearTabla(){
+    private void jMenuItem_suspenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_suspenderActionPerformed
+        // TODO add your handling code here:
         
+        Estado = mdtm.getValueAt(jTable_empleados.getSelectedRow(), 5).toString();
+        Cedula = mdtm.getValueAt(jTable_empleados.getSelectedRow(), 1).toString();
+        
+        if (Estado.equalsIgnoreCase("Activo")){
+            
+            sql = "UPDATE usuarios AS u INNER JOIN empleados AS e on u.id_empleado = e.id_empleado "
+                + "SET u.estado = 'Inactivo' WHERE e.cedula_empleado = '" + Cedula + "'";
+            objcon.ejecutarSQL(sql);
+
+        }else{
+            
+            sql = "UPDATE empleados AS e INNER JOIN usuarios AS u ON e.id_empleado = u.id_empleado "
+                    + "SET u.Estado = 'Activo' WHERE e.cedula_empleado = '" + Cedula + "'"; 
+            objcon.ejecutarSQL(sql);
+
+        }
+        
+        rellenarTabla();
+    }//GEN-LAST:event_jMenuItem_suspenderActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        
+        rellenarTabla();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    //METODO PARA CREAR LA TABLA
+    public final void crearTabla() {
+
         TableColumnModel columnModel = jTable_empleados.getColumnModel();
 
         columnModel.getColumn(0).setPreferredWidth(80);
         columnModel.getColumn(1).setPreferredWidth(70);
-        columnModel.getColumn(2).setPreferredWidth(140);
+        columnModel.getColumn(2).setPreferredWidth(100);
         columnModel.getColumn(3).setPreferredWidth(80);
         columnModel.getColumn(4).setPreferredWidth(70);
-        columnModel.getColumn(5).setPreferredWidth(50);
-        columnModel.getColumn(6).setPreferredWidth(30);
+        columnModel.getColumn(5).setPreferredWidth(40);
+        columnModel.getColumn(6).setPreferredWidth(80);
         columnModel.getColumn(7).setPreferredWidth(30);
-        
-        //mdtm = (MyDefaultTableModel2) jTable_empleados.getModel();
-        //mdtm.setRowCount(0);
-        
+
+        mdtm = (MyDefaultTableModel) jTable_empleados.getModel();
+        mdtm.setRowCount(0);
+
     } //Fin Crear Tabla
-    
+
     //METODO PARA RELLENAR LA TABLA
-    public final void rellenarTabla(){
-        try{
-            
+    public final void rellenarTabla() {
+        
+        mdtm.setRowCount(0);
+        try {
+
             sql = "SELECT CONCAT(e.nombre_empleado,' ',e.apellido_empleado) AS Nombre,e.cedula_empleado,e.correo_empleado,e.telefono_empleado,u.Posicion, u.Estado FROM empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado ";
             objcon.ejecutarSQLSelect(sql);
 
@@ -185,22 +228,51 @@ public class ver_usuarios extends javax.swing.JDialog {
             do {
 
                 Object[] fila = {conexion.resultado.getString(1),
-                                 conexion.resultado.getString(2),
-                                 conexion.resultado.getString(3), 
-                                 conexion.resultado.getString(4),
-                                 conexion.resultado.getString(5),
-                                 conexion.resultado.getString(6),
-                                 "Editar",
-                                 false};
-                
+                    conexion.resultado.getString(2),
+                    conexion.resultado.getString(3),
+                    conexion.resultado.getString(4),
+                    conexion.resultado.getString(5),
+                    conexion.resultado.getString(6),
+                    "Editar",
+                    false};
+
                 mdtm.addRow(fila);
-                
+
             } while (conexion.resultado.next());
-            
+
         } catch (SQLException ex) {
-             Logger.getLogger(ver_usuarios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ver_usuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//Fin rellenar Tabla
+
+    //METODO PARA ACTUALIZAR DATOS EDITADOS
+    public final void actualizaDatos() {
+
+       // try {
+            mdtm.setOnGuardarDatosListener(datos -> {
+
+                Nombre = (String) datos[0];
+                Cedula = (String) datos[1];
+                Correo = (String) datos[2];
+                Telefono = (String) datos[3];
+                Posicion = (String) datos[4];
+                Estado = (String) datos[5];
+
+                String nombres[] = Nombre.split(" ");
+                nombre = nombres[0];
+                apellido = nombres[1];
+
+                sql = "UPDATE empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado SET "
+                        + "    e.nombre_empleado = '" + nombre + "', e.apellido_empleado = '" + apellido
+                        + "' , e.cedula_empleado = '" + Cedula + "', e.correo_empleado = '" + Correo
+                        + "' , e.telefono_empleado = '" + Telefono + "', u.Posicion = '" + Posicion
+                        + "' , u.estado = '" + Estado + " ' WHERE e.cedula_empleado = '" + Cedula + "'";
+                objcon.ejecutarSQL(sql);
+
+            });
+    
+            rellenarTabla();
+    }//FIN METODO
     
     /**
      * @param args the command line arguments

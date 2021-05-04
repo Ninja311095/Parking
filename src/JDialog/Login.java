@@ -274,7 +274,6 @@ public class Login extends javax.swing.JDialog {
             }
 
             miUsuario.setUsu(usuario);
-            System.out.println(miUsuario.getUsu());
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, "Error al ingresar al sistema su USUARIO o CONTRASEÑA son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

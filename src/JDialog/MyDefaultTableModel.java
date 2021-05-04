@@ -1,4 +1,5 @@
 package JDialog;
+import Base_de_Datos.conexion;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -6,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.Vector;
@@ -16,6 +18,7 @@ public class MyDefaultTableModel extends DefaultTableModel {
     private boolean isCellEditable = false;
     private int rowEditable = -1;
     private JTable table = null;
+    private ArrayList <String> lista = new ArrayList<>();
 
     //Rendereres
     final TableCellRenderer rendererColor = new DefaultTableCellRenderer() {
@@ -141,10 +144,18 @@ public class MyDefaultTableModel extends DefaultTableModel {
     public void setTable(JTable table) {
         this.table = table;
         //Configurando tabla
+        String consulta = "SELECT * FROM cargo";
+        String dato = "cargo_posicion";
+        
         table.setDefaultRenderer(Object.class, rendererColor);
         final JComboBox<String> jcbxPosiciones = new JComboBox<>();
-        jcbxPosiciones.addItem("Administrador");
-        jcbxPosiciones.addItem("Asistente");
+        jcbxPosiciones.removeAllItems();
+        
+        lista = conexion.llenacombo(consulta,dato);
+        
+        lista.forEach(e -> {
+            jcbxPosiciones.addItem(e);
+        });
 
         //Renderer
         table.getColumnModel().getColumn(6).setCellRenderer(rendererAccion);
