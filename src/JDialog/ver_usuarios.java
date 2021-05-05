@@ -27,6 +27,7 @@ public class ver_usuarios extends javax.swing.JDialog {
     MyDefaultTableModel mdtm = new MyDefaultTableModel();
     JTable jtable = new JTable();
     String Nombre, Cedula, Correo, Telefono, Posicion, Estado, nombre, apellido;
+    mi_perfil perfil = new mi_perfil(null, rootPaneCheckingEnabled);
 
     public ver_usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -156,6 +157,12 @@ public class ver_usuarios extends javax.swing.JDialog {
 
     private void jMenuItem_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_verActionPerformed
         // TODO add your handling code here:
+        Cedula = mdtm.getValueAt(jTable_empleados.getSelectedRow(), 1).toString();
+        sql = "SELECT e.nombre_empleado, e.apellido_empleado, e.cedula_empleado,e.correo_empleado,e.telefono_empleado,u.usuario, u.contrasena_usuario,u.Posicion FROM empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado WHERE e.cedula_empleado = '" + Cedula + "'";
+        perfil.paso = false;
+        perfil.posicion = "Administrador";
+        perfil.DatosUsuario(sql);
+        perfil.setVisible(true);
     }//GEN-LAST:event_jMenuItem_verActionPerformed
 
     private void jMenuItem_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_editarActionPerformed
@@ -226,7 +233,7 @@ public class ver_usuarios extends javax.swing.JDialog {
             conexion.resultado.first();
 
             do {
-
+                
                 Object[] fila = {conexion.resultado.getString(1),
                     conexion.resultado.getString(2),
                     conexion.resultado.getString(3),

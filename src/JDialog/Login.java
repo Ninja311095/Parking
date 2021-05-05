@@ -261,19 +261,26 @@ public class Login extends javax.swing.JDialog {
             SE ENVIA UN MENSAJE NOTIFICANDOLO*/
             conexion.resultado.first();
 
-            String pos = conexion.resultado.getString("Posicion");
-            pp.setVisible(true);
-            pp.setLocationRelativeTo(null);
-            this.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
+            if (conexion.resultado.getString(6).equals("Activo")) {
 
-            if (pos.equals("Asistente")) {
+                String pos = conexion.resultado.getString("Posicion");
+                pp.setVisible(true);
+                pp.setLocationRelativeTo(null);
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
 
-                inicio.jMenu_usuarios.setVisible(false);
-                inicio.jMenu_reportes.setVisible(false);
+                if (pos.equals("Asistente")) {
+
+                    inicio.jMenu_usuarios.setVisible(false);
+                    inicio.jMenu_reportes.setVisible(false);
+                }
+
+                miUsuario.setUsu(usuario);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "El usuario ingresado se encuentra Inactivo", "Usuario Inactivo", JOptionPane.ERROR_MESSAGE);
             }
-
-            miUsuario.setUsu(usuario);
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, "Error al ingresar al sistema su USUARIO o CONTRASEÑA son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

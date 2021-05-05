@@ -2,6 +2,7 @@
 package Jpanel;
 
 import Base_de_Datos.conexion;
+import JDialog.mi_perfil;
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
 import JDialog.ver_usuarios;
@@ -10,10 +11,6 @@ import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -31,7 +28,9 @@ public class inicio extends javax.swing.JFrame {
     Listar panelListarVehiculos ;
     registrar_usuario Registar = new registrar_usuario(this, rootPaneCheckingEnabled);
     ver_usuarios verU = new ver_usuarios(this,rootPaneCheckingEnabled);
+    mi_perfil perfil = new mi_perfil(this, rootPaneCheckingEnabled);
     String current = System.getProperty("user.dir");
+    Usuario mUsuario = Usuario.getUsuario();
     
     int confirmacion;
     
@@ -205,6 +204,11 @@ public class inicio extends javax.swing.JFrame {
         jMenu_perfil.setText("Mi Perfil");
 
         jMenuIten_perfil.setText("Ver Perfil");
+        jMenuIten_perfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuIten_perfilActionPerformed(evt);
+            }
+        });
         jMenu_perfil.add(jMenuIten_perfil);
 
         jMenuItem_cerrarsesion.setText("Cerrar Sesion");
@@ -316,33 +320,30 @@ public class inicio extends javax.swing.JFrame {
     private void jMenuItem_reporteDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_reporteDiarioActionPerformed
         try {
             // TODO add your handling code here:
-            
-            // descarga dentro del mismo proyecto
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                   //current + "/reportes/" + propietario + ".pdf");
-                    "C:/Users/thomy/JaspersoftWorkspace/MyReports/ReporteDiario.jasper", null,
-                    //"C:\\Users\\Ecodeup\\JaspersoftWorkspace\\Reportes Escuela\\ReporteAlumnos.jasper", null,
-                    conexion.conexionUP);
-            JRPdfExporter exp = new JRPdfExporter();
-            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteDiario.pdf"));
-            SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
-            exp.setConfiguration(conf);
-            exp.exportReport();
+
             // se muestra en una ventana aparte para su descarga
             JasperPrint jasperPrintWindow;
-            
+
+            System.out.println("hola mundo");
             jasperPrintWindow = JasperFillManager.fillReport(
-                    "C:/Users/thomy/JaspersoftWorkspace/MyReports/ReporteDiario.jasper", null,
-                    //"C:\\Users\\Ecodeup\\JaspersoftWorkspace\\Reportes Escuela\\ReporteAlumnos.jasper", null,
+                    current + "/informes/MyReports/reportediario.jasper", null,
                     conexion.conexionUP);
-            
+
+            System.out.println("hola mundo");
             JasperViewer jasperViewer = new JasperViewer(jasperPrintWindow);
             jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem_reporteDiarioActionPerformed
+
+    private void jMenuIten_perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIten_perfilActionPerformed
+        // TODO add your handling code here:
+        String usuario = mUsuario.getUsu();
+        String sql = "SELECT e.nombre_empleado, e.apellido_empleado, e.cedula_empleado,e.correo_empleado,e.telefono_empleado,u.usuario, u.contrasena_usuario,u.Posicion FROM empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado WHERE u.usuario = '" + usuario + "'";
+        perfil.DatosUsuario(sql);
+        perfil.setVisible(true);
+    }//GEN-LAST:event_jMenuIten_perfilActionPerformed
 
     /**
      * @param args the command line arguments
