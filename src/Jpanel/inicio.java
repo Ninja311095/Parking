@@ -1,9 +1,20 @@
 
 package Jpanel;
 
+import Base_de_Datos.conexion;
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
 import JDialog.ver_usuarios;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -20,6 +31,7 @@ public class inicio extends javax.swing.JFrame {
     Listar panelListarVehiculos ;
     registrar_usuario Registar = new registrar_usuario(this, rootPaneCheckingEnabled);
     ver_usuarios verU = new ver_usuarios(this,rootPaneCheckingEnabled);
+    String current = System.getProperty("user.dir");
     
     int confirmacion;
     
@@ -60,6 +72,7 @@ public class inicio extends javax.swing.JFrame {
         jMenuItem_movimientos = new javax.swing.JMenuItem();
         jMenuItem_nuevo_usuario = new javax.swing.JMenuItem();
         jMenu_reportes = new javax.swing.JMenu();
+        jMenuItem_reporteDiario = new javax.swing.JMenuItem();
         jMenu_perfil = new javax.swing.JMenu();
         jMenuIten_perfil = new javax.swing.JMenuItem();
         jMenuItem_cerrarsesion = new javax.swing.JMenuItem();
@@ -178,6 +191,15 @@ public class inicio extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_usuarios);
 
         jMenu_reportes.setText("Reportes");
+
+        jMenuItem_reporteDiario.setText("Reporte Diario");
+        jMenuItem_reporteDiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_reporteDiarioActionPerformed(evt);
+            }
+        });
+        jMenu_reportes.add(jMenuItem_reporteDiario);
+
         jMenuBar1.add(jMenu_reportes);
 
         jMenu_perfil.setText("Mi Perfil");
@@ -264,7 +286,9 @@ public class inicio extends javax.swing.JFrame {
       
       if (confirmacion == 0){
           
+          conexion.cierraCesion();
           System.exit(0);
+          
       }//fin if
  
     }//GEN-LAST:event_JB_CierreActionPerformed
@@ -288,6 +312,37 @@ public class inicio extends javax.swing.JFrame {
         
         verU.setVisible(true);
     }//GEN-LAST:event_jMenuItem_ver_usuarioActionPerformed
+
+    private void jMenuItem_reporteDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_reporteDiarioActionPerformed
+        try {
+            // TODO add your handling code here:
+            
+            // descarga dentro del mismo proyecto
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                   //current + "/reportes/" + propietario + ".pdf");
+                    "C:/Users/thomy/JaspersoftWorkspace/MyReports/ReporteDiario.jasper", null,
+                    //"C:\\Users\\Ecodeup\\JaspersoftWorkspace\\Reportes Escuela\\ReporteAlumnos.jasper", null,
+                    conexion.conexionUP);
+            JRPdfExporter exp = new JRPdfExporter();
+            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+            exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteDiario.pdf"));
+            SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+            exp.setConfiguration(conf);
+            exp.exportReport();
+            // se muestra en una ventana aparte para su descarga
+            JasperPrint jasperPrintWindow;
+            
+            jasperPrintWindow = JasperFillManager.fillReport(
+                    "C:/Users/thomy/JaspersoftWorkspace/MyReports/ReporteDiario.jasper", null,
+                    //"C:\\Users\\Ecodeup\\JaspersoftWorkspace\\Reportes Escuela\\ReporteAlumnos.jasper", null,
+                    conexion.conexionUP);
+            
+            JasperViewer jasperViewer = new JasperViewer(jasperPrintWindow);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem_reporteDiarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,6 +386,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem_cerrarsesion;
     private javax.swing.JMenuItem jMenuItem_movimientos;
     private javax.swing.JMenuItem jMenuItem_nuevo_usuario;
+    private javax.swing.JMenuItem jMenuItem_reporteDiario;
     private javax.swing.JMenuItem jMenuItem_ver_usuario;
     private javax.swing.JMenuItem jMenuIten_perfil;
     public static javax.swing.JMenu jMenu_perfil;

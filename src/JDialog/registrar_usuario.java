@@ -156,21 +156,28 @@ public class registrar_usuario extends javax.swing.JDialog {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
 
         try {
-            jFTF_cedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("  ###-#######-#")));
+            jFTF_cedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-#######-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFTF_cedula.setCaretPosition(0);
 
         try {
-            jFTF_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("    ###-###-####")));
+            jFTF_telefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         jFTF_telefono.setToolTipText("");
+        jFTF_telefono.setCaretPosition(0);
 
         jLabel1.setText("Posicion");
 
         jCB_Posicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCB_Posicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_PosicionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,8 +277,11 @@ public class registrar_usuario extends javax.swing.JDialog {
 
     private void llenaJcomboPosicion(){
         
+        String consulta = "SELECT * FROM cargo";
+        String dato = "cargo_posicion";
+        
         jCB_Posicion.removeAllItems();
-        lista = conexion.llenacomboEmpleado();
+        lista = conexion.llenacombo(consulta,dato);
         
         lista.forEach(e -> {
             jCB_Posicion.addItem(e);
@@ -307,7 +317,7 @@ public class registrar_usuario extends javax.swing.JDialog {
 
                     int id_empleado = conexion.resultado.getInt("ID");
                     
-                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion + "')";
+                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion,Estado) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion +"', 'Activo')";
                     objcon.ejecutarSQL(sql);
                     
                     JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
@@ -354,6 +364,10 @@ public class registrar_usuario extends javax.swing.JDialog {
         
         this.setVisible(false);
     }//GEN-LAST:event_jButton_cancelarActionPerformed
+
+    private void jCB_PosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_PosicionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_PosicionActionPerformed
 
     /**
      * @param args the command line arguments
