@@ -297,7 +297,7 @@ public class Login extends javax.swing.JDialog {
 
                     JOptionPane.showMessageDialog(null, "Operación Cancelada", "Cancelar", JOptionPane.INFORMATION_MESSAGE);
 
-                } else if (nueva.isEmpty() || nueva.isBlank()) {
+                } else if (nueva.isEmpty() || nueva.isEmpty()) {
 
                     JOptionPane.showMessageDialog(null, "Debe introducir una contraseña para proceder!");
 
