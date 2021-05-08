@@ -151,12 +151,18 @@ public class MyDefaultTableModel extends DefaultTableModel {
         final JComboBox<String> jcbxPosiciones = new JComboBox<>();
         jcbxPosiciones.removeAllItems();
         
+//        final JComboBox<String> jcbxEstado = new JComboBox<>();
+//        jcbxEstado.removeAllItems();
+        
         lista = conexion.llenacombo(consulta,dato);
         
         lista.forEach(e -> {
             jcbxPosiciones.addItem(e);
         });
 
+//        jcbxEstado.addItem("Activo");
+//        jcbxEstado.addItem("Inactivo");
+        
         //Renderer
         table.getColumnModel().getColumn(6).setCellRenderer(rendererAccion);
         table.getColumnModel().getColumn(7).setCellRenderer(rendererEditar);
@@ -164,6 +170,7 @@ public class MyDefaultTableModel extends DefaultTableModel {
         //Editor
         table.getColumnModel().getColumn(6).setCellEditor(editorAccion);
         table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(jcbxPosiciones));
+        //table.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(jcbxEstado));
         table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(new JCheckBox()));
     }
 

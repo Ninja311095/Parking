@@ -8,12 +8,7 @@ package JDialog;
 import Jpanel.inicio;
 import Base_de_Datos.conexion;
 import Jpanel.Usuario;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Panel;
-import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -61,6 +56,7 @@ public class Login extends javax.swing.JDialog {
 
         setLocationRelativeTo(null);
 
+        objcon.crearConexion();
     }
 
     /**
@@ -191,20 +187,7 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    @Override
-//    public void paint(Graphics g) {
-//     Graphics2D g2d = (Graphics2D) g;
-//
-//     /*
-//      * Para crear un gradiente horizontal,
-//      * las coordenadas a usar seran del {0,0} al {anchura del componente, 0}
-//      */
-//     GradientPaint horizontalGradient = new GradientPaint(0, 0, Color.BLUE, getWidth(), 0, Color.YELLOW);
-//     g2d.setPaint(horizontalGradient);
-//
-//     g2d.fillRect(0, 0, getWidth(), getHeight());
-//
-//    }
+
     private String codigoUUID() {
 
         codigo_gene = UUID.randomUUID().toString();
@@ -272,7 +255,7 @@ public class Login extends javax.swing.JDialog {
                 if (pos.equals("Asistente")) {
 
                     inicio.jMenu_usuarios.setVisible(false);
-                    inicio.jMenu_reportes.setVisible(false);
+                    //inicio.jMenu_reportes.setVisible(false);
                 }
 
                 miUsuario.setUsu(usuario);
@@ -387,10 +370,8 @@ public class Login extends javax.swing.JDialog {
 
                     option = JOptionPane.showConfirmDialog(null, "El codigo ingresado en el sistema no concuerda con el enviado"
                             + "\nPor favor verifique los datos e intente nuevamente","Codigo invalido",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
-                    System.out.println(option + " " + cont);
                     
                 }
-                System.out.println(option + " " + cont);
                 
             } while ((cont == true) && option!= 2);
             

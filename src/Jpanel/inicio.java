@@ -6,12 +6,7 @@ import JDialog.mi_perfil;
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
 import JDialog.ver_usuarios;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
+
 
 /**
  *
@@ -70,8 +65,6 @@ public class inicio extends javax.swing.JFrame {
         jMenuItem_ver_usuario = new javax.swing.JMenuItem();
         jMenuItem_movimientos = new javax.swing.JMenuItem();
         jMenuItem_nuevo_usuario = new javax.swing.JMenuItem();
-        jMenu_reportes = new javax.swing.JMenu();
-        jMenuItem_reporteDiario = new javax.swing.JMenuItem();
         jMenu_perfil = new javax.swing.JMenu();
         jMenuIten_perfil = new javax.swing.JMenuItem();
         jMenuItem_cerrarsesion = new javax.swing.JMenuItem();
@@ -189,18 +182,6 @@ public class inicio extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu_usuarios);
 
-        jMenu_reportes.setText("Reportes");
-
-        jMenuItem_reporteDiario.setText("Reporte Diario");
-        jMenuItem_reporteDiario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_reporteDiarioActionPerformed(evt);
-            }
-        });
-        jMenu_reportes.add(jMenuItem_reporteDiario);
-
-        jMenuBar1.add(jMenu_reportes);
-
         jMenu_perfil.setText("Mi Perfil");
 
         jMenuIten_perfil.setText("Ver Perfil");
@@ -317,26 +298,6 @@ public class inicio extends javax.swing.JFrame {
         verU.setVisible(true);
     }//GEN-LAST:event_jMenuItem_ver_usuarioActionPerformed
 
-    private void jMenuItem_reporteDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_reporteDiarioActionPerformed
-        try {
-            // TODO add your handling code here:
-
-            // se muestra en una ventana aparte para su descarga
-            JasperPrint jasperPrintWindow;
-
-            System.out.println("hola mundo");
-            jasperPrintWindow = JasperFillManager.fillReport(
-                    current + "/informes/MyReports/reportediario.jasper", null,
-                    conexion.conexionUP);
-
-            System.out.println("hola mundo");
-            JasperViewer jasperViewer = new JasperViewer(jasperPrintWindow);
-            jasperViewer.setVisible(true);
-        } catch (JRException ex) {
-            Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenuItem_reporteDiarioActionPerformed
-
     private void jMenuIten_perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIten_perfilActionPerformed
         // TODO add your handling code here:
         String usuario = mUsuario.getUsu();
@@ -387,11 +348,9 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem_cerrarsesion;
     private javax.swing.JMenuItem jMenuItem_movimientos;
     private javax.swing.JMenuItem jMenuItem_nuevo_usuario;
-    private javax.swing.JMenuItem jMenuItem_reporteDiario;
     private javax.swing.JMenuItem jMenuItem_ver_usuario;
     private javax.swing.JMenuItem jMenuIten_perfil;
     public static javax.swing.JMenu jMenu_perfil;
-    public static javax.swing.JMenu jMenu_reportes;
     public static javax.swing.JMenu jMenu_usuarios;
     // End of variables declaration//GEN-END:variables
 }
