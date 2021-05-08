@@ -2,6 +2,7 @@
 package Jpanel;
 
 import Base_de_Datos.conexion;
+import JDialog.Movimientos_usuarios;
 import JDialog.mi_perfil;
 import javax.swing.JOptionPane;
 import JDialog.registrar_usuario;
@@ -26,6 +27,7 @@ public class inicio extends javax.swing.JFrame {
     mi_perfil perfil = new mi_perfil(this, rootPaneCheckingEnabled);
     String current = System.getProperty("user.dir");
     Usuario mUsuario = Usuario.getUsuario();
+   // Movimientos_usuarios mu = new Movimientos_usuarios(this, rootPaneCheckingEnabled);
     
     int confirmacion;
     
@@ -46,6 +48,7 @@ public class inicio extends javax.swing.JFrame {
         panelListarVehiculos.setVisible(false);
 
         setLocationRelativeTo(null);
+        jMenuItem_movimientos.setVisible(false);
     }
 
 
@@ -170,6 +173,11 @@ public class inicio extends javax.swing.JFrame {
         jMenu_usuarios.add(jMenuItem_ver_usuario);
 
         jMenuItem_movimientos.setText("Movimientos de usuarios");
+        jMenuItem_movimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_movimientosActionPerformed(evt);
+            }
+        });
         jMenu_usuarios.add(jMenuItem_movimientos);
 
         jMenuItem_nuevo_usuario.setText("Nuevo Usuario");
@@ -305,6 +313,12 @@ public class inicio extends javax.swing.JFrame {
         perfil.DatosUsuario(sql);
         perfil.setVisible(true);
     }//GEN-LAST:event_jMenuIten_perfilActionPerformed
+
+    private void jMenuItem_movimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_movimientosActionPerformed
+        // TODO add your handling code here:
+        
+        //mu.setVisible(true);
+    }//GEN-LAST:event_jMenuItem_movimientosActionPerformed
 
     /**
      * @param args the command line arguments

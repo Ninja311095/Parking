@@ -5,6 +5,12 @@
  */
 package JDialog;
 
+import Base_de_Datos.conexion;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author thomy
@@ -14,9 +20,16 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
     /**
      * Creates new form Movimientos_usuarios
      */
+    
+    DefaultTableModel modelo = new DefaultTableModel();
+    conexion objcon = new conexion();
+    String sql;
+    
     public Movimientos_usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        rellenarTablaMovie();
     }
 
     /**
@@ -29,27 +42,53 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_Movimientos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jTable_Movimientos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Placa", "Tipo Vehiculo", "Hora Entrada", "Hora Salida", "Pagado", "Usuario Entrada", "Usuario Salida"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable_Movimientos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -59,6 +98,52 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //METODO PARA RELLENAR LA TABLA
+    public void rellenarTablaMovie(){
+        try{
+            
+            modelo = (DefaultTableModel) jTable_Movimientos.getModel();
+            modelo.setRowCount(0);
+            
+            sql = "SELECT placa_vehiculo, tipo_vehiculo, horaentrada_vehiculo, horasalida_vehiculo, valorpagado,"
+                    + " usuario, usuario_salida from vehiculo";
+            objcon.ejecutarSQLSelect(sql);
+
+            conexion.resultado.first();
+
+            do {
+                String horasalida = conexion.resultado.getString(4);
+                String pago = conexion.resultado.getString(5);
+                
+                if (horasalida == null) {
+                    
+                    horasalida = "No ha salido";
+                    pago = "0";
+                    
+                } else {
+                    
+                    horasalida = "fuego";//conexion.resultado.getString(4).substring(10).substring(0,6);
+                    pago = conexion.resultado.getString(5);
+                    System.out.println(pago);
+                }
+                
+                System.out.println(conexion.resultado.getString(1));
+                
+                String[] fila = {conexion.resultado.getString(1),
+                                 conexion.resultado.getString(2),
+                                 conexion.resultado.getString(3),
+                                 horasalida,
+                                 "$" + pago,
+                                 conexion.resultado.getString(6),
+                                 conexion.resultado.getString(6)};
+                modelo.addRow(fila);
+                
+            } while (conexion.resultado.next());
+            
+        } catch (SQLException ex) {
+             Logger.getLogger(Movimientos_usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//Fin rellenar Tabla
     /**
      * @param args the command line arguments
      */
@@ -103,5 +188,7 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable_Movimientos;
     // End of variables declaration//GEN-END:variables
 }
