@@ -37,9 +37,6 @@ public class ver_usuarios extends javax.swing.JDialog {
         jtable.setModel(mdtm);
         mdtm.setTable(jTable_empleados);
 
-        crearTabla();
-        rellenarTabla();
-        actualizaDatos();
     }
 
     /**

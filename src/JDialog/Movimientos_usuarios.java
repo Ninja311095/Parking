@@ -6,6 +6,7 @@
 package JDialog;
 
 import Base_de_Datos.conexion;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,15 +22,16 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
      * Creates new form Movimientos_usuarios
      */
     
-    DefaultTableModel modelo = new DefaultTableModel();
-    conexion objcon = new conexion();
+    
+    conexion obj = new conexion();
     String sql;
     
-    public Movimientos_usuarios(java.awt.Frame parent, boolean modal) {
+    public Movimientos_usuarios(java.awt.Frame parent, boolean modal){
         super(parent, modal);
         initComponents();
         
-        rellenarTablaMovie();
+        setLocationRelativeTo(null);
+        DatosTabla();
     }
 
     /**
@@ -47,26 +49,16 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable_Movimientos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Placa", "Tipo Vehiculo", "Hora Entrada", "Hora Salida", "Pagado", "Usuario Entrada", "Usuario Salida"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(jTable_Movimientos);
+        if (jTable_Movimientos.getColumnModel().getColumnCount() > 0) {
+            jTable_Movimientos.getColumnModel().getColumn(0).setHeaderValue("Placa");
+            jTable_Movimientos.getColumnModel().getColumn(1).setHeaderValue("Tipo Vehiculo");
+            jTable_Movimientos.getColumnModel().getColumn(2).setHeaderValue("Hora Entrada");
+            jTable_Movimientos.getColumnModel().getColumn(3).setHeaderValue("Hora Salida");
+            jTable_Movimientos.getColumnModel().getColumn(4).setHeaderValue("Pagado");
+            jTable_Movimientos.getColumnModel().getColumn(5).setHeaderValue("Usuario Entrada");
+            jTable_Movimientos.getColumnModel().getColumn(6).setHeaderValue("Usuario Salida");
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,51 +91,42 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     //METODO PARA RELLENAR LA TABLA
-    public void rellenarTablaMovie(){
-        try{
+    public void DatosTabla(){
+        
+        DefaultTableModel modelo = new DefaultTableModel(new String [] {
+        "Placa", "Tipo Vehiculo", "Hora Entrada", "Hora Salida", "Pagado", "Usuario Entrada", "Usuario Salida"
+    },0);
+        
+        
+        try {
             
-            modelo = (DefaultTableModel) jTable_Movimientos.getModel();
-            modelo.setRowCount(0);
+            sql = "SELECT e.placa_vehiculo,e.tipo_vehiculo,e.horaentrada_vehiculo,e.horasalida_vehiculo,e.valorpagado,CONCAT (v.nombre_empleado,' ', v.apellido_empleado),e.usuario_salida" +
+                    " FROM vehiculos AS e INNER JOIN usuarios AS u ON e.usuario = u.usuario INNER JOIN empleados AS v ON v.id_empleado = u.id_empleado";
             
-            sql = "SELECT placa_vehiculo, tipo_vehiculo, horaentrada_vehiculo, horasalida_vehiculo, valorpagado,"
-                    + " usuario, usuario_salida from vehiculo";
-            objcon.ejecutarSQLSelect(sql);
-
-            conexion.resultado.first();
-
-            do {
-                String horasalida = conexion.resultado.getString(4);
-                String pago = conexion.resultado.getString(5);
+            ResultSet prueba = obj.ejecutarSQLSelect2(sql);
+            
+            while (prueba.next()) {                
                 
-                if (horasalida == null) {
-                    
-                    horasalida = "No ha salido";
-                    pago = "0";
-                    
-                } else {
-                    
-                    horasalida = "fuego";//conexion.resultado.getString(4).substring(10).substring(0,6);
-                    pago = conexion.resultado.getString(5);
-                    System.out.println(pago);
-                }
-                
-                System.out.println(conexion.resultado.getString(1));
-                
-                String[] fila = {conexion.resultado.getString(1),
-                                 conexion.resultado.getString(2),
-                                 conexion.resultado.getString(3),
-                                 horasalida,
-                                 "$" + pago,
-                                 conexion.resultado.getString(6),
-                                 conexion.resultado.getString(6)};
+                Object[] fila = {prueba.getString(1),
+                   prueba.getString(2),
+                   prueba.getString(3),
+                   prueba.getString(4),
+                   prueba.getString(5),
+                   prueba.getString(6),
+                   prueba.getString(7),
+                   };
+ 
                 modelo.addRow(fila);
-                
-            } while (conexion.resultado.next());
+            }
             
+            jTable_Movimientos.setModel(modelo);
+                    
         } catch (SQLException ex) {
-             Logger.getLogger(Movimientos_usuarios.class.getName()).log(Level.SEVERE, null, ex);
+            
+            System.out.println(ex);
+            Logger.getLogger(Movimientos_usuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//Fin rellenar Tabla
+    }
     /**
      * @param args the command line arguments
      */

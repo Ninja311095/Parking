@@ -33,6 +33,7 @@ public class Listar extends javax.swing.JPanel {
         initComponents();
         
         objcon.crearConexion();
+        rellenarTabla();
         
     }
 
@@ -310,7 +311,7 @@ public class Listar extends javax.swing.JPanel {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             date = dcFechaBusqueda.getDate();
             fecha = dateFormat.format(date);
-                System.out.println(fecha);
+                
             }
             
             placa = JTF_Placa.getText();

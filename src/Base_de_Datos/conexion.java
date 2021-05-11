@@ -23,6 +23,7 @@ public class conexion {
     private String clave;
     public static Statement sentencia;
     public static ResultSet resultado;
+    public static ResultSet resultado2;
 
     /**
      * Método utilizado para establecer la conexión con la base de datos
@@ -65,10 +66,30 @@ public class conexion {
             resultado = pSentencia.executeQuery();
 
         } catch (SQLException ex) {
+            
             return null;
         }
 
+        
         return resultado;
+
+    }//fin resulset select
+    
+    public ResultSet ejecutarSQLSelect2(String sql) {
+
+        try {
+
+            PreparedStatement pSentencia2 = conexionUP.prepareStatement(sql);
+            
+            return pSentencia2.executeQuery();
+
+            
+        } catch (SQLException ex) {
+            
+            System.out.println(ex);
+            return null;
+        }
+
 
     }//fin resulset select
 
