@@ -36,10 +36,10 @@ public class registrar_usuario extends javax.swing.JDialog {
     public registrar_usuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         objcon.crearConexion();
         llenaJcomboPosicion();
-        
+
         setLocationRelativeTo(null);
     }
 
@@ -531,65 +531,72 @@ public class registrar_usuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void llenaJcomboPosicion(){
-        
+    private void llenaJcomboPosicion() {
+
         String consulta = "SELECT * FROM cargo";
         String dato = "cargo_posicion";
-        
+
         jCB_Posicion.removeAllItems();
-        lista = conexion.llenacombo(consulta,dato);
-        
+        lista = conexion.llenacombo(consulta, dato);
+
         lista.forEach(e -> {
             jCB_Posicion.addItem(e);
         });
     }
-    
-    public void limpia_campos(){
-        
-            jTF_nombre.setText("");
-            jTF_apellido.setText("");
-            jFTF_cedula.setText("");
-            jTF_correo.setText("");
-            jFTF_telefono.setText("");
-            jTF_usuario.setText("");
-            jTF_pass.setText("");
-            jTF_confirmar.setText("");
+
+    public void limpia_campos() {
+
+        jTF_nombre.setText("");
+        jTF_apellido.setText("");
+        jFTF_cedula.setText("");
+        jTF_correo.setText("");
+        jFTF_telefono.setText("");
+        jTF_usuario.setText("");
+        jTF_pass.setText("");
+        jTF_confirmar.setText("");
     }
-    
-    public void registra_usuario(String nombre,String apellido,String cedula, String correo, String telefono, String usuario,String pass,String pass_conf,String posicion){
-        
-        if(pass.equals(pass_conf)){
-            
-            sql = "INSERT INTO empleados (nombre_empleado,apellido_empleado,cedula_empleado,correo_empleado,telefono_empleado) VALUES ('" 
-                                          + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "')";
-            objcon.ejecutarSQL(sql);
 
-            sql =  "SELECT MAX(id_empleado) AS ID FROM empleados";
-            objcon.ejecutarSQLSelect(sql);
-            
-            try {
+    public void registra_usuario(String nombre, String apellido, String cedula, String correo, String telefono, String usuario, String pass, String pass_conf, String posicion) {
 
-                conexion.resultado.first();
+        if (nombre.isBlank() || apellido.isBlank() || cedula.isBlank() || correo.isBlank() || telefono.isBlank() || usuario.isBlank() || pass.isBlank()) {
+
+            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completados", "Campos Incompletos", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            if (pass.equals(pass_conf)) {
+
+                sql = "INSERT INTO empleados (nombre_empleado,apellido_empleado,cedula_empleado,correo_empleado,telefono_empleado) VALUES ('"
+                        + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "')";
+                objcon.ejecutarSQL(sql);
+
+                sql = "SELECT MAX(id_empleado) AS ID FROM empleados";
+                objcon.ejecutarSQLSelect(sql);
+
+                try {
+
+                    conexion.resultado.first();
 
                     int id_empleado = conexion.resultado.getInt("ID");
-                    
-                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion,Estado) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion +"', 'Activo')";
-                    objcon.ejecutarSQL(sql);
-                    
-                    JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
-                
-                    limpia_campos();
-            
-            } catch (SQLException ex) {
 
-                Logger.getLogger(registrar_usuario.class.getName()).log(Level.SEVERE, null, ex);
+                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion,Estado) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion + "', 'Activo')";
+                    objcon.ejecutarSQL(sql);
+
+                    JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
+
+                    limpia_campos();
+
+                } catch (SQLException ex) {
+
+                    Logger.getLogger(registrar_usuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-            
-        }else{
-            
-            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "ERROR",JOptionPane.ERROR_MESSAGE);
+
         }
-        
+
     }
     
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed

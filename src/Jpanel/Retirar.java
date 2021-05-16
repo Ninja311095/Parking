@@ -198,8 +198,6 @@ public class Retirar extends javax.swing.JPanel {
             documento.add(para4); 
             documento.add(para5); 
             documento.close();
-            
-             System.out.println("PDF Created");
              
              
              try {
@@ -225,8 +223,6 @@ public class Retirar extends javax.swing.JPanel {
                    }catch (IOException ex) {
                       
                     }
-
-		System.out.println("Done");
 
   	  } catch (IOException | InterruptedException ex) {
               
@@ -294,8 +290,6 @@ public class Retirar extends javax.swing.JPanel {
                     
                     valorAPagar = tarifaMinima;
                 }
-
-                System.out.println(horasACobrar);
 
                 sql = "UPDATE vehiculos SET horasalida_vehiculo='" + fechaHora + "',estado_vehiculo= 'No Disponible', valorpagado= " 
                       + valorAPagar + ",usuario_salida ='" + usuario +"' WHERE placa_vehiculo='" + tfPlacaRetiro.getText() + "' AND estado_vehiculo='Disponible'";

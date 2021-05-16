@@ -351,23 +351,22 @@ public class Listar extends javax.swing.JPanel {
             // TODO add your handling code here:
 
             fecha = dateFormat.format(date);
-            
-            sql = "SELECT SUM(valorpagado)FROM vehiculos WHERE estado_vehiculo= 'No Disponible' AND horasalida_vehiculo LIKE '%" + fecha + "%'";
+            sql = "SELECT SUM(valorpagado)AS total FROM vehiculos WHERE estado_vehiculo = 'No Disponible' AND horasalida_vehiculo LIKE '%" + fecha + "%'";
             
             objcon.ejecutarSQLSelect(sql);
-            
+
             conexion.resultado.first();
             
-            
             DecimalFormat df = new DecimalFormat("#.00");
-            Double IngresosTotales = Double.parseDouble(conexion.resultado.getString(1));
-            	
+
+            Double IngresosTotales = Double.parseDouble(conexion.resultado.getString("total"));
+
             JOptionPane.showMessageDialog(null, "El ingreso total del dia seleccionado es de : $ " 
                                                  + df.format(IngresosTotales) + " Pesos");
           
-        }catch (SQLException | NoClassDefFoundError ex){
+        }catch (SQLException | NoClassDefFoundError | NullPointerException ex){
            
-           JOptionPane.showMessageDialog(null,"No se realizaron salidas el dia de hoy." );
+           JOptionPane.showMessageDialog(null,"No se realizaron salidas el dia de hoy.");
                 
            Logger.getLogger(Listar.class.getName()).log(Level.SEVERE, null, ex);
             

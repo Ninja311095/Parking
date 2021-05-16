@@ -292,7 +292,7 @@ public class mi_perfil extends javax.swing.JDialog {
             if (paso){
                  paso = false;
                  posicion = conexion.resultado.getString("Posicion");
-                 System.out.println(posicion + " estoy en el if " + paso);
+
             }
            
             setDatos();
@@ -316,6 +316,8 @@ public class mi_perfil extends javax.swing.JDialog {
         jTF_pass.setText(pass);
 
         jTF_usuario.setEditable(false);
+        jTF_pass.setEditable(false);
+        jTF_confirmar.setEditable(false);
 
         if (posicion.equalsIgnoreCase("Administrador")) {
 
@@ -325,20 +327,17 @@ public class mi_perfil extends javax.swing.JDialog {
             jFTF_telefono.setEditable(true);
             jTF_correo.setEditable(true);
 
-            System.out.println(usu + usuario + 1);
 
             if (usuario.equalsIgnoreCase(usu)) {
                 
                 jTF_pass.setEditable(true);
                 jTF_confirmar.setEditable(true);
 
-                System.out.println(usu + usuario + 2 + posicion);
             }
 
         }
         if (posicion.equalsIgnoreCase("Asistente")) {
 
-            System.out.println(usu + usuario + 3);
 
             jTF_pass.setEditable(true);
             jTF_confirmar.setEditable(true);
@@ -349,19 +348,73 @@ public class mi_perfil extends javax.swing.JDialog {
 
     }//FIN METODO PARA ESTABLECER DATOS
     
-    public void ActualizaDatos(String correo, String telefono){
+    public void ActualizaDatos(String correo, String telefono, String pass,String cedula) throws SQLException{
             
-            sql = "UPDATE empleados SET correo_empleado = '" + correo + "', telefono_empleado = '" + telefono + "'";
-            objcon.ejecutarSQL(sql);
+            sql = "UPDATE empleados AS e INNER JOIN usuarios AS u on e.id_empleado = u.id_empleado SET "
+                        + "    e.correo_empleado = '" + correo + "' , e.telefono_empleado = '" + telefono 
+                        + "',  u.contrasena_usuario = '" + pass + "' WHERE e.cedula_empleado = '" + cedula + "'";
+                objcon.ejecutarSQL(sql);
+                
+                if(objcon.resultado.first()){
+                    
+                    JOptionPane.showConfirmDialog(null, "Datos Actualizados con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+               
+                }
     }
     
+    /*public void ActualizaDatosAdmins(String nombre, String apellido, String cedula, String correo, String telefono, String pass, String pass_conf) {
+
+        if (nombre.isBlank() || apellido.isBlank() || cedula.isBlank() || correo.isBlank() || telefono.isBlank() || usuario.isBlank() || pass.isBlank()) {
+
+            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completados", "Campos Incompletos", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            if (pass.equals(pass_conf)) {
+
+                sql = "UPDATE empleados (nombre_empleado,apellido_empleado,cedula_empleado,correo_empleado,telefono_empleado) VALUES ('"
+                        + nombre + "', '" + apellido + "', '" + cedula + "', '" + correo + "', '" + telefono + "')";
+                objcon.ejecutarSQL(sql);
+
+                try {
+
+                    conexion.resultado.first();
+
+                    int id_empleado = conexion.resultado.getInt("ID");
+
+                    sql = "INSERT INTO usuarios (usuario,contrasena_usuario,id_empleado,Posicion,Estado) VALUES ('" + usuario + "', '" + pass + "', '" + id_empleado + "', '" + posicion + "', 'Activo')";
+                    objcon.ejecutarSQL(sql);
+
+                    JOptionPane.showMessageDialog(null, "Usuario Registrado Exitosamente!");
+
+                } catch (SQLException ex) {
+
+                    Logger.getLogger(registrar_usuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+    }*/
+    
     private void jButton_aplicarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_aplicarCambiosActionPerformed
-        // TODO add your handling code here:
-        
-        correo = jTF_correo.getText();
-        telefono = jFTF_telefono.getText();
-        
-        ActualizaDatos(correo,telefono);
+        try {
+            // TODO add your handling code here:
+            
+            correo = jTF_correo.getText();
+            telefono = jFTF_telefono.getText();
+            pass = jTF_pass.getText();
+            pass_conf = jTF_confirmar.getText();
+            cedula = jFTF_cedula.getText();
+            
+            ActualizaDatos(correo,telefono,pass,cedula);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(mi_perfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jButton_aplicarCambiosActionPerformed
 

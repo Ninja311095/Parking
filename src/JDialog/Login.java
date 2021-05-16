@@ -8,12 +8,7 @@ package JDialog;
 import Jpanel.inicio;
 import Base_de_Datos.conexion;
 import Jpanel.Usuario;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Panel;
-import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -61,6 +56,7 @@ public class Login extends javax.swing.JDialog {
 
         setLocationRelativeTo(null);
 
+        objcon.crearConexion();
     }
 
     /**
@@ -258,20 +254,7 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    @Override
-//    public void paint(Graphics g) {
-//     Graphics2D g2d = (Graphics2D) g;
-//
-//     /*
-//      * Para crear un gradiente horizontal,
-//      * las coordenadas a usar seran del {0,0} al {anchura del componente, 0}
-//      */
-//     GradientPaint horizontalGradient = new GradientPaint(0, 0, Color.BLUE, getWidth(), 0, Color.YELLOW);
-//     g2d.setPaint(horizontalGradient);
-//
-//     g2d.fillRect(0, 0, getWidth(), getHeight());
-//
-//    }
+
     private String codigoUUID() {
 
         codigo_gene = UUID.randomUUID().toString();
@@ -328,19 +311,26 @@ public class Login extends javax.swing.JDialog {
             SE ENVIA UN MENSAJE NOTIFICANDOLO*/
             conexion.resultado.first();
 
-            String pos = conexion.resultado.getString("Posicion");
-            pp.setVisible(true);
-            pp.setLocationRelativeTo(null);
-            this.setVisible(false);
-            JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
+            if (conexion.resultado.getString(6).equals("Activo")) {
 
-            if (pos.equals("Asistente")) {
+                String pos = conexion.resultado.getString("Posicion");
+                pp.setVisible(true);
+                pp.setLocationRelativeTo(null);
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
 
-                inicio.jMenu_usuarios.setVisible(false);
-                inicio.jMenu_reportes.setVisible(false);
+                if (pos.equals("Asistente")) {
+
+                    inicio.jMenu_usuarios.setVisible(false);
+                    //inicio.jMenu_reportes.setVisible(false);
+                }
+
+                miUsuario.setUsu(usuario);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "El usuario ingresado se encuentra Inactivo", "Usuario Inactivo", JOptionPane.ERROR_MESSAGE);
             }
-
-            miUsuario.setUsu(usuario);
         } catch (SQLException ex) {
 
             JOptionPane.showMessageDialog(null, "Error al ingresar al sistema su USUARIO o CONTRASEÑA son incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -447,10 +437,8 @@ public class Login extends javax.swing.JDialog {
 
                     option = JOptionPane.showConfirmDialog(null, "El codigo ingresado en el sistema no concuerda con el enviado"
                             + "\nPor favor verifique los datos e intente nuevamente","Codigo invalido",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
-                    System.out.println(option + " " + cont);
                     
                 }
-                System.out.println(option + " " + cont);
                 
             } while ((cont == true) && option!= 2);
             
