@@ -79,16 +79,31 @@ public class mi_perfil extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(238, 237, 240));
+
+        jLabel_nombre.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_nombre.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_nombre.setText("Nombre");
 
+        jLabel_apellido.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_apellido.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_apellido.setText("Apellido");
 
+        jLabel_cedula.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_cedula.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_cedula.setText("Cedula");
 
+        jLabel_correo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_correo.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_correo.setText("Correo");
 
+        jLabel_celular.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_celular.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_celular.setText("Telefono/Celular");
 
+        jButton_aplicarCambios.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_aplicarCambios.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_aplicarCambios.setForeground(new java.awt.Color(3, 73, 223));
         jButton_aplicarCambios.setText("Aplicar Cambios");
         jButton_aplicarCambios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +111,9 @@ public class mi_perfil extends javax.swing.JDialog {
             }
         });
 
+        jButton_cerrar.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_cerrar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_cerrar.setForeground(new java.awt.Color(3, 73, 223));
         jButton_cerrar.setText("Cerrar");
         jButton_cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,14 +121,21 @@ public class mi_perfil extends javax.swing.JDialog {
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuario y Contraseña para el Sistema"));
+        jPanel2.setBackground(new java.awt.Color(238, 237, 240));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario y Contraseña para el Sistema", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(3, 73, 223))); // NOI18N
 
+        jLabel_usuario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_usuario.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_usuario.setText("Usuario");
 
+        jLabel_pass.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_pass.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_pass.setText("Contraseña");
 
         jTF_usuario.setEditable(false);
 
+        jLabel_passConfirm.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel_passConfirm.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_passConfirm.setText("Confirmar");
 
         jTF_confirmar.setEditable(false);
@@ -220,7 +245,7 @@ public class mi_perfil extends javax.swing.JDialog {
                         .addComponent(jButton_aplicarCambios)
                         .addGap(192, 192, 192)
                         .addComponent(jButton_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +277,7 @@ public class mi_perfil extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_aplicarCambios)
                     .addComponent(jButton_cerrar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -23,7 +23,6 @@ public class conexion {
     private String clave;
     public static Statement sentencia;
     public static ResultSet resultado;
-    public static ResultSet resultado2;
 
     /**
      * Método utilizado para establecer la conexión con la base de datos
@@ -34,8 +33,8 @@ public class conexion {
     public boolean crearConexion() {
 
         url = "jdbc:mysql://localhost/bdparqueo?useSSL=false&serverTimezone=UTC";
-        usuario = "parqueo";
-        clave = "imdumb";
+        usuario = "root";
+        clave = "";
         try {
 
             conexionUP = DriverManager.getConnection(url, usuario, clave);

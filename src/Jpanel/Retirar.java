@@ -85,6 +85,7 @@ public class Retirar extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         JB_Retirar = new java.awt.Button();
 
+        setBackground(new java.awt.Color(238, 237, 240));
         setPreferredSize(new java.awt.Dimension(453, 400));
 
         tfPlacaRetiro.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
@@ -95,14 +96,15 @@ public class Retirar extends javax.swing.JPanel {
         });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI Symbol", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(3, 73, 223));
         jLabel1.setText("Modulo de salida de vehiculos del parqueo");
 
         jLabel2.setText("Placa");
 
-        JB_Retirar.setBackground(new java.awt.Color(255, 51, 0));
-        JB_Retirar.setForeground(new java.awt.Color(255, 255, 255));
+        JB_Retirar.setBackground(new java.awt.Color(246, 207, 18));
+        JB_Retirar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        JB_Retirar.setForeground(new java.awt.Color(3, 73, 223));
         JB_Retirar.setLabel("Retirar");
         JB_Retirar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +130,7 @@ public class Retirar extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(283, 283, 283)
                         .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +143,7 @@ public class Retirar extends javax.swing.JPanel {
                 .addComponent(tfPlacaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(JB_Retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

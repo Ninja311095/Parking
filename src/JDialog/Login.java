@@ -81,7 +81,7 @@ public class Login extends javax.swing.JDialog {
         setTitle("LOGIN");
         setIconImage(null);
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(238, 237, 240));
         jPanel1.setForeground(new java.awt.Color(102, 102, 255));
 
         jLabel_usuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -90,6 +90,9 @@ public class Login extends javax.swing.JDialog {
         jLabel_pass.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel_pass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/contrasena.png"))); // NOI18N
 
+        jButton_login.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_login.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_login.setForeground(new java.awt.Color(3, 73, 223));
         jButton_login.setText("Log in");
         jButton_login.setToolTipText("");
         jButton_login.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +101,9 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        jButton_reset.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_reset.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_reset.setForeground(new java.awt.Color(3, 73, 223));
         jButton_reset.setText("Cambiar/Olvido");
         jButton_reset.setToolTipText("Presione si olvido o quiere cambiar la contraseña");
         jButton_reset.addActionListener(new java.awt.event.ActionListener() {

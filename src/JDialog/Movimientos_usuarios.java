@@ -49,6 +49,8 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(238, 237, 240));
+
         jScrollPane1.setViewportView(jTable_Movimientos);
         if (jTable_Movimientos.getColumnModel().getColumnCount() > 0) {
             jTable_Movimientos.getColumnModel().getColumn(0).setHeaderValue("Placa");
@@ -91,7 +93,7 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     //METODO PARA RELLENAR LA TABLA
-    public void DatosTabla(){
+    private void DatosTabla(){
         
         DefaultTableModel modelo = new DefaultTableModel(new String [] {
         "Placa", "Tipo Vehiculo", "Hora Entrada", "Hora Salida", "Pagado", "Usuario Entrada", "Usuario Salida"
@@ -103,17 +105,35 @@ public class Movimientos_usuarios extends javax.swing.JDialog {
             sql = "SELECT e.placa_vehiculo,e.tipo_vehiculo,e.horaentrada_vehiculo,e.horasalida_vehiculo,e.valorpagado,CONCAT (v.nombre_empleado,' ', v.apellido_empleado),e.usuario_salida" +
                     " FROM vehiculos AS e INNER JOIN usuarios AS u ON e.usuario = u.usuario INNER JOIN empleados AS v ON v.id_empleado = u.id_empleado";
             
-            ResultSet prueba = obj.ejecutarSQLSelect2(sql);
+            ResultSet datos = obj.ejecutarSQLSelect2(sql);
             
-            while (prueba.next()) {                
+            while (datos.next()) {
                 
-                Object[] fila = {prueba.getString(1),
-                   prueba.getString(2),
-                   prueba.getString(3),
-                   prueba.getString(4),
-                   prueba.getString(5),
-                   prueba.getString(6),
-                   prueba.getString(7),
+                String horasalida = datos.getString(4);
+                String horaentrada = datos.getString(3);
+                String pago = datos.getString(5);
+                
+                
+                if (horasalida == null) {
+                    
+                    horasalida = "No ha salido";
+                    pago = "0";
+                    
+                } else {
+                    
+                    horaentrada = datos.getString(3).substring(0, 16);
+                    horasalida = datos.getString(4).substring(0,16);
+                    pago = datos.getString(5);
+                    
+                }
+                
+                Object[] fila = {datos.getString(1),
+                   datos.getString(2),
+                   horaentrada,
+                   horasalida,
+                   "$" + pago,
+                   datos.getString(6),
+                   datos.getString(7),
                    };
  
                 modelo.addRow(fila);

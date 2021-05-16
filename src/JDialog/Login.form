@@ -40,7 +40,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="99" red="99" type="rgb"/>
+          <Color blue="f0" green="ed" red="ee" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="66" red="66" type="rgb"/>
@@ -127,6 +127,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton_login">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="12" green="cf" red="f6" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="49" red="3" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Log in"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -136,6 +145,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton_reset">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="12" green="cf" red="f6" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="49" red="3" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cambiar/Olvido"/>
             <Property name="toolTipText" type="java.lang.String" value="Presione si olvido o quiere cambiar la contrase&#xf1;a"/>
           </Properties>

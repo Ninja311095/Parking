@@ -88,10 +88,15 @@ public class ver_usuarios extends javax.swing.JDialog {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(238, 237, 240));
+
         jTable_empleados.setModel(mdtm);
         jTable_empleados.setComponentPopupMenu(jPopupM_tablaEmp);
         jScrollPane1.setViewportView(jTable_empleados);
 
+        jButton_nuevoE.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_nuevoE.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_nuevoE.setForeground(new java.awt.Color(3, 73, 223));
         jButton_nuevoE.setText("Nuevo Empleado");
         jButton_nuevoE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

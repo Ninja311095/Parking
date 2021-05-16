@@ -46,9 +46,9 @@ public class inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        principal = new javax.swing.JPanel();
         PanelMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         JB_IngresarVehiculo = new java.awt.Button();
         JB_RetirarV = new java.awt.Button();
         JButton_ListarVehiculos = new java.awt.Button();
@@ -64,19 +64,29 @@ public class inicio extends javax.swing.JFrame {
         jMenuItem_cerrarsesion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(3, 73, 223));
         setResizable(false);
         setSize(new java.awt.Dimension(826, 423));
 
-        PanelMenu.setBackground(new java.awt.Color(2, 110, 182));
+        principal.setBackground(new java.awt.Color(3, 73, 223));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+        javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
+        principal.setLayout(principalLayout);
+        principalLayout.setHorizontalGroup(
+            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 772, Short.MAX_VALUE)
+        );
+        principalLayout.setVerticalGroup(
+            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 424, Short.MAX_VALUE)
+        );
+
+        PanelMenu.setBackground(new java.awt.Color(3, 73, 223));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo2.jpeg"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ParKing");
-
-        JB_IngresarVehiculo.setBackground(new java.awt.Color(2, 110, 182));
+        JB_IngresarVehiculo.setBackground(new java.awt.Color(3, 73, 223));
         JB_IngresarVehiculo.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_IngresarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
         JB_IngresarVehiculo.setLabel("Ingresar Vehiculo");
@@ -86,7 +96,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
-        JB_RetirarV.setBackground(new java.awt.Color(2, 110, 182));
+        JB_RetirarV.setBackground(new java.awt.Color(3, 73, 223));
         JB_RetirarV.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_RetirarV.setForeground(new java.awt.Color(255, 255, 255));
         JB_RetirarV.setLabel("Retirar Vehiculo");
@@ -96,7 +106,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
-        JButton_ListarVehiculos.setBackground(new java.awt.Color(2, 110, 182));
+        JButton_ListarVehiculos.setBackground(new java.awt.Color(3, 73, 223));
         JButton_ListarVehiculos.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JButton_ListarVehiculos.setForeground(new java.awt.Color(255, 255, 255));
         JButton_ListarVehiculos.setLabel("Listar Vehiculos");
@@ -106,7 +116,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
-        JB_Cierre.setBackground(new java.awt.Color(2, 110, 182));
+        JB_Cierre.setBackground(new java.awt.Color(3, 73, 223));
         JB_Cierre.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_Cierre.setForeground(new java.awt.Color(255, 255, 255));
         JB_Cierre.setLabel("Salir");
@@ -125,37 +135,39 @@ public class inicio extends javax.swing.JFrame {
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JB_IngresarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JButton_ListarVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JB_Cierre, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 10, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                    .addGroup(PanelMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JB_Cierre, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(PanelMenuLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JB_IngresarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JButton_ListarVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JB_Cierre, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(JB_IngresarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JButton_ListarVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(JB_Cierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         jPanel_Desglose.setLayout(new javax.swing.BoxLayout(jPanel_Desglose, javax.swing.BoxLayout.LINE_AXIS));
+
+        jMenuBar1.setBackground(new java.awt.Color(51, 102, 255));
 
         jMenu_usuarios.setText("Usuarios");
 
@@ -206,6 +218,7 @@ public class inicio extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_perfil);
 
         setJMenuBar(jMenuBar1);
+        jMenuBar1.getAccessibleContext().setAccessibleParent(principal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,13 +227,22 @@ public class inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_Desglose, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
+                .addComponent(jPanel_Desglose, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel_Desglose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        PanelMenu.getAccessibleContext().setAccessibleParent(principal);
+        jPanel_Desglose.getAccessibleContext().setAccessibleParent(principal);
 
         pack();
         setLocationRelativeTo(null);
@@ -340,7 +362,6 @@ public class inicio extends javax.swing.JFrame {
     private java.awt.Button JButton_ListarVehiculos;
     private javax.swing.JPanel PanelMenu;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem_cerrarsesion;
     private javax.swing.JMenuItem jMenuItem_movimientos;
@@ -350,5 +371,6 @@ public class inicio extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu_perfil;
     public static javax.swing.JMenu jMenu_usuarios;
     private javax.swing.JPanel jPanel_Desglose;
+    private javax.swing.JPanel principal;
     // End of variables declaration//GEN-END:variables
 }

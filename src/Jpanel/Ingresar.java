@@ -77,22 +77,28 @@ public class Ingresar extends javax.swing.JPanel {
         jTF_disponibles = new javax.swing.JTextField();
         tfPlaca = new javax.swing.JFormattedTextField();
 
+        setBackground(new java.awt.Color(238, 237, 240));
+
         JLtitulo.setBackground(new java.awt.Color(255, 255, 255));
-        JLtitulo.setFont(new java.awt.Font("Segoe UI Symbol", 0, 16)); // NOI18N
-        JLtitulo.setForeground(new java.awt.Color(255, 0, 0));
+        JLtitulo.setFont(new java.awt.Font("Segoe UI Symbol", 1, 16)); // NOI18N
+        JLtitulo.setForeground(new java.awt.Color(3, 73, 223));
         JLtitulo.setText("Modulo de Ingreso de vehiculos al parqueo");
 
         tfPropietario.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
 
+        jLplaca.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLplaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLplaca.setText("Placa");
 
+        jLpropietario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLpropietario.setText("Nombre propietario");
 
+        jLTvehiculo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLTvehiculo.setText("Tipo de vehiculo");
 
-        JB_registrar.setBackground(new java.awt.Color(255, 51, 0));
-        JB_registrar.setForeground(new java.awt.Color(255, 255, 255));
+        JB_registrar.setBackground(new java.awt.Color(246, 207, 18));
+        JB_registrar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        JB_registrar.setForeground(new java.awt.Color(3, 73, 223));
         JB_registrar.setLabel("Registrar");
         JB_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,8 +108,9 @@ public class Ingresar extends javax.swing.JPanel {
 
         jCB_tipoVehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        JB_Limpiar.setBackground(new java.awt.Color(255, 51, 0));
-        JB_Limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        JB_Limpiar.setBackground(new java.awt.Color(246, 207, 18));
+        JB_Limpiar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        JB_Limpiar.setForeground(new java.awt.Color(3, 73, 223));
         JB_Limpiar.setLabel("Limpiar Campos");
         JB_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,13 +118,17 @@ public class Ingresar extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Total Ingresado");
 
         jTF_ingresados.setEditable(false);
+        jTF_ingresados.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Total Disponibles");
 
         jTF_disponibles.setEditable(false);
+        jTF_disponibles.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTF_disponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTF_disponiblesActionPerformed(evt);
@@ -164,50 +175,50 @@ public class Ingresar extends javax.swing.JPanel {
                                 .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(125, 125, 125)
-                                .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(189, 189, 189)
+                                .addComponent(jLplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(138, 138, 138)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLTvehiculo)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(138, 138, 138)
+                                .addGap(9, 9, 9)
                                 .addComponent(jCB_tipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)))
-                        .addGap(87, 87, 87)
-                        .addComponent(JB_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(308, 308, 308)
-                        .addComponent(jLplaca, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                                .addGap(87, 87, 87)
+                                .addComponent(JB_Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(JLtitulo)
-                .addGap(18, 18, 18)
-                .addComponent(jLplaca)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLpropietario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTF_ingresados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTF_disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTF_disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLplaca)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLpropietario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JB_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JB_Limpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
