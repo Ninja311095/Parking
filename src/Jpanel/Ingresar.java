@@ -279,10 +279,7 @@ public class Ingresar extends javax.swing.JPanel {
             documento.add(para2);
             documento.add(para3); 
             documento.close();
-            
-             System.out.println("PDF Created");
-             
-             
+                         
              try {
 
 		if ((new File(current + "/reportes/" + propietario + ".pdf")).exists()) {
@@ -307,8 +304,6 @@ public class Ingresar extends javax.swing.JPanel {
                        
                        JOptionPane.showMessageDialog(null,"Error al abrir el Documento","Error",JOptionPane.ERROR_MESSAGE);
                     }
-
-		System.out.println("Done");
 
   	  } catch (IOException | InterruptedException ex) {
 	  }
