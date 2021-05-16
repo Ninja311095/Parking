@@ -79,16 +79,31 @@ public class registrar_usuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(238, 237, 240));
+
+        jLabel_nombre.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_nombre.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_nombre.setText("Nombre");
 
+        jLabel_apellido.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_apellido.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_apellido.setText("Apellido");
 
+        jLabel_cedula.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_cedula.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_cedula.setText("Cedula");
 
+        jLabel_correo.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_correo.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_correo.setText("Correo");
 
+        jLabel_celular.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_celular.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_celular.setText("Telefono/Celular");
 
+        jButton_registrar.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_registrar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_registrar.setForeground(new java.awt.Color(3, 73, 223));
         jButton_registrar.setText("Registrar");
         jButton_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +111,9 @@ public class registrar_usuario extends javax.swing.JDialog {
             }
         });
 
+        jButton_limpiar.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_limpiar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_limpiar.setForeground(new java.awt.Color(3, 73, 223));
         jButton_limpiar.setText("Limpiar Campos");
         jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +121,9 @@ public class registrar_usuario extends javax.swing.JDialog {
             }
         });
 
+        jButton_cancelar.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_cancelar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton_cancelar.setForeground(new java.awt.Color(3, 73, 223));
         jButton_cancelar.setText("Cancelar");
         jButton_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,12 +131,18 @@ public class registrar_usuario extends javax.swing.JDialog {
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuario y Contraseña para el Sistema"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario y Contraseña para el Sistema", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(3, 73, 223))); // NOI18N
 
+        jLabel_usuario.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_usuario.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_usuario.setText("Usuario");
 
+        jLabel_pass.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_pass.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_pass.setText("Contraseña");
 
+        jLabel_passConfirm.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel_passConfirm.setForeground(new java.awt.Color(3, 73, 223));
         jLabel_passConfirm.setText("Confirmar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -170,6 +197,8 @@ public class registrar_usuario extends javax.swing.JDialog {
         jFTF_telefono.setToolTipText("");
         jFTF_telefono.setCaretPosition(0);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(3, 73, 223));
         jLabel1.setText("Posicion");
 
         jCB_Posicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -258,7 +287,7 @@ public class registrar_usuario extends javax.swing.JDialog {
                     .addComponent(jButton_registrar)
                     .addComponent(jButton_limpiar)
                     .addComponent(jButton_cancelar))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

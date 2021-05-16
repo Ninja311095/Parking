@@ -19,36 +19,26 @@ public class inicio extends javax.swing.JFrame {
      * Creates new form inicio
      */
     
-    Ingresar panelingresarvehiculo ;
-    Retirar panelretirarvehiculo ;
-    Listar panelListarVehiculos ;
+    Ingresar ingresarvehiculo = new Ingresar();
+    Retirar retirarvehiculo  = new Retirar();
+    Listar ListarVehiculos = new Listar();
     registrar_usuario Registar = new registrar_usuario(this, rootPaneCheckingEnabled);
     ver_usuarios verU = new ver_usuarios(this,rootPaneCheckingEnabled);
     mi_perfil perfil = new mi_perfil(this, rootPaneCheckingEnabled);
     String current = System.getProperty("user.dir");
     Usuario mUsuario = Usuario.getUsuario();
-   // Movimientos_usuarios mu = new Movimientos_usuarios(this, rootPaneCheckingEnabled);
+    Movimientos_usuarios mu = new Movimientos_usuarios(this, rootPaneCheckingEnabled);
     
     int confirmacion;
     
     public inicio() {
         
         initComponents();
-        setSize(800,450);
-        panelingresarvehiculo = new Ingresar();
-        panelingresarvehiculo.setBounds(300,0,473,400);
-        add(panelingresarvehiculo);
-        panelretirarvehiculo = new Retirar();
-        panelretirarvehiculo.setBounds(300,0,473,400);
-        add(panelretirarvehiculo);
-        panelretirarvehiculo.setVisible(false);
-        panelListarVehiculos = new Listar();
-        panelListarVehiculos.setBounds(350,0,1116,400);
-        add(panelListarVehiculos);
-        panelListarVehiculos.setVisible(false);
 
+        new CambiaPanel(jPanel_Desglose, new Ingresar());
+     
         setLocationRelativeTo(null);
-        jMenuItem_movimientos.setVisible(false);
+        setSize(990, 460);
     }
 
 
@@ -56,13 +46,14 @@ public class inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        principal = new javax.swing.JPanel();
         PanelMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         JB_IngresarVehiculo = new java.awt.Button();
         JB_RetirarV = new java.awt.Button();
         JButton_ListarVehiculos = new java.awt.Button();
         JB_Cierre = new java.awt.Button();
+        jPanel_Desglose = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu_usuarios = new javax.swing.JMenu();
         jMenuItem_ver_usuario = new javax.swing.JMenuItem();
@@ -73,17 +64,29 @@ public class inicio extends javax.swing.JFrame {
         jMenuItem_cerrarsesion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(3, 73, 223));
+        setResizable(false);
+        setSize(new java.awt.Dimension(826, 423));
 
-        PanelMenu.setBackground(new java.awt.Color(2, 110, 182));
+        principal.setBackground(new java.awt.Color(3, 73, 223));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+        javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
+        principal.setLayout(principalLayout);
+        principalLayout.setHorizontalGroup(
+            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 772, Short.MAX_VALUE)
+        );
+        principalLayout.setVerticalGroup(
+            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 424, Short.MAX_VALUE)
+        );
+
+        PanelMenu.setBackground(new java.awt.Color(3, 73, 223));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo2.jpeg"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ParKing");
-
-        JB_IngresarVehiculo.setBackground(new java.awt.Color(2, 110, 182));
+        JB_IngresarVehiculo.setBackground(new java.awt.Color(3, 73, 223));
         JB_IngresarVehiculo.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_IngresarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
         JB_IngresarVehiculo.setLabel("Ingresar Vehiculo");
@@ -93,7 +96,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
-        JB_RetirarV.setBackground(new java.awt.Color(2, 110, 182));
+        JB_RetirarV.setBackground(new java.awt.Color(3, 73, 223));
         JB_RetirarV.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_RetirarV.setForeground(new java.awt.Color(255, 255, 255));
         JB_RetirarV.setLabel("Retirar Vehiculo");
@@ -103,7 +106,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
-        JButton_ListarVehiculos.setBackground(new java.awt.Color(2, 110, 182));
+        JButton_ListarVehiculos.setBackground(new java.awt.Color(3, 73, 223));
         JButton_ListarVehiculos.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JButton_ListarVehiculos.setForeground(new java.awt.Color(255, 255, 255));
         JButton_ListarVehiculos.setLabel("Listar Vehiculos");
@@ -113,7 +116,7 @@ public class inicio extends javax.swing.JFrame {
             }
         });
 
-        JB_Cierre.setBackground(new java.awt.Color(2, 110, 182));
+        JB_Cierre.setBackground(new java.awt.Color(3, 73, 223));
         JB_Cierre.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
         JB_Cierre.setForeground(new java.awt.Color(255, 255, 255));
         JB_Cierre.setLabel("Salir");
@@ -132,35 +135,39 @@ public class inicio extends javax.swing.JFrame {
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JB_IngresarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JButton_ListarVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JB_Cierre, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                    .addGroup(PanelMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JB_Cierre, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(PanelMenuLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JB_IngresarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JButton_ListarVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JB_Cierre, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(JB_IngresarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JB_RetirarV, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JButton_ListarVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(JB_Cierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
+
+        jPanel_Desglose.setLayout(new javax.swing.BoxLayout(jPanel_Desglose, javax.swing.BoxLayout.LINE_AXIS));
+
+        jMenuBar1.setBackground(new java.awt.Color(51, 102, 255));
 
         jMenu_usuarios.setText("Usuarios");
 
@@ -211,6 +218,7 @@ public class inicio extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_perfil);
 
         setJMenuBar(jMenuBar1);
+        jMenuBar1.getAccessibleContext().setAccessibleParent(principal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,12 +226,23 @@ public class inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_Desglose, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_Desglose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        PanelMenu.getAccessibleContext().setAccessibleParent(principal);
+        jPanel_Desglose.getAccessibleContext().setAccessibleParent(principal);
 
         pack();
         setLocationRelativeTo(null);
@@ -231,43 +250,26 @@ public class inicio extends javax.swing.JFrame {
 
     private void JB_IngresarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_IngresarVehiculoActionPerformed
         // TODO add your handling code here:
-        setSize(800,450);
-        panelListarVehiculos.setVisible(false);
-        panelretirarvehiculo.setVisible(false);
-        panelingresarvehiculo.setVisible(true);
-        panelingresarvehiculo.espacios();
-        setLocationRelativeTo(null);
         
-        revalidate();
-        repaint();
+        new CambiaPanel(jPanel_Desglose, new Ingresar());
+        ingresarvehiculo.espacios();
+        setLocationRelativeTo(null);
+       
     }//GEN-LAST:event_JB_IngresarVehiculoActionPerformed
 
     private void JB_RetirarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_RetirarVActionPerformed
         // TODO add your handling code here:
-        setSize(800,450);
-        panelListarVehiculos.setVisible(false);
-        panelingresarvehiculo.setVisible(false);
-        panelretirarvehiculo.setVisible(true);
-        setLocationRelativeTo(null);
         
-        revalidate();
-        repaint();
+        new CambiaPanel(jPanel_Desglose, new Retirar());
+        setLocationRelativeTo(null);
         
     }//GEN-LAST:event_JB_RetirarVActionPerformed
 
     private void JButton_ListarVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_ListarVehiculosActionPerformed
         // TODO add your handling code here:
-        setSize(1116,450);
-        add(panelListarVehiculos);
-        panelListarVehiculos.setVisible(true);
-        panelingresarvehiculo.setVisible(false);
-        panelretirarvehiculo.setVisible(false);
+        
+        new CambiaPanel(jPanel_Desglose, new Listar());
         setLocationRelativeTo(null);
-        
-        revalidate();
-        repaint();
-        
-        panelListarVehiculos.rellenarTabla();
         
     }//GEN-LAST:event_JButton_ListarVehiculosActionPerformed
 
@@ -304,6 +306,9 @@ public class inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         verU.setVisible(true);
+        verU.crearTabla();
+        verU.rellenarTabla();
+        verU.actualizaDatos();
     }//GEN-LAST:event_jMenuItem_ver_usuarioActionPerformed
 
     private void jMenuIten_perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIten_perfilActionPerformed
@@ -317,7 +322,7 @@ public class inicio extends javax.swing.JFrame {
     private void jMenuItem_movimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_movimientosActionPerformed
         // TODO add your handling code here:
         
-        //mu.setVisible(true);
+        mu.setVisible(true);
     }//GEN-LAST:event_jMenuItem_movimientosActionPerformed
 
     /**
@@ -357,7 +362,6 @@ public class inicio extends javax.swing.JFrame {
     private java.awt.Button JButton_ListarVehiculos;
     private javax.swing.JPanel PanelMenu;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem_cerrarsesion;
     private javax.swing.JMenuItem jMenuItem_movimientos;
@@ -366,5 +370,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuIten_perfil;
     public static javax.swing.JMenu jMenu_perfil;
     public static javax.swing.JMenu jMenu_usuarios;
+    private javax.swing.JPanel jPanel_Desglose;
+    private javax.swing.JPanel principal;
     // End of variables declaration//GEN-END:variables
 }

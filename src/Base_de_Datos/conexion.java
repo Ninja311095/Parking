@@ -33,8 +33,8 @@ public class conexion {
     public boolean crearConexion() {
 
         url = "jdbc:mysql://localhost/bdparqueo?useSSL=false&serverTimezone=UTC";
-        usuario = "parqueo";
-        clave = "imdumb";
+        usuario = "root";
+        clave = "";
         try {
 
             conexionUP = DriverManager.getConnection(url, usuario, clave);
@@ -65,10 +65,30 @@ public class conexion {
             resultado = pSentencia.executeQuery();
 
         } catch (SQLException ex) {
+            
             return null;
         }
 
+        
         return resultado;
+
+    }//fin resulset select
+    
+    public ResultSet ejecutarSQLSelect2(String sql) {
+
+        try {
+
+            PreparedStatement pSentencia2 = conexionUP.prepareStatement(sql);
+            
+            return pSentencia2.executeQuery();
+
+            
+        } catch (SQLException ex) {
+            
+            System.out.println(ex);
+            return null;
+        }
+
 
     }//fin resulset select
 

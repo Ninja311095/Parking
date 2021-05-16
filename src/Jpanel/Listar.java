@@ -33,6 +33,7 @@ public class Listar extends javax.swing.JPanel {
         initComponents();
         
         objcon.crearConexion();
+        rellenarTabla();
         
     }
 
@@ -59,8 +60,14 @@ public class Listar extends javax.swing.JPanel {
         dcFechaBusqueda = new com.toedter.calendar.JDateChooser();
         jButton_reiniciar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(238, 237, 240));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(3, 73, 223));
         jLabel1.setText("Buscar Vehiculos");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(3, 73, 223));
         jLabel2.setText("Placa");
 
         tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
@@ -72,7 +79,7 @@ public class Listar extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -81,8 +88,12 @@ public class Listar extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblVehiculos);
 
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(3, 73, 223));
         jLabel5.setText("Tipo Vehiculo");
 
+        JButton_Buscar.setBackground(new java.awt.Color(246, 207, 18));
+        JButton_Buscar.setForeground(new java.awt.Color(3, 73, 223));
         JButton_Buscar.setText("Buscar");
         JButton_Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +101,8 @@ public class Listar extends javax.swing.JPanel {
             }
         });
 
+        jButton_Cierre.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_Cierre.setForeground(new java.awt.Color(3, 73, 223));
         jButton_Cierre.setText("Cierre");
         jButton_Cierre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,12 +110,20 @@ public class Listar extends javax.swing.JPanel {
             }
         });
 
+        cbAuto.setBackground(new java.awt.Color(238, 237, 240));
+        cbAuto.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbAuto.setForeground(new java.awt.Color(3, 73, 223));
         cbAuto.setText("Automovil");
 
+        cbMoto.setBackground(new java.awt.Color(238, 237, 240));
+        cbMoto.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cbMoto.setForeground(new java.awt.Color(3, 73, 223));
         cbMoto.setText("Motocicleta");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shop-around-for-your-perfect-used-car.png"))); // NOI18N
 
+        jButton_reiniciar.setBackground(new java.awt.Color(246, 207, 18));
+        jButton_reiniciar.setForeground(new java.awt.Color(3, 73, 223));
         jButton_reiniciar.setText("Reiniciar Tabla");
         jButton_reiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +203,7 @@ public class Listar extends javax.swing.JPanel {
                     .addComponent(cbMoto))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
    
@@ -310,7 +331,7 @@ public class Listar extends javax.swing.JPanel {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             date = dcFechaBusqueda.getDate();
             fecha = dateFormat.format(date);
-                System.out.println(fecha);
+                
             }
             
             placa = JTF_Placa.getText();

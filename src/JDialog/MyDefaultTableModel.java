@@ -26,7 +26,9 @@ public class MyDefaultTableModel extends DefaultTableModel {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             if (row == rowEditable && column < 6) {
                 final JLabel jLabel = new JLabel(value.toString());
-                jLabel.setForeground(Color.ORANGE);
+                jLabel.setForeground(Color.red);
+                jLabel.setBackground(Color.MAGENTA);
+                
                 return jLabel;
             } else {
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -151,17 +153,11 @@ public class MyDefaultTableModel extends DefaultTableModel {
         final JComboBox<String> jcbxPosiciones = new JComboBox<>();
         jcbxPosiciones.removeAllItems();
         
-//        final JComboBox<String> jcbxEstado = new JComboBox<>();
-//        jcbxEstado.removeAllItems();
-        
         lista = conexion.llenacombo(consulta,dato);
         
         lista.forEach(e -> {
             jcbxPosiciones.addItem(e);
         });
-
-//        jcbxEstado.addItem("Activo");
-//        jcbxEstado.addItem("Inactivo");
         
         //Renderer
         table.getColumnModel().getColumn(6).setCellRenderer(rendererAccion);
@@ -170,7 +166,6 @@ public class MyDefaultTableModel extends DefaultTableModel {
         //Editor
         table.getColumnModel().getColumn(6).setCellEditor(editorAccion);
         table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(jcbxPosiciones));
-        //table.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(jcbxEstado));
         table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(new JCheckBox()));
     }
 
