@@ -130,7 +130,7 @@ public class Ingresar extends javax.swing.JPanel {
 
         jTF_ingresados.setEditable(false);
         jTF_ingresados.setBackground(new java.awt.Color(255, 255, 255));
-        jTF_ingresados.setBorder(null);
+        jTF_ingresados.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 102, 255));

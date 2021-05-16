@@ -79,6 +79,8 @@ public class mi_perfil extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel_nombre.setText("Nombre");
 
         jLabel_apellido.setText("Apellido");

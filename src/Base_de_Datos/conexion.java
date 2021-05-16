@@ -33,8 +33,8 @@ public class conexion {
     public boolean crearConexion() {
 
         url = "jdbc:mysql://localhost/bdparqueo?useSSL=false&serverTimezone=UTC";
-        usuario = "parqueo";
-        clave = "imdumb";
+        usuario = "root";
+        clave = "";
         try {
 
             conexionUP = DriverManager.getConnection(url, usuario, clave);
