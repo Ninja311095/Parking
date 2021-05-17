@@ -87,13 +87,16 @@ public class Ingresar extends javax.swing.JPanel {
         tfPropietario.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
 
         jLplaca.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLplaca.setForeground(new java.awt.Color(3, 73, 223));
         jLplaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLplaca.setText("Placa");
 
         jLpropietario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLpropietario.setForeground(new java.awt.Color(3, 73, 223));
         jLpropietario.setText("Nombre propietario");
 
         jLTvehiculo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLTvehiculo.setForeground(new java.awt.Color(3, 73, 223));
         jLTvehiculo.setText("Tipo de vehiculo");
 
         JB_registrar.setBackground(new java.awt.Color(246, 207, 18));
@@ -119,12 +122,14 @@ public class Ingresar extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(3, 73, 223));
         jLabel1.setText("Total Ingresado");
 
         jTF_ingresados.setEditable(false);
         jTF_ingresados.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(3, 73, 223));
         jLabel2.setText("Total Disponibles");
 
         jTF_disponibles.setEditable(false);
